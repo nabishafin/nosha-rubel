@@ -112,9 +112,12 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
         <p className="mt-1.5 line-clamp-2 flex-1 text-sm leading-relaxed text-gray-600">{cardSummary}</p>
         <div className="mt-3 flex items-center justify-between">
           <ArticleMeta article={article} showViews />
-          <span className="text-sm font-semibold text-blue-600 group-hover:text-blue-800">
+          <a
+            {...linkProps}
+            className="text-sm font-semibold text-blue-600 hover:text-blue-800 group-hover:text-blue-800"
+          >
             {t.actions.readMore} →
-          </span>
+          </a>
         </div>
       </div>
     </article>

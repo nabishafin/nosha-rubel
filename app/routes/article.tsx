@@ -60,6 +60,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
       publishedAt: article.publishedAt,
       section: article.category,
       tags: article.tags,
+      keywords: article.tags,
       alternates,
     }),
     { "script:ld+json": newsArticleJsonLd(article, canonical, article.image) },

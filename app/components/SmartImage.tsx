@@ -23,7 +23,9 @@ export function SmartImage({
   alt,
   fallbackSeed,
   className = "",
-  aspect = "aspect-[16/9]",
+  // Matches the ratio of the shared common.jpeg (950×756) so cards fill with
+  // no crop and no empty bars.
+  aspect = "aspect-[950/756]",
   eager = false,
   sizes,
 }: SmartImageProps) {

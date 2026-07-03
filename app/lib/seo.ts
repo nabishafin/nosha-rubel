@@ -20,6 +20,8 @@ interface BuildMetaArgs {
   publishedAt?: string;
   section?: string;
   tags?: string[];
+  /** Comma-joined into a `keywords` meta tag when provided. */
+  keywords?: string[];
   /** Robots directive; defaults to indexable. */
   robots?: string;
 }
@@ -40,6 +42,7 @@ export function buildMeta({
   publishedAt,
   section,
   tags,
+  keywords,
   robots = "index, follow, max-image-preview:large",
 }: BuildMetaArgs): Meta[] {
   const meta: Meta[] = [
@@ -55,6 +58,7 @@ export function buildMeta({
     { property: "og:description", content: description },
     { property: "og:url", content: canonical },
     { property: "og:image", content: image },
+    { property: "og:image:alt", content: title },
     { property: "og:locale", content: LANGUAGES[lang].locale.replace("-", "_") },
 
     // Twitter
@@ -63,7 +67,12 @@ export function buildMeta({
     { name: "twitter:title", content: title },
     { name: "twitter:description", content: description },
     { name: "twitter:image", content: image },
+    { name: "twitter:image:alt", content: title },
   ];
+
+  if (keywords?.length) {
+    meta.push({ name: "keywords", content: keywords.join(", ") });
+  }
 
   if (type === "article") {
     if (publishedAt) meta.push({ property: "article:published_time", content: publishedAt });

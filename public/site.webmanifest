@@ -1,0 +1,13 @@
+{
+  "name": "NewsHub — Global News in Your Language",
+  "short_name": "NewsHub",
+  "description": "An independent, multilingual news aggregator bringing you trusted stories from around the globe.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" },
+    { "src": "/favicon.ico", "type": "image/x-icon", "sizes": "48x48" }
+  ]
+}

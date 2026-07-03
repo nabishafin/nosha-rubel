@@ -4,7 +4,7 @@ import { isCategorySlug, CATEGORIES } from "~/lib/categories";
 import { getTranslation } from "~/lib/i18n";
 import { getByCategory } from "~/lib/news";
 import { getOrigin } from "~/lib/http";
-import { buildMeta, localizedAlternates } from "~/lib/seo";
+import { buildMeta, localizedAlternates, SITE_NAME } from "~/lib/seo";
 import { localePath } from "~/lib/i18n-context";
 
 import { Section } from "~/components/Section";
@@ -42,6 +42,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
     canonical,
     image: `${origin}/favicon.ico`,
     lang,
+    keywords: [label, t.sections.latest, SITE_NAME],
     alternates: localizedAlternates(origin, `category/${category}`),
   });
 }
