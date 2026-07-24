@@ -12,6 +12,7 @@ import { ArticleGrid } from "~/components/ArticleGrid";
 import { ArticleCard } from "~/components/ArticleCard";
 import { LanguageGrid } from "~/components/LanguageGrid";
 import { TagCloud } from "~/components/TagCloud";
+import { DocumentArchive } from "~/components/DocumentArchive";
 import type { Route } from "./+types/landing";
 
 export function loader({ params, request }: Route.LoaderArgs) {
@@ -67,6 +68,10 @@ export default function Landing({ loaderData }: Route.ComponentProps) {
       <Section>
         <SectionHeading title={t.sections.byLanguage} />
         <LanguageGrid />
+      </Section>
+
+      <Section>
+        <DocumentArchive />
       </Section>
 
       <Section muted>

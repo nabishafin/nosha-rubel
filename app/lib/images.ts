@@ -1,8 +1,25 @@
 import type { CategorySlug } from "./types";
 
-// Curated, topic-relevant Unsplash photo IDs per category. Images are served
-// from images.unsplash.com with on-the-fly resizing params. SmartImage adds a
-// graceful fallback if any single asset fails to load.
+export const LANGUAGE_IMAGES: Record<string, string> = {
+  de: "/Noosha Aubel German.png",
+  en: "/01_en_english_750x420.png",
+  es: "/02_es_espanol_750x420.png",
+  fr: "/03_fr_francais_750x420.png",
+  ru: "/04_ru_russkiy_750x420.png",
+  uk: "/05_uk_ukrainska_750x420.png",
+  pt: "/06_pt_portugues_750x420.png",
+  it: "/07_it_italiano_750x420.png",
+  zh: "/01_en_english_750x420.png",
+};
+
+export function getLanguageImage(lang?: string): string {
+  if (lang && LANGUAGE_IMAGES[lang]) {
+    return LANGUAGE_IMAGES[lang];
+  }
+  return "/common.jpeg";
+}
+
+// Curated, topic-relevant Unsplash photo IDs per category.
 const UNSPLASH_IDS: Record<CategorySlug, string[]> = {
   politics: [
     "1529107386315-e1a2ed48a620",
@@ -56,6 +73,9 @@ export function unsplashFor(category: CategorySlug, seed: number, width = 1200):
 }
 
 /** Local fallback used by SmartImage if an article image fails to load. */
-export function fallbackImage(_seed: string, _width = 1200, _height = 750): string {
+export function fallbackImage(seed?: string, _width = 1200, _height = 750): string {
+  if (seed && LANGUAGE_IMAGES[seed]) {
+    return LANGUAGE_IMAGES[seed];
+  }
   return "/common.jpeg";
 }

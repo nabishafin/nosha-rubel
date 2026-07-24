@@ -1,48 +1,50 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import { CATEGORY_LIST } from "~/lib/categories";
 import { LANGUAGE_LIST } from "~/lib/languages";
 import { useI18n, localePath } from "~/lib/i18n-context";
 import { Container } from "./Container";
-
-const SOCIALS: Array<{ label: string; href: string; path: string }> = [
-  { label: "X", href: "https://x.com", path: "M18 2h3l-7 8 8 12h-6l-5-7-5 7H2l8-11L2 2h6l4 6z" },
-  { label: "Facebook", href: "https://facebook.com", path: "M14 9h3V6h-3c-2 0-3 1-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14v-2c0-.6.4-1 1-1z" },
-  { label: "LinkedIn", href: "https://linkedin.com", path: "M4 4h4v16H4zM6 2a2 2 0 110 4 2 2 0 010-4zM12 8h4v2a4 4 0 018 0v10h-4v-8a2 2 0 00-4 0v8h-4z" },
-  { label: "YouTube", href: "https://youtube.com", path: "M22 12s0-3-.4-4.4a2.6 2.6 0 00-1.8-1.8C18.4 5.4 12 5.4 12 5.4s-6.4 0-7.8.4a2.6 2.6 0 00-1.8 1.8C2 9 2 12 2 12s0 3 .4 4.4a2.6 2.6 0 001.8 1.8c1.4.4 7.8.4 7.8.4s6.4 0 7.8-.4a2.6 2.6 0 001.8-1.8C22 15 22 12 22 12zM10 15V9l5 3z" },
-];
+import { EditorialStatementContent } from "./EditorialStatementContent";
 
 export function Footer() {
   const { lang, t } = useI18n();
   const year = new Date().getFullYear();
+  const [showStatement, setShowStatement] = useState(false);
 
   return (
     <footer className="mt-12 border-t border-gray-200 bg-gray-50">
       <Container className="py-10">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
-          {/* Brand + about */}
-          <div className="lg:col-span-2">
+          {/* Brand + about + Publisher Notice */}
+          <div className="lg:col-span-2 space-y-4">
             <Link to={localePath(lang)} className="flex items-center gap-2">
-             
               <span className="text-xl font-extrabold tracking-tight text-gray-900">
-           Noosha Aubel<span className="text-blue-600"></span>
+                Dhaka News Times <span className="text-xs font-semibold text-blue-600">/ HRD Media</span>
               </span>
             </Link>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-gray-600">{t.footer.description}</p>
-            <div className="mt-6 flex gap-3">
-              {/* {SOCIALS.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={s.label}
-                  className="grid h-9 w-9 place-items-center rounded-full border border-gray-200 bg-white text-gray-600 transition hover:border-blue-300 hover:text-blue-600"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d={s.path} />
-                  </svg>
+            <p className="max-w-sm text-sm leading-relaxed text-gray-600">{t.footer.description}</p>
+
+            {/* Official Publisher & Press Legal Imprint Box */}
+            <div className="rounded-xl border border-gray-200 bg-white p-4 text-xs space-y-2 text-gray-700 shadow-xs">
+              <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+                <span className="font-bold text-gray-900 uppercase tracking-wider text-[11px]">Publisher Imprint</span>
+                <span className="rounded bg-blue-50 px-1.5 py-0.5 text-[10px] font-bold text-blue-700">Official Press</span>
+              </div>
+              <p>
+                <strong>Editor-in-Chief:</strong> Imran Tabassum
+                <br />
+                <strong>Published by:</strong> Haroonur Rashid at Dhaka News Times Press
+                <br />
+                <strong>Press Address:</strong> 28/A Toyenbee Circular Road, Dhaka-1000
+                <br />
+                <strong>On behalf of:</strong> HRD Media, 9/A, HRC Bhaban, 45 Kawran Bazar, Dhaka-1217
+              </p>
+              <p className="text-gray-500 pt-1">
+                <strong>Tel:</strong> +880 1812-345678 | <strong>Email:</strong>{" "}
+                <a href="mailto:DhakaNewsTimes@Proton.me" className="text-blue-600 font-semibold hover:underline">
+                  DhakaNewsTimes@Proton.me
                 </a>
-              ))} */}
+              </p>
             </div>
           </div>
 
@@ -68,6 +70,7 @@ export function Footer() {
             <h3 className="text-sm font-semibold text-gray-900">{t.footer.quickLinks}</h3>
             <ul className="mt-4 space-y-2.5">
               {[
+                { slug: "editorial-statement", label: "Editorial Statement" },
                 { slug: "about", label: t.footer.about },
                 { slug: "contact", label: t.footer.contact },
                 { slug: "privacy", label: t.footer.privacy },
@@ -105,14 +108,55 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-gray-200 pt-6 text-sm text-gray-500 sm:flex-row">
+        {/* Expandable Editorial & Legal Statement Section */}
+        <div className="mt-8 border-t border-gray-200 pt-6">
+          <button
+            type="button"
+            onClick={() => setShowStatement((prev) => !prev)}
+            className="flex w-full items-center justify-between rounded-xl border border-gray-200 bg-white p-4 text-left text-sm font-bold text-gray-800 shadow-xs transition hover:border-blue-300 hover:bg-blue-50/30"
+          >
+            <div className="flex items-center gap-2">
+              <span className="rounded-full bg-blue-100 p-1 text-blue-700">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                </svg>
+              </span>
+              <span>
+                Statement on Editorial Objectives, Freedom of Expression, Legal Compliance & Data Protection
+              </span>
+            </div>
+            <span className="text-xs font-semibold text-blue-600">
+              {showStatement ? "Hide Legal Document ▲" : "Read Full Document ▼"}
+            </span>
+          </button>
+
+          {showStatement && (
+            <div className="mt-4 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <EditorialStatementContent />
+            </div>
+          )}
+        </div>
+
+        <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-gray-200 pt-6 text-sm text-gray-500 sm:flex-row">
           <p>
-            © {year} NewsHub. {t.footer.rights}
+            © {year} Dhaka News Times / HRD Media. {t.footer.rights}
           </p>
           <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            <Link to={localePath(lang, "privacy")} className="hover:text-gray-800">{t.footer.privacy}</Link>
-            <Link to={localePath(lang, "terms")} className="hover:text-gray-800">{t.footer.terms}</Link>
-            <Link to={localePath(lang, "contact")} className="hover:text-gray-800">{t.footer.contact}</Link>
+            <Link to={localePath(lang, "editorial-statement")} className="font-semibold text-blue-600 hover:text-blue-800">
+              Editorial Statement
+            </Link>
+            <Link to={localePath(lang, "privacy")} className="hover:text-gray-800">
+              {t.footer.privacy}
+            </Link>
+            <Link to={localePath(lang, "terms")} className="hover:text-gray-800">
+              {t.footer.terms}
+            </Link>
+            <Link to={localePath(lang, "contact")} className="hover:text-gray-800">
+              {t.footer.contact}
+            </Link>
           </p>
         </div>
       </Container>
