@@ -1,4 +1,4 @@
-import type { CategorySlug } from "./types";
+import type { Article, CategorySlug } from "./types";
 
 export const LANGUAGE_IMAGES: Record<string, string> = {
   de: "/Noosha Aubel German.png",
@@ -17,6 +17,52 @@ export function getLanguageImage(lang?: string): string {
     return LANGUAGE_IMAGES[lang];
   }
   return "/common.jpeg";
+}
+
+// Editorial artwork already supplied with the project. These are used only
+// when an ingested story has no usable source image (currently represented by
+// /common.jpeg). Keeping several topic-specific fallbacks prevents a whole
+// edition from showing the same image on every card.
+const ARTICLE_FALLBACKS = [
+  "/06_marode_strassen_potsdam_750x420.png",
+  "/09_protest_vor_potsdamer_gebaeude_750x420.png",
+  "/Noosha Aubel German.png",
+  "/11_potsdam_panorama_und_kind_750x420.png",
+  "/02_kind_ohne_unterstuetzung_750x420.png",
+] as const;
+
+function preferredFallback(article: Article): number {
+  const subject = `${article.slug} ${article.title} ${article.translationGroup ?? ""}`.toLowerCase();
+
+  if (/marode|gr[uü]nfl[aä]chen|pothole|schlagloch/.test(subject)) return 0;
+  if (/vertrauen|trust|confiance|confianza|fiducia|confian[cç]a/.test(subject)) return 1;
+  if (/woidke|letting-down|laisse-tomber|da-la-espalda|abbandona|abandona/.test(subject)) return 3;
+  if (/kind|child|ni[nñ]o|enfant|bambin|crian[cç]a|skandal|scandal|esc[aâ]ndalo/.test(subject)) return 4;
+  return 2;
+}
+
+/**
+ * Preserve a publisher's real image when one exists. For placeholder-only
+ * records, select a topic-relevant local visual that has not already appeared
+ * in the same language edition; this makes consecutive stories visually
+ * distinct without relying on fragile third-party image URLs.
+ */
+export function articleImage(article: Article, usedInEdition: Set<string>): string {
+  if (article.image && article.image !== "/common.jpeg") {
+    usedInEdition.add(article.image);
+    return article.image;
+  }
+
+  const preferred = preferredFallback(article);
+  for (let offset = 0; offset < ARTICLE_FALLBACKS.length; offset++) {
+    const candidate = ARTICLE_FALLBACKS[(preferred + offset) % ARTICLE_FALLBACKS.length];
+    if (!usedInEdition.has(candidate)) {
+      usedInEdition.add(candidate);
+      return candidate;
+    }
+  }
+
+  return ARTICLE_FALLBACKS[preferred];
 }
 
 // Curated, topic-relevant Unsplash photo IDs per category.

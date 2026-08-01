@@ -13,6 +13,7 @@ import { ArticleCard } from "~/components/ArticleCard";
 import { LanguageGrid } from "~/components/LanguageGrid";
 import { TagCloud } from "~/components/TagCloud";
 import { DocumentArchive } from "~/components/DocumentArchive";
+import { VideoFeature } from "~/components/VideoFeature";
 import type { Route } from "./+types/landing";
 
 export function loader({ params, request }: Route.LoaderArgs) {
@@ -63,6 +64,10 @@ export default function Landing({ loaderData }: Route.ComponentProps) {
 
       <Section>
         <ArticleGrid articles={articles} columns={3} eagerFirst />
+      </Section>
+
+      <Section muted>
+        <VideoFeature />
       </Section>
 
       <Section>

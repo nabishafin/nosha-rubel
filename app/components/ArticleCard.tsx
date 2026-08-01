@@ -19,8 +19,8 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
   // Cards link out to the original source article, not the internal detail page.
   const href = article.sourceUrl;
   const linkProps = { href, target: "_blank" as const, rel: "noreferrer nofollow" };
-  const cardTitle = article.sourceName;
-  const cardSummary = article.title;
+  const cardTitle = article.title;
+  const cardSummary = article.description;
 
   // Compact: text-first row for "Most Read" style lists.
   if (variant === "compact") {
