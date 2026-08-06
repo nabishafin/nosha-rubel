@@ -1,5 +1,4 @@
 import { LANGUAGES } from "~/lib/languages";
-import { getLanguageImage } from "~/lib/images";
 import type { Article, LanguageCode } from "~/lib/types";
 import { Container } from "./Container";
 
@@ -13,21 +12,21 @@ interface HomeBannerProps {
 
 export function HomeBanner({ lang, tagline, article, articleCount, readLabel }: HomeBannerProps) {
   const edition = LANGUAGES[lang];
-  const bgImg = article?.image ?? getLanguageImage(lang);
+  const bgImg = article?.image;
 
   return (
     <section className="relative isolate overflow-hidden bg-gray-950">
-      <img
-        src={bgImg}
-        alt=""
-        aria-hidden="true"
-        onError={(e) => {
-          const img = e.currentTarget;
-          if (img.src.endsWith("/common.jpeg")) return;
-          img.src = "/common.jpeg";
-        }}
-        className="absolute inset-0 h-full w-full object-cover opacity-45"
-      />
+      {bgImg && (
+        <img
+          src={bgImg}
+          alt=""
+          aria-hidden="true"
+          onError={(event) => {
+            event.currentTarget.style.display = "none";
+          }}
+          className="absolute inset-0 h-full w-full object-cover opacity-45"
+        />
+      )}
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,7,18,0.96),rgba(17,24,39,0.85)_50%,rgba(185,28,28,0.6))] " />
       <div className="absolute inset-x-0 bottom-0 h-px bg-white/20" />
 

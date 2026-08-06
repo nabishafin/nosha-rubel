@@ -112,7 +112,6 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
           <SmartImage
             src={article.image}
             alt={article.title}
-            fallbackSeed={article.id}
             aspect="aspect-[16/9]"
             eager
             className="rounded-lg"

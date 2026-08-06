@@ -52,7 +52,6 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
         <SmartImage
           src={article.image}
           alt={article.title}
-          fallbackSeed={article.id}
           aspect="aspect-[4/3]"
           className="w-28 shrink-0 rounded-md sm:w-36"
         />
@@ -75,7 +74,6 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
         <SmartImage
           src={article.image}
           alt={article.title}
-          fallbackSeed={article.id}
           aspect="aspect-[4/5] sm:aspect-[3/4]"
           eager={eager}
           className="transition duration-500 group-hover:scale-105"
@@ -97,7 +95,6 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
         <SmartImage
           src={article.image}
           alt={article.title}
-          fallbackSeed={article.id}
           eager={eager}
           className="transition duration-500 group-hover:scale-105"
         />

@@ -46,7 +46,6 @@ export function HeroSlider({ articles }: { articles: Article[] }) {
             <SmartImage
               src={article.image}
               alt={article.title}
-              fallbackSeed={article.id}
               aspect="h-full"
               eager={i === 0}
               className="h-full"

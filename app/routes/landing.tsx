@@ -31,7 +31,7 @@ export function loader({ params, request }: Route.LoaderArgs) {
 
 export function meta({ loaderData }: Route.MetaArgs) {
   if (!loaderData) return [];
-  const { lang, origin } = loaderData;
+  const { lang, origin, articles } = loaderData;
   const t = getTranslation(lang);
   const canonical = `${origin}${localePath(lang)}`;
 
@@ -40,7 +40,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
       title: t.meta.homeTitle,
       description: t.meta.homeDescription,
       canonical,
-      image: `${origin}/common.jpeg`,
+      image: articles[0]?.image ?? `${origin}/favicon.svg`,
       lang,
       alternates: localizedAlternates(origin, ""),
     }),
