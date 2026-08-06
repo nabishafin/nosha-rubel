@@ -21,6 +21,16 @@ export const LANGUAGES: Record<LanguageCode, LanguageInfo> = {
   fr: { code: "fr", nativeName: "Français", englishName: "French", flag: "🇫🇷", locale: "fr-FR", dir: "ltr" },
   it: { code: "it", nativeName: "Italiano", englishName: "Italian", flag: "🇮🇹", locale: "it-IT", dir: "ltr" },
   pt: { code: "pt", nativeName: "Português", englishName: "Portuguese", flag: "🇵🇹", locale: "pt-PT", dir: "ltr" },
+  hi: { code: "hi", nativeName: "हिन्दी", englishName: "Hindi", flag: "🇮🇳", locale: "hi-IN", dir: "ltr" },
+  pl: { code: "pl", nativeName: "Polski", englishName: "Polish", flag: "🇵🇱", locale: "pl-PL", dir: "ltr" },
+  cs: { code: "cs", nativeName: "Čeština", englishName: "Czech", flag: "🇨🇿", locale: "cs-CZ", dir: "ltr" },
+  ko: { code: "ko", nativeName: "한국어", englishName: "Korean", flag: "🇰🇷", locale: "ko-KR", dir: "ltr" },
+  sv: { code: "sv", nativeName: "Svenska", englishName: "Swedish", flag: "🇸🇪", locale: "sv-SE", dir: "ltr" },
+  ar: { code: "ar", nativeName: "العربية", englishName: "Arabic", flag: "🇦🇪", locale: "ar-AE", dir: "rtl" },
+  ja: { code: "ja", nativeName: "日本語", englishName: "Japanese", flag: "🇯🇵", locale: "ja-JP", dir: "ltr" },
+  el: { code: "el", nativeName: "Ελληνικά", englishName: "Greek", flag: "🇬🇷", locale: "el-GR", dir: "ltr" },
+  ru: { code: "ru", nativeName: "Русский", englishName: "Russian", flag: "🇷🇺", locale: "ru-RU", dir: "ltr" },
+  uk: { code: "uk", nativeName: "Українська", englishName: "Ukrainian", flag: "🇺🇦", locale: "uk-UA", dir: "ltr" },
 };
 
 export const LANGUAGE_LIST: LanguageInfo[] = LANGUAGE_CODES.map((c) => LANGUAGES[c]);

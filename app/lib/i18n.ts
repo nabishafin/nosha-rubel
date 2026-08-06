@@ -539,7 +539,28 @@ const pt: Translation = {
   },
 };
 
-export const TRANSLATIONS: Record<LanguageCode, Translation> = { en, de, zh, es, fr, it, pt };
+// New article editions use the English interface dictionary until dedicated UI
+// translations are supplied; article headlines and summaries remain in their
+// original publisher language.
+export const TRANSLATIONS: Record<LanguageCode, Translation> = {
+  en,
+  de,
+  zh,
+  es,
+  fr,
+  it,
+  pt,
+  hi: en,
+  pl: en,
+  cs: en,
+  ko: en,
+  sv: en,
+  ar: en,
+  ja: en,
+  el: en,
+  ru: en,
+  uk: en,
+};
 
 export function getTranslation(lang: LanguageCode): Translation {
   return TRANSLATIONS[lang] ?? TRANSLATIONS[DEFAULT_LANGUAGE];

@@ -8,6 +8,16 @@ export const LANGUAGE_CODES = [
   "fr",
   "it",
   "pt",
+  "hi",
+  "pl",
+  "cs",
+  "ko",
+  "sv",
+  "ar",
+  "ja",
+  "el",
+  "ru",
+  "uk",
 ] as const;
 
 export type LanguageCode = (typeof LANGUAGE_CODES)[number];

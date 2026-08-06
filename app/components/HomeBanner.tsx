@@ -13,7 +13,7 @@ interface HomeBannerProps {
 
 export function HomeBanner({ lang, tagline, article, articleCount, readLabel }: HomeBannerProps) {
   const edition = LANGUAGES[lang];
-  const bgImg = getLanguageImage(lang);
+  const bgImg = article?.image ?? getLanguageImage(lang);
 
   return (
     <section className="relative isolate overflow-hidden bg-gray-950">
@@ -86,10 +86,7 @@ export function HomeBanner({ lang, tagline, article, articleCount, readLabel }: 
               rel="noreferrer nofollow"
               className="group block rounded-2xl border border-white/20 bg-white/95 p-5 text-gray-950 shadow-2xl backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white"
             >
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-extrabold uppercase tracking-wider text-red-700">
-                  {article.sourceName}
-                </span>
+              <div className="flex items-center justify-end">
                 <span className="rounded bg-red-100 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-red-700">
                   Featured Story
                 </span>
