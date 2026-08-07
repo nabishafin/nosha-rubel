@@ -10,7 +10,7 @@ import {
 
 import type { Route } from "./+types/root";
 import { isLanguageCode, LANGUAGES, DEFAULT_LANGUAGE } from "./lib/languages";
-import { SITE_NAME } from "./lib/seo";
+import { SITE_DESCRIPTION, SITE_NAME } from "./lib/seo";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -20,21 +20,16 @@ export const links: Route.LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
-  // Favicons: modern SVG first, .ico fallback for older browsers, plus a PWA manifest.
-  { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
-  { rel: "icon", href: "/favicon.ico", sizes: "48x48" },
-  { rel: "apple-touch-icon", href: "/favicon.svg" },
+  { rel: "icon", href: "/favicon.png", type: "image/png", sizes: "512x512" },
+  { rel: "icon", href: "/favicon.ico", type: "image/x-icon", sizes: "48x48" },
+  { rel: "apple-touch-icon", href: "/favicon.png" },
   { rel: "manifest", href: "/site.webmanifest" },
 ];
 
 // Site-wide defaults; route-level `meta` exports override title/description.
 export const meta: Route.MetaFunction = () => [
-  { title: `${SITE_NAME} — Global News in Your Language` },
-  {
-    name: "description",
-    content:
-      "An independent, multilingual news aggregator bringing you trusted stories from around the globe.",
-  },
+  { title: SITE_NAME },
+  { name: "description", content: SITE_DESCRIPTION },
   { name: "theme-color", content: "#ffffff" },
   { name: "application-name", content: SITE_NAME },
   { name: "apple-mobile-web-app-title", content: SITE_NAME },

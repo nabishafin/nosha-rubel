@@ -1,8 +1,9 @@
 import { DEFAULT_LANGUAGE, LANGUAGES, LANGUAGE_LIST } from "./languages";
 import type { Article, LanguageCode } from "./types";
 
-export const SITE_NAME = "NewsHub";
-export const TWITTER_HANDLE = "@newshub";
+export const SITE_NAME = "Noosha Aubel";
+export const SITE_DESCRIPTION =
+  "Multilingual press coverage, public records, and international reporting about Noosha Aubel and Potsdam.";
 
 /** Loosely-typed meta descriptors compatible with React Router's `meta` export. */
 export type Meta = Record<string, unknown>;
@@ -63,7 +64,6 @@ export function buildMeta({
 
     // Twitter
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:site", content: TWITTER_HANDLE },
     { name: "twitter:title", content: title },
     { name: "twitter:description", content: description },
     { name: "twitter:image", content: image },
@@ -118,7 +118,7 @@ export function newsArticleJsonLd(article: Article, url: string, imageUrl: strin
     publisher: {
       "@type": "Organization",
       name: SITE_NAME,
-      logo: { "@type": "ImageObject", url: `${new URL(url).origin}/favicon.ico` },
+      logo: { "@type": "ImageObject", url: `${new URL(url).origin}/favicon.png` },
     },
   };
 }

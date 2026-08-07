@@ -1,7 +1,6 @@
 import { useI18n } from "~/lib/i18n-context";
 import type { Article } from "~/lib/types";
 import { SmartImage } from "./SmartImage";
-import { CategoryBadge } from "./CategoryBadge";
 import { ArticleMeta } from "./ArticleMeta";
 
 type CardVariant = "vertical" | "horizontal" | "compact" | "overlay";
@@ -56,8 +55,7 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
           className="w-28 shrink-0 rounded-md sm:w-36"
         />
         <div className="min-w-0">
-          <CategoryBadge category={article.category} asLink={false} />
-          <h3 className="mt-1.5 line-clamp-2 font-semibold leading-snug text-gray-900 group-hover:text-blue-700">
+          <h3 className="line-clamp-2 font-semibold leading-snug text-gray-900 group-hover:text-blue-700">
             {cardTitle}
           </h3>
           <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-gray-600">{cardSummary}</p>
@@ -80,8 +78,7 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 p-4">
-          <CategoryBadge category={article.category} asLink={false} />
-          <h3 className="mt-2 line-clamp-2 text-lg font-bold leading-snug text-white">{cardTitle}</h3>
+          <h3 className="line-clamp-2 text-lg font-bold leading-snug text-white">{cardTitle}</h3>
           <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-gray-200">{cardSummary}</p>
         </div>
       </a>
@@ -100,9 +97,8 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
         />
       </a>
       <div className="flex flex-1 flex-col p-4">
-        <CategoryBadge category={article.category} />
         <a {...linkProps}>
-          <h3 className="mt-2.5 line-clamp-2 text-[17px] font-bold leading-snug text-gray-900 group-hover:text-blue-700">
+          <h3 className="line-clamp-2 text-[17px] font-bold leading-snug text-gray-900 group-hover:text-blue-700">
             {cardTitle}
           </h3>
         </a>

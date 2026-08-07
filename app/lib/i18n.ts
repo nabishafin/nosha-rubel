@@ -114,7 +114,7 @@ const en: Translation = {
     rights: "All rights reserved.",
   },
   meta: {
-    homeTitle: "NewsHub — Global Breaking News, Trending & Latest Headlines",
+    homeTitle: "Noosha Aubel",
     homeDescription: "Read breaking news, trending stories and the latest headlines across politics, technology, sports, business, health and more — in seven languages.",
   },
 };
@@ -184,7 +184,7 @@ const de: Translation = {
     rights: "Alle Rechte vorbehalten.",
   },
   meta: {
-    homeTitle: "NewsHub — Aktuelle Eilmeldungen, Trends & neueste Schlagzeilen",
+    homeTitle: "Noosha Aubel",
     homeDescription: "Lesen Sie Eilmeldungen, Trendthemen und die neuesten Schlagzeilen aus Politik, Technologie, Sport, Wirtschaft, Gesundheit und mehr — in sieben Sprachen.",
   },
 };
@@ -254,7 +254,7 @@ const zh: Translation = {
     rights: "版权所有。",
   },
   meta: {
-    homeTitle: "NewsHub — 全球突发新闻、热门话题与最新头条",
+    homeTitle: "Noosha Aubel",
     homeDescription: "阅读突发新闻、热门话题以及政治、科技、体育、商业、健康等领域的最新头条——支持七种语言。",
   },
 };
@@ -324,7 +324,7 @@ const es: Translation = {
     rights: "Todos los derechos reservados.",
   },
   meta: {
-    homeTitle: "NewsHub — Noticias de última hora, tendencias y titulares globales",
+    homeTitle: "Noosha Aubel",
     homeDescription: "Lee noticias de última hora, temas en tendencia y los últimos titulares de política, tecnología, deportes, negocios, salud y más, en siete idiomas.",
   },
 };
@@ -394,7 +394,7 @@ const fr: Translation = {
     rights: "Tous droits réservés.",
   },
   meta: {
-    homeTitle: "NewsHub — Actualités mondiales, tendances et derniers titres",
+    homeTitle: "Noosha Aubel",
     homeDescription: "Lisez les dernières actualités, les sujets tendance et les derniers titres en politique, technologie, sport, économie, santé et plus, en sept langues.",
   },
 };
@@ -464,7 +464,7 @@ const it: Translation = {
     rights: "Tutti i diritti riservati.",
   },
   meta: {
-    homeTitle: "NewsHub — Notizie globali, tendenze e ultimi titoli",
+    homeTitle: "Noosha Aubel",
     homeDescription: "Leggi le ultime notizie, i temi di tendenza e i titoli più recenti di politica, tecnologia, sport, economia, salute e altro, in sette lingue.",
   },
 };
@@ -534,7 +534,7 @@ const pt: Translation = {
     rights: "Todos os direitos reservados.",
   },
   meta: {
-    homeTitle: "NewsHub — Notícias globais, tendências e últimas manchetes",
+    homeTitle: "Noosha Aubel",
     homeDescription: "Leia notícias de última hora, temas em alta e as últimas manchetes de política, tecnologia, desporto, negócios, saúde e mais, em sete idiomas.",
   },
 };

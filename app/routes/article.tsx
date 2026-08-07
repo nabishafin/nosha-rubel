@@ -3,7 +3,7 @@ import { isLanguageCode, DEFAULT_LANGUAGE } from "~/lib/languages";
 import { getTranslation } from "~/lib/i18n";
 import { getArticleBySlug, getRelated, getTranslations } from "~/lib/news";
 import { getOrigin } from "~/lib/http";
-import { buildMeta, newsArticleJsonLd } from "~/lib/seo";
+import { buildMeta, newsArticleJsonLd, SITE_NAME } from "~/lib/seo";
 import { formatDate, formatViews, readingTime } from "~/lib/format";
 import { localePath } from "~/lib/i18n-context";
 
@@ -11,7 +11,6 @@ import { Container } from "~/components/Container";
 import { Section } from "~/components/Section";
 import { SectionHeading } from "~/components/SectionHeading";
 import { SmartImage } from "~/components/SmartImage";
-import { CategoryBadge } from "~/components/CategoryBadge";
 import { ArticleCard } from "~/components/ArticleCard";
 import { TagCloud } from "~/components/TagCloud";
 import type { Route } from "./+types/article";
@@ -51,7 +50,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
   const { article, canonical, lang, alternates } = loaderData;
   return [
     ...buildMeta({
-      title: `${article.title} — NewsHub`,
+      title: `${article.title} — ${SITE_NAME}`,
       description: article.description,
       canonical,
       image: article.image,
@@ -75,21 +74,10 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
 
   return (
     <article>
-      {/* Breadcrumb + header */}
+      {/* Article header */}
       <Container className="pt-8">
-        <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-sm text-gray-500">
-          <Link to={localePath(lang)} className="hover:text-gray-800">
-            {t.nav.home}
-          </Link>
-          <span aria-hidden="true">/</span>
-          <Link to={localePath(lang, `category/${article.category}`)} className="hover:text-gray-800">
-            {t.categories[article.category]}
-          </Link>
-        </nav>
-
-        <div className="mx-auto mt-6 max-w-3xl">
-          <CategoryBadge category={article.category} />
-          <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-4xl">
+        <div className="mx-auto max-w-3xl">
+          <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-4xl">
             {article.title}
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-gray-600">{article.description}</p>
@@ -158,8 +146,6 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
         <Section muted className="mt-14">
           <SectionHeading
             title={t.sections.related}
-            viewAllTo={localePath(lang, `category/${article.category}`)}
-            viewAllLabel={t.actions.viewAll}
           />
           <div className="grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((a) => (

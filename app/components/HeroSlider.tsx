@@ -3,7 +3,6 @@ import { Link } from "react-router";
 import { useI18n, localePath } from "~/lib/i18n-context";
 import type { Article } from "~/lib/types";
 import { SmartImage } from "./SmartImage";
-import { CategoryBadge } from "./CategoryBadge";
 import { ArticleMeta } from "./ArticleMeta";
 
 /**
@@ -58,7 +57,6 @@ export function HeroSlider({ articles }: { articles: Article[] }) {
                     <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
                     {t.hero.breaking}
                   </span>
-                  <CategoryBadge category={article.category} asLink={false} />
                 </div>
                 <h1 className="mt-4 text-2xl font-extrabold leading-tight text-white sm:text-4xl lg:text-5xl">
                   {article.title}

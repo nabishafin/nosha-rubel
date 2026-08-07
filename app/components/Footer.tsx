@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { CATEGORY_LIST } from "~/lib/categories";
 import { LANGUAGE_LIST } from "~/lib/languages";
 import { useI18n, localePath } from "~/lib/i18n-context";
 import { Container } from "./Container";
@@ -14,7 +13,7 @@ export function Footer() {
   return (
     <footer className="mt-12 border-t border-gray-200 bg-gray-50">
       <Container className="py-10">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand + about + Publisher Notice */}
           <div className="lg:col-span-2 space-y-4">
             <Link to={localePath(lang)} className="flex items-center gap-2">
@@ -47,23 +46,6 @@ export function Footer() {
               </p>
             </div>
           </div>
-
-          {/* Categories */}
-          <nav aria-label={t.footer.categories}>
-            <h3 className="text-sm font-semibold text-gray-900">{t.footer.categories}</h3>
-            <ul className="mt-4 space-y-2.5">
-              {CATEGORY_LIST.map((c) => (
-                <li key={c.slug}>
-                  <Link
-                    to={localePath(lang, `category/${c.slug}`)}
-                    className="text-sm text-gray-600 transition hover:text-blue-700"
-                  >
-                    {t.categories[c.slug]}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
 
           {/* Quick links */}
           <nav aria-label={t.footer.quickLinks}>

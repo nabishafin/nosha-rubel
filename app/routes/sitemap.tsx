@@ -1,5 +1,4 @@
 import { LANGUAGE_LIST } from "~/lib/languages";
-import { CATEGORY_LIST } from "~/lib/categories";
 import { getAllArticleRefs, type ArticleRef } from "~/lib/news";
 import { getOrigin } from "~/lib/http";
 import type { Route } from "./+types/sitemap";
@@ -24,10 +23,6 @@ export function loader({ request }: Route.LoaderArgs) {
   for (const l of LANGUAGE_LIST) {
     urls.push({ loc: `${origin}/${l.code}`, alternates: homeAlternates });
 
-    // Category pages.
-    for (const c of CATEGORY_LIST) {
-      urls.push({ loc: `${origin}/${l.code}/category/${c.slug}` });
-    }
     // Static pages.
     for (const page of ["about", "contact", "privacy", "terms"]) {
       urls.push({ loc: `${origin}/${l.code}/${page}` });

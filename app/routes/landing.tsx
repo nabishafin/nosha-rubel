@@ -2,7 +2,13 @@ import { isLanguageCode, DEFAULT_LANGUAGE } from "~/lib/languages";
 import { getTranslation } from "~/lib/i18n";
 import { getLatest, getMostRead, getPopularTags } from "~/lib/news";
 import { getOrigin } from "~/lib/http";
-import { buildMeta, localizedAlternates, websiteJsonLd } from "~/lib/seo";
+import {
+  buildMeta,
+  localizedAlternates,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  websiteJsonLd,
+} from "~/lib/seo";
 import { localePath } from "~/lib/i18n-context";
 
 import { Section } from "~/components/Section";
@@ -32,15 +38,14 @@ export function loader({ params, request }: Route.LoaderArgs) {
 export function meta({ loaderData }: Route.MetaArgs) {
   if (!loaderData) return [];
   const { lang, origin, articles } = loaderData;
-  const t = getTranslation(lang);
   const canonical = `${origin}${localePath(lang)}`;
 
   return [
     ...buildMeta({
-      title: t.meta.homeTitle,
-      description: t.meta.homeDescription,
+      title: SITE_NAME,
+      description: SITE_DESCRIPTION,
       canonical,
-      image: articles[0]?.image ?? `${origin}/favicon.svg`,
+      image: articles[0]?.image ?? `${origin}/favicon.png`,
       lang,
       alternates: localizedAlternates(origin, ""),
     }),

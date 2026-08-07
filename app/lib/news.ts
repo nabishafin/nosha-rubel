@@ -1,6 +1,5 @@
 import { ARTICLES } from "~/data/articles";
-import { CATEGORY_LIST } from "./categories";
-import type { Article, CategorySlug, LanguageCode } from "./types";
+import type { Article, LanguageCode } from "./types";
 
 // Data-access layer. Every route loads news through these functions, so the
 // underlying source (local mock now, live API later via api-client.ts) can be
@@ -50,13 +49,6 @@ export function getBreaking(lang: LanguageCode, limit = 5): Article[] {
   return pool.slice(0, limit);
 }
 
-export function getByCategory(lang: LanguageCode, category: CategorySlug, limit?: number): Article[] {
-  const list = inLanguage(lang)
-    .filter((a) => a.category === category)
-    .sort(byNewest);
-  return limit ? list.slice(0, limit) : list;
-}
-
 export function getArticleBySlug(lang: LanguageCode, slug: string): Article | undefined {
   return ARTICLES.find((a) => a.language === lang && a.slug === slug);
 }
@@ -97,18 +89,6 @@ export function getPopularTags(lang: LanguageCode, limit = 16): string[] {
     .sort((a, b) => b[1] - a[1])
     .slice(0, limit)
     .map(([tag]) => tag);
-}
-
-export interface CategoryCount {
-  category: CategorySlug;
-  count: number;
-}
-
-export function getCategoryCounts(lang: LanguageCode): CategoryCount[] {
-  return CATEGORY_LIST.map((c) => ({
-    category: c.slug,
-    count: inLanguage(lang).filter((a) => a.category === c.slug).length,
-  }));
 }
 
 export interface ArticleRef {

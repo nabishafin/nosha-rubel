@@ -12,10 +12,9 @@ export default [
   route(":lang", "routes/locale.tsx", [
     index("routes/landing.tsx"),
     route("news/:slug", "routes/article.tsx"),
-    route("category/:category", "routes/category.tsx"),
     route("search", "routes/search.tsx"),
     // Single-segment static pages (about/contact/privacy/terms). Least specific,
-    // so it never shadows `search`, `news/:slug` or `category/:category`.
+    // so it never shadows `search` or `news/:slug`.
     route(":page", "routes/static-page.tsx"),
   ]),
 ] satisfies RouteConfig;

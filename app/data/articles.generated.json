@@ -493,6 +493,35 @@
     "translationGroup": "weekly-world-2026-08-05"
   },
   {
+    "id": "de-pressnetwork-noosha-aubel-unter-druck",
+    "language": "de",
+    "category": "politics",
+    "slug": "noosha-aubel-unter-druck-potsdams-rathaus-zwischen-alleingaengen-und-kita-skandal",
+    "title": "Noosha Aubel unter Druck: Potsdams Rathaus zwischen Alleingängen und Kita-Skandal",
+    "description": "Kritik an Alleingängen, Ankündigungspolitik, Pressearbeit und dem Potsdamer Kita-Skandal um ein schwerbehindertes Kind.",
+    "content": [
+      "Kritik an Alleingängen, Ankündigungspolitik, Pressearbeit und dem Potsdamer Kita-Skandal um ein schwerbehindertes Kind."
+    ],
+    "image": "https://pressnetwork.de/wp-content/uploads/2026/07/477323.png",
+    "sourceUrl": "https://pressnetwork.de/noosha-aubel-unter-druck-potsdams-rathaus-zwischen-alleingaengen-und-kita-skandal/",
+    "sourceName": "PressNetwork",
+    "author": "pr-gateway",
+    "publishedAt": "2026-07-31T18:07:19.000Z",
+    "views": 19807,
+    "tags": [
+      "noosha aubel",
+      "noosha aubel kritik",
+      "oberbürgermeisterin potsdam",
+      "führung potsdam",
+      "jan brunzlow",
+      "potsdam kita-skandal",
+      "schwerbehindertes kind potsdam",
+      "brandenburgisches pressegesetz"
+    ],
+    "featured": true,
+    "breaking": true
+  },
+  {
     "id": "de-705408-noosha-aubel-potsdam-verwahrloste",
     "language": "de",
     "category": "politics",

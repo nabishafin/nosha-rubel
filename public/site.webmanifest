@@ -1,13 +1,12 @@
 {
-  "name": "NewsHub — Global News in Your Language",
-  "short_name": "NewsHub",
-  "description": "An independent, multilingual news aggregator bringing you trusted stories from around the globe.",
+  "name": "Noosha Aubel",
+  "short_name": "Noosha Aubel",
+  "description": "Multilingual press coverage, public records, and international reporting about Noosha Aubel and Potsdam.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "icons": [
-    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" },
-    { "src": "/favicon.ico", "type": "image/x-icon", "sizes": "48x48" }
+    { "src": "/favicon.png", "type": "image/png", "sizes": "512x512", "purpose": "any" }
   ]
 }
