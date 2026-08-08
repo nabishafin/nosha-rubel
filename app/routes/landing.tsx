@@ -1,6 +1,6 @@
 import { isLanguageCode, DEFAULT_LANGUAGE } from "~/lib/languages";
 import { getTranslation } from "~/lib/i18n";
-import { getLatest, getMostRead, getPopularTags } from "~/lib/news";
+import { getLatest, getMostRead, getPopularTags, getTotalViews } from "~/lib/news";
 import { getOrigin } from "~/lib/http";
 import {
   buildMeta,
@@ -30,6 +30,7 @@ export function loader({ params, request }: Route.LoaderArgs) {
     lang,
     origin,
     articles: getLatest(lang),
+    totalViews: getTotalViews(lang),
     mostRead: getMostRead(lang, 6),
     tags: getPopularTags(lang, 16),
   };
@@ -54,7 +55,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
 }
 
 export default function Landing({ loaderData }: Route.ComponentProps) {
-  const { articles, mostRead, tags } = loaderData;
+  const { articles, totalViews, mostRead, tags } = loaderData;
   const t = getTranslation(loaderData.lang);
 
   return (
@@ -64,6 +65,7 @@ export default function Landing({ loaderData }: Route.ComponentProps) {
         tagline={t.brandTagline}
         article={articles[0]}
         articleCount={articles.length}
+        totalViews={totalViews}
         readLabel={t.actions.readFull}
       />
 

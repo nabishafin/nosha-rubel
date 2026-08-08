@@ -18,6 +18,10 @@ export function getLatest(lang: LanguageCode, limit?: number): Article[] {
   return limit ? list.slice(0, limit) : list;
 }
 
+export function getTotalViews(lang: LanguageCode): number {
+  return inLanguage(lang).reduce((sum, a) => sum + a.views, 0);
+}
+
 export function getTrending(lang: LanguageCode, limit = 6): Article[] {
   // "Trending" = recent + heavily viewed. Blend recency and views.
   const now = Date.now();

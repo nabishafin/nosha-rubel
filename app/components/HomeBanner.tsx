@@ -7,10 +7,11 @@ interface HomeBannerProps {
   tagline: string;
   article?: Article;
   articleCount: number;
+  totalViews: number;
   readLabel: string;
 }
 
-export function HomeBanner({ lang, tagline, article, articleCount, readLabel }: HomeBannerProps) {
+export function HomeBanner({ lang, tagline, article, articleCount, totalViews, readLabel }: HomeBannerProps) {
   const edition = LANGUAGES[lang];
   const bgImg = article?.image;
 
@@ -64,6 +65,9 @@ export function HomeBanner({ lang, tagline, article, articleCount, readLabel }: 
             <div className="mt-6 flex flex-wrap items-center gap-2.5 text-xs font-semibold text-white">
               <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-md">
                 📰 <strong>{articleCount}</strong> Stories
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-md">
+                👁️ <strong>{totalViews.toLocaleString()}</strong> Views
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-md">
                 🌍 <strong>26</strong> Wikipedia Archives

@@ -59,7 +59,7 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
             {cardTitle}
           </h3>
           <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-gray-600">{cardSummary}</p>
-          <ArticleMeta article={article} className="mt-1.5" />
+          <ArticleMeta article={article} showViews className="mt-1.5" />
         </div>
       </a>
     );
@@ -80,6 +80,7 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
         <div className="absolute inset-x-0 bottom-0 p-4">
           <h3 className="line-clamp-2 text-lg font-bold leading-snug text-white">{cardTitle}</h3>
           <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-gray-200">{cardSummary}</p>
+          <ArticleMeta article={article} showViews className="mt-2 text-gray-300" />
         </div>
       </a>
     );
