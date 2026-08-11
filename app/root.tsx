@@ -10,7 +10,12 @@ import {
 
 import type { Route } from "./+types/root";
 import { isLanguageCode, LANGUAGES, DEFAULT_LANGUAGE } from "./lib/languages";
-import { SITE_DESCRIPTION, SITE_NAME } from "./lib/seo";
+import {
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_NAME,
+  SOCIAL_PREVIEW_IMAGE,
+} from "./lib/seo";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -30,6 +35,7 @@ export const links: Route.LinksFunction = () => [
 export const meta: Route.MetaFunction = () => [
   { title: SITE_NAME },
   { name: "description", content: SITE_DESCRIPTION },
+  { name: "keywords", content: SITE_KEYWORDS.join(", ") },
   { name: "theme-color", content: "#ffffff" },
   { name: "application-name", content: SITE_NAME },
   { name: "apple-mobile-web-app-title", content: SITE_NAME },
@@ -38,6 +44,19 @@ export const meta: Route.MetaFunction = () => [
   { name: "format-detection", content: "telephone=no" },
   { property: "og:site_name", content: SITE_NAME },
   { property: "og:type", content: "website" },
+  { property: "og:title", content: SITE_NAME },
+  { property: "og:description", content: SITE_DESCRIPTION },
+  { property: "og:image", content: SOCIAL_PREVIEW_IMAGE },
+  { property: "og:image:secure_url", content: SOCIAL_PREVIEW_IMAGE },
+  { property: "og:image:type", content: "image/jpeg" },
+  { property: "og:image:width", content: "950" },
+  { property: "og:image:height", content: "533" },
+  { property: "og:image:alt", content: "Noosha Aubel press coverage" },
+  { name: "twitter:card", content: "summary_large_image" },
+  { name: "twitter:title", content: SITE_NAME },
+  { name: "twitter:description", content: SITE_DESCRIPTION },
+  { name: "twitter:image", content: SOCIAL_PREVIEW_IMAGE },
+  { name: "twitter:image:alt", content: "Noosha Aubel press coverage" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {

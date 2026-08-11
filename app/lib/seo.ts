@@ -3,7 +3,20 @@ import type { Article, LanguageCode } from "./types";
 
 export const SITE_NAME = "Noosha Aubel";
 export const SITE_DESCRIPTION =
-  "Multilingual press coverage, public records, and international reporting about Noosha Aubel and Potsdam.";
+  "Independent multilingual press archive featuring international reporting, public records, and documented coverage of Noosha Aubel and municipal affairs in Potsdam.";
+export const SOCIAL_PREVIEW_IMAGE =
+  "https://www.sanfranciscofrontiers.com/media/shared/articles/news/2026-08/01_English_950x533_8213.jpg";
+export const SITE_KEYWORDS = [
+  "Noosha Aubel",
+  "Potsdam",
+  "Oberbürgermeisterin Potsdam",
+  "Potsdam Rathaus",
+  "Potsdam Politik",
+  "Kommunalpolitik",
+  "international press coverage",
+  "multilingual press archive",
+  "public records",
+];
 
 /** Loosely-typed meta descriptors compatible with React Router's `meta` export. */
 export type Meta = Record<string, unknown>;
@@ -59,6 +72,7 @@ export function buildMeta({
     { property: "og:description", content: description },
     { property: "og:url", content: canonical },
     { property: "og:image", content: image },
+    { property: "og:image:secure_url", content: image },
     { property: "og:image:alt", content: title },
     { property: "og:locale", content: LANGUAGES[lang].locale.replace("-", "_") },
 
@@ -70,9 +84,16 @@ export function buildMeta({
     { name: "twitter:image:alt", content: title },
   ];
 
-  if (keywords?.length) {
-    meta.push({ name: "keywords", content: keywords.join(", ") });
+  if (image === SOCIAL_PREVIEW_IMAGE) {
+    meta.push(
+      { property: "og:image:type", content: "image/jpeg" },
+      { property: "og:image:width", content: "950" },
+      { property: "og:image:height", content: "533" },
+    );
   }
+
+  const resolvedKeywords = [...new Set([...SITE_KEYWORDS, ...(keywords ?? [])])];
+  meta.push({ name: "keywords", content: resolvedKeywords.join(", ") });
 
   if (type === "article") {
     if (publishedAt) meta.push({ property: "article:published_time", content: publishedAt });
@@ -129,8 +150,20 @@ export function websiteJsonLd(origin: string, lang: LanguageCode) {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE_NAME,
+    description: SITE_DESCRIPTION,
     url: `${origin}/${lang}`,
+    image: SOCIAL_PREVIEW_IMAGE,
     inLanguage: LANGUAGES[lang].locale,
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      logo: {
+        "@type": "ImageObject",
+        url: `${origin}/favicon.png`,
+        width: 512,
+        height: 512,
+      },
+    },
     potentialAction: {
       "@type": "SearchAction",
       target: `${origin}/${lang}/search?q={search_term_string}`,

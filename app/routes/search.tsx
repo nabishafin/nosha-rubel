@@ -2,7 +2,7 @@ import { isLanguageCode, DEFAULT_LANGUAGE } from "~/lib/languages";
 import { getTranslation } from "~/lib/i18n";
 import { searchArticles } from "~/lib/news";
 import { getOrigin } from "~/lib/http";
-import { buildMeta, SITE_NAME } from "~/lib/seo";
+import { buildMeta, SITE_DESCRIPTION, SITE_NAME, SOCIAL_PREVIEW_IMAGE } from "~/lib/seo";
 import { localePath } from "~/lib/i18n-context";
 
 import { Section } from "~/components/Section";
@@ -31,9 +31,9 @@ export function meta({ loaderData }: Route.MetaArgs) {
   const title = query ? `${t.search.resultsFor} “${query}” — ${SITE_NAME}` : `${t.search.title} — ${SITE_NAME}`;
   return buildMeta({
     title,
-    description: t.meta.homeDescription,
+    description: SITE_DESCRIPTION,
     canonical: `${origin}${localePath(lang, "search")}`,
-    image: `${origin}/favicon.png`,
+    image: SOCIAL_PREVIEW_IMAGE,
     lang,
     robots: "noindex, follow", // search result pages should not be indexed
   });

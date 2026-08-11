@@ -7,6 +7,7 @@ import {
   localizedAlternates,
   SITE_DESCRIPTION,
   SITE_NAME,
+  SOCIAL_PREVIEW_IMAGE,
   websiteJsonLd,
 } from "~/lib/seo";
 import { localePath } from "~/lib/i18n-context";
@@ -38,7 +39,7 @@ export function loader({ params, request }: Route.LoaderArgs) {
 
 export function meta({ loaderData }: Route.MetaArgs) {
   if (!loaderData) return [];
-  const { lang, origin, articles } = loaderData;
+  const { lang, origin } = loaderData;
   const canonical = `${origin}${localePath(lang)}`;
 
   return [
@@ -46,7 +47,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
       title: SITE_NAME,
       description: SITE_DESCRIPTION,
       canonical,
-      image: articles[0]?.image ?? `${origin}/favicon.png`,
+      image: SOCIAL_PREVIEW_IMAGE,
       lang,
       alternates: localizedAlternates(origin, ""),
     }),

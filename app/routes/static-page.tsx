@@ -2,7 +2,7 @@ import { isRouteErrorResponse, Link, useParams } from "react-router";
 import { isLanguageCode, DEFAULT_LANGUAGE } from "~/lib/languages";
 import { getTranslation, type Translation } from "~/lib/i18n";
 import { getOrigin } from "~/lib/http";
-import { buildMeta, SITE_NAME } from "~/lib/seo";
+import { buildMeta, SITE_NAME, SOCIAL_PREVIEW_IMAGE } from "~/lib/seo";
 import { localePath } from "~/lib/i18n-context";
 import { Container } from "~/components/Container";
 import { EditorialStatementContent } from "~/components/EditorialStatementContent";
@@ -70,7 +70,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
     title: `${title} — ${SITE_NAME}`,
     description: paragraphs[0],
     canonical: `${origin}${localePath(lang, page)}`,
-    image: `${origin}/favicon.png`,
+    image: SOCIAL_PREVIEW_IMAGE,
     lang,
   });
 }
