@@ -6,7 +6,6 @@ export function loader({ request }: Route.LoaderArgs) {
   const body = [
     "User-agent: *",
     "Allow: /",
-    "Disallow: /*/search",
     "",
     `Sitemap: ${origin}/sitemap.xml`,
     "",

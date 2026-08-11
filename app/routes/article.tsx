@@ -3,7 +3,7 @@ import { isLanguageCode, DEFAULT_LANGUAGE } from "~/lib/languages";
 import { getTranslation } from "~/lib/i18n";
 import { getArticleBySlug, getRelated, getTranslations } from "~/lib/news";
 import { getOrigin } from "~/lib/http";
-import { buildMeta, newsArticleJsonLd, SITE_NAME } from "~/lib/seo";
+import { buildMeta, newsArticleJsonLd, withSiteName } from "~/lib/seo";
 import { formatDate, formatViews, readingTime } from "~/lib/format";
 import { localePath } from "~/lib/i18n-context";
 
@@ -50,14 +50,13 @@ export function meta({ loaderData }: Route.MetaArgs) {
   const { article, canonical, lang, alternates } = loaderData;
   return [
     ...buildMeta({
-      title: `${article.title} — ${SITE_NAME}`,
+      title: withSiteName(article.title),
       description: article.description,
       canonical,
       image: article.image,
       lang,
       type: "article",
       publishedAt: article.publishedAt,
-      section: article.category,
       tags: article.tags,
       keywords: article.tags,
       alternates,

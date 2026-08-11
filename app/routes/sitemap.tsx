@@ -17,11 +17,26 @@ function xmlEscape(value: string): string {
 export function loader({ request }: Route.LoaderArgs) {
   const origin = getOrigin(request);
   const urls: UrlEntry[] = [];
+  const refs = getAllArticleRefs();
+  const latestByLanguage = new Map<string, string>();
+  for (const ref of refs) {
+    const current = latestByLanguage.get(ref.language);
+    if (!current || new Date(ref.publishedAt) > new Date(current)) {
+      latestByLanguage.set(ref.language, ref.publishedAt);
+    }
+  }
 
   // Home page per language, cross-linked with hreflang alternates.
-  const homeAlternates = LANGUAGE_LIST.map((l) => ({ hreflang: l.code, href: `${origin}/${l.code}` }));
+  const homeAlternates = [
+    ...LANGUAGE_LIST.map((l) => ({ hreflang: l.code, href: `${origin}/${l.code}` })),
+    { hreflang: "x-default", href: `${origin}/de` },
+  ];
   for (const l of LANGUAGE_LIST) {
-    urls.push({ loc: `${origin}/${l.code}`, alternates: homeAlternates });
+    urls.push({
+      loc: `${origin}/${l.code}`,
+      lastmod: latestByLanguage.get(l.code),
+      alternates: homeAlternates,
+    });
 
     // Static pages.
     for (const page of ["about", "contact", "privacy", "terms"]) {
@@ -30,7 +45,6 @@ export function loader({ request }: Route.LoaderArgs) {
   }
 
   // Article pages, with hreflang alternates linking translated versions.
-  const refs = getAllArticleRefs();
   const byGroup = new Map<string, ArticleRef[]>();
   for (const ref of refs) {
     if (!ref.translationGroup) continue;
@@ -40,7 +54,16 @@ export function loader({ request }: Route.LoaderArgs) {
   }
   for (const ref of refs) {
     const group = ref.translationGroup ? byGroup.get(ref.translationGroup) : undefined;
-    const alternates = group?.map((g) => ({ hreflang: g.language, href: `${origin}/${g.language}/news/${g.slug}` }));
+    const hasUniqueLanguages = group && new Set(group.map((g) => g.language)).size === group.length;
+    const defaultRef = group?.find((g) => g.language === "de") ?? group?.find((g) => g.language === "en");
+    const alternates = hasUniqueLanguages
+      ? [
+          ...group.map((g) => ({ hreflang: g.language, href: `${origin}/${g.language}/news/${g.slug}` })),
+          ...(defaultRef
+            ? [{ hreflang: "x-default", href: `${origin}/${defaultRef.language}/news/${defaultRef.slug}` }]
+            : []),
+        ]
+      : undefined;
     urls.push({ loc: `${origin}/${ref.language}/news/${ref.slug}`, lastmod: ref.publishedAt, alternates });
   }
 

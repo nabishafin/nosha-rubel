@@ -1,4 +1,4 @@
-import { DEFAULT_LANGUAGE, LANGUAGES, LANGUAGE_LIST } from "./languages";
+import { DEFAULT_LANGUAGE, isLanguageCode, LANGUAGES, LANGUAGE_LIST } from "./languages";
 import type { Article, LanguageCode } from "./types";
 
 export const SITE_NAME = "Noosha Aubel";
@@ -18,6 +18,36 @@ export const SITE_KEYWORDS = [
   "public records",
 ];
 
+const SITE_DESCRIPTIONS: Record<LanguageCode, string> = {
+  de: "Unabhängiges mehrsprachiges Pressearchiv mit internationalen Berichten, öffentlichen Dokumenten und belegter Berichterstattung über Noosha Aubel und kommunale Themen in Potsdam.",
+  en: SITE_DESCRIPTION,
+  zh: "独立多语种新闻档案，汇集有关努莎·奥贝尔及波茨坦市政事务的国际报道、公共记录和文献资料。",
+  es: "Archivo de prensa multilingüe e independiente con cobertura internacional, registros públicos e información documentada sobre Noosha Aubel y la actualidad municipal de Potsdam.",
+  fr: "Archives de presse multilingues et indépendantes réunissant reportages internationaux, documents publics et informations vérifiées sur Noosha Aubel et les affaires municipales de Potsdam.",
+  it: "Archivio stampa indipendente e multilingue con notizie internazionali, documenti pubblici e copertura verificabile su Noosha Aubel e gli affari comunali di Potsdam.",
+  pt: "Arquivo de imprensa independente e multilingue com cobertura internacional, registos públicos e informação documentada sobre Noosha Aubel e os assuntos municipais de Potsdam.",
+  hi: "नूशा आउबेल और पॉट्सडैम के नगरपालिका मामलों पर अंतरराष्ट्रीय रिपोर्टिंग, सार्वजनिक अभिलेख और दस्तावेज़ीकृत कवरेज वाला स्वतंत्र बहुभाषी प्रेस संग्रह।",
+  pl: "Niezależne, wielojęzyczne archiwum prasowe z międzynarodowymi publikacjami, dokumentami publicznymi i udokumentowanymi materiałami o Nooshy Aubel oraz sprawach miejskich Poczdamu.",
+  cs: "Nezávislý vícejazyčný tiskový archiv s mezinárodními zprávami, veřejnými dokumenty a doloženým zpravodajstvím o Nooshe Aubelové a komunálních tématech v Postupimi.",
+  ko: "누샤 아우벨과 포츠담 시정에 관한 국제 보도, 공공 기록 및 문서화된 자료를 제공하는 독립 다국어 언론 아카이브입니다.",
+  sv: "Ett oberoende flerspråkigt pressarkiv med internationell rapportering, offentliga handlingar och dokumenterad bevakning av Noosha Aubel och kommunala frågor i Potsdam.",
+  ar: "أرشيف صحفي مستقل متعدد اللغات يضم تقارير دولية وسجلات عامة وتغطية موثقة عن نوشا أوبل والشؤون البلدية في بوتسدام.",
+  ja: "ヌーシャ・アウベルとポツダムの市政に関する国際報道、公的記録、検証可能な資料を集めた独立系多言語プレスアーカイブです。",
+  el: "Ανεξάρτητο πολύγλωσσο αρχείο Τύπου με διεθνή δημοσιεύματα, δημόσια έγγραφα και τεκμηριωμένη κάλυψη για τη Noosha Aubel και τα δημοτικά ζητήματα του Πότσνταμ.",
+  ru: "Независимый многоязычный архив прессы с международными публикациями, открытыми документами и подтверждёнными материалами о Нуше Аубель и муниципальных вопросах Потсдама.",
+  uk: "Незалежний багатомовний архів преси з міжнародними публікаціями, відкритими документами та підтвердженими матеріалами про Нушу Аубель і муніципальні питання Потсдама.",
+};
+
+export function getSiteDescription(lang: LanguageCode): string {
+  return SITE_DESCRIPTIONS[lang];
+}
+
+export function withSiteName(title: string): string {
+  return title.toLocaleLowerCase().includes(SITE_NAME.toLocaleLowerCase())
+    ? title
+    : `${title} — ${SITE_NAME}`;
+}
+
 /** Loosely-typed meta descriptors compatible with React Router's `meta` export. */
 export type Meta = Record<string, unknown>;
 
@@ -32,7 +62,6 @@ interface BuildMetaArgs {
   /** Absolute-URL map keyed by hreflang for the <link rel="alternate"> tags. */
   alternates?: Record<string, string>;
   publishedAt?: string;
-  section?: string;
   tags?: string[];
   /** Comma-joined into a `keywords` meta tag when provided. */
   keywords?: string[];
@@ -54,7 +83,6 @@ export function buildMeta({
   type = "website",
   alternates,
   publishedAt,
-  section,
   tags,
   keywords,
   robots = "index, follow, max-image-preview:large",
@@ -90,6 +118,10 @@ export function buildMeta({
       { property: "og:image:width", content: "950" },
       { property: "og:image:height", content: "533" },
     );
+  } else {
+    const imagePath = new URL(image).pathname.toLowerCase();
+    const imageType = imagePath.endsWith(".png") ? "image/png" : "image/jpeg";
+    meta.push({ property: "og:image:type", content: imageType });
   }
 
   const resolvedKeywords = [...new Set([...SITE_KEYWORDS, ...(keywords ?? [])])];
@@ -97,13 +129,18 @@ export function buildMeta({
 
   if (type === "article") {
     if (publishedAt) meta.push({ property: "article:published_time", content: publishedAt });
-    if (section) meta.push({ property: "article:section", content: section });
     for (const tag of tags ?? []) meta.push({ property: "article:tag", content: tag });
   }
 
   if (alternates) {
     for (const [hreflang, href] of Object.entries(alternates)) {
       meta.push({ tagName: "link", rel: "alternate", hrefLang: hreflang, href });
+      if (isLanguageCode(hreflang) && hreflang !== lang) {
+        meta.push({
+          property: "og:locale:alternate",
+          content: LANGUAGES[hreflang].locale.replace("-", "_"),
+        });
+      }
     }
   }
 
@@ -123,6 +160,8 @@ export function localizedAlternates(origin: string, pathAfterLang: string): Reco
 
 /** schema.org NewsArticle structured data. */
 export function newsArticleJsonLd(article: Article, url: string, imageUrl: string) {
+  const origin = new URL(url).origin;
+  const sourceOrigin = new URL(article.sourceUrl).origin;
   return {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
@@ -133,13 +172,22 @@ export function newsArticleJsonLd(article: Article, url: string, imageUrl: strin
     datePublished: article.publishedAt,
     dateModified: article.publishedAt,
     inLanguage: LANGUAGES[article.language].locale,
-    articleSection: article.category,
     keywords: article.tags.join(", "),
-    author: { "@type": "Person", name: article.author },
+    author: {
+      "@type": article.author === article.sourceName ? "Organization" : "Person",
+      name: article.author,
+      ...(article.author === article.sourceName ? { url: sourceOrigin } : {}),
+    },
     publisher: {
       "@type": "Organization",
       name: SITE_NAME,
-      logo: { "@type": "ImageObject", url: `${new URL(url).origin}/favicon.png` },
+      url: origin,
+      logo: {
+        "@type": "ImageObject",
+        url: `${origin}/favicon.png`,
+        width: 512,
+        height: 512,
+      },
     },
   };
 }
@@ -148,26 +196,35 @@ export function newsArticleJsonLd(article: Article, url: string, imageUrl: strin
 export function websiteJsonLd(origin: string, lang: LanguageCode) {
   return {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: SITE_NAME,
-    description: SITE_DESCRIPTION,
-    url: `${origin}/${lang}`,
-    image: SOCIAL_PREVIEW_IMAGE,
-    inLanguage: LANGUAGES[lang].locale,
-    publisher: {
-      "@type": "Organization",
-      name: SITE_NAME,
-      logo: {
-        "@type": "ImageObject",
-        url: `${origin}/favicon.png`,
-        width: 512,
-        height: 512,
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${origin}/#organization`,
+        name: SITE_NAME,
+        url: origin,
+        logo: {
+          "@type": "ImageObject",
+          url: `${origin}/favicon.png`,
+          width: 512,
+          height: 512,
+        },
+        image: SOCIAL_PREVIEW_IMAGE,
       },
-    },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${origin}/${lang}/search?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
+      {
+        "@type": "WebSite",
+        "@id": `${origin}/#website`,
+        name: SITE_NAME,
+        description: getSiteDescription(lang),
+        url: `${origin}/${lang}`,
+        image: SOCIAL_PREVIEW_IMAGE,
+        inLanguage: LANGUAGES[lang].locale,
+        publisher: { "@id": `${origin}/#organization` },
+        potentialAction: {
+          "@type": "SearchAction",
+          target: `${origin}/${lang}/search?q={search_term_string}`,
+          "query-input": "required name=search_term_string",
+        },
+      },
+    ],
   };
 }

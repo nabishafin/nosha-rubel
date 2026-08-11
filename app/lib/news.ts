@@ -63,7 +63,9 @@ export function getArticleBySlug(lang: LanguageCode, slug: string): Article | un
  */
 export function getTranslations(article: Article): Article[] {
   if (!article.translationGroup) return [article];
-  return ARTICLES.filter((a) => a.translationGroup === article.translationGroup);
+  const group = ARTICLES.filter((a) => a.translationGroup === article.translationGroup);
+  const languages = group.map((a) => a.language);
+  return new Set(languages).size === languages.length ? group : [article];
 }
 
 export function getRelated(article: Article, limit = 3): Article[] {

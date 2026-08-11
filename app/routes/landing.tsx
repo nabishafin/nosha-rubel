@@ -4,8 +4,8 @@ import { getLatest, getMostRead, getPopularTags, getTotalViews } from "~/lib/new
 import { getOrigin } from "~/lib/http";
 import {
   buildMeta,
+  getSiteDescription,
   localizedAlternates,
-  SITE_DESCRIPTION,
   SITE_NAME,
   SOCIAL_PREVIEW_IMAGE,
   websiteJsonLd,
@@ -45,7 +45,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
   return [
     ...buildMeta({
       title: SITE_NAME,
-      description: SITE_DESCRIPTION,
+      description: getSiteDescription(lang),
       canonical,
       image: SOCIAL_PREVIEW_IMAGE,
       lang,
