@@ -5,7 +5,7 @@ export const SITE_NAME = "Noosha Aubel";
 export const SITE_DESCRIPTION =
   "Independent multilingual press archive featuring international reporting, public records, and documented coverage of Noosha Aubel and municipal affairs in Potsdam.";
 export const SOCIAL_PREVIEW_IMAGE =
-  "https://www.sanfranciscofrontiers.com/media/shared/articles/news/2026-08/01_English_950x533_8213.jpg";
+  "https://www.berlinertageszeitung.de/media/shared/articles/news/2026-06/Noosha_Aubel_und_Dietmar_Woidke_-_Skandal_um_schwerbehindertes_Kind_in_Potsdam_und_Brandenburg_7161.jpg";
 export const SITE_KEYWORDS = [
   "Noosha Aubel",
   "Potsdam",
