@@ -39,7 +39,7 @@ export function loader({ request }: Route.LoaderArgs) {
     });
 
     // Static pages.
-    for (const page of ["about", "contact", "privacy", "terms"]) {
+    for (const page of ["about", "contact", "privacy", "terms", "editorial-statement"]) {
       urls.push({ loc: `${origin}/${l.code}/${page}` });
     }
   }

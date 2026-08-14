@@ -85,3 +85,31 @@ This template comes with [Tailwind CSS](https://tailwindcss.com/) already config
 ---
 
 Built with ❤️ using React Router.
+
+## Production domain and indexing
+
+Set `SITE_URL` in the production hosting environment to the one canonical,
+indexable origin:
+
+```bash
+SITE_URL=https://noosha-aubel.com
+```
+
+Configure DNS/hosting so `https://noosha-aubel.com` returns the application and
+redirect every other variant in one hop with HTTP 301:
+
+- `http://noosha-aubel.com/*`
+- `http://www.noosha-aubel.com/*`
+- `https://www.noosha-aubel.com/*`
+- `http://noosha-aubel.info/*`
+- `https://noosha-aubel.info/*`
+- `http://www.noosha-aubel.info/*`
+- `https://www.noosha-aubel.info/*`
+
+All redirects must preserve the path and query string. The secondary `.info`
+domain should not serve a duplicate copy of the site.
+
+After deployment, verify that `/robots.txt` and `/sitemap.xml` return HTTP 200,
+then add and verify both Domain properties in Google Search Console. Submit
+`https://noosha-aubel.com/sitemap.xml` under the canonical `.com` property and
+request indexing for the German homepage and representative article pages.
