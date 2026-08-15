@@ -50,7 +50,7 @@ export interface Translation {
 }
 
 const en: Translation = {
-  brandTagline: "Global news, in your language",
+  brandTagline: "Published coverage and public records, in your language",
   nav: { home: "Home", search: "Search", subscribe: "Subscribe", menu: "Menu" },
   categories: {
     politics: "Politics",
@@ -101,9 +101,9 @@ const en: Translation = {
     notFoundBody: "The story you are looking for may have been moved or removed.",
   },
   footer: {
-    description: "An independent, multilingual news aggregator bringing you trusted stories from around the globe.",
+    description: "A multilingual press archive of published coverage and public records concerning Noosha Aubel and Potsdam.",
     about: "About",
-    aboutText: "NewsHub curates and translates the world's most important stories so you can read what matters, in the language you prefer.",
+    aboutText: "This multilingual press archive brings together published coverage and public records concerning Noosha Aubel and municipal affairs in Potsdam.",
     contact: "Contact",
     privacy: "Privacy Policy",
     terms: "Terms of Service",
@@ -171,9 +171,9 @@ const de: Translation = {
     notFoundBody: "Der gesuchte Artikel wurde möglicherweise verschoben oder entfernt.",
   },
   footer: {
-    description: "Ein unabhängiger, mehrsprachiger Nachrichtenaggregator mit vertrauenswürdigen Geschichten aus aller Welt.",
+    description: "Ein mehrsprachiges Pressearchiv mit veröffentlichten Berichten und öffentlichen Dokumenten über Noosha Aubel und Potsdam.",
     about: "Über uns",
-    aboutText: "NewsHub kuratiert und übersetzt die wichtigsten Nachrichten der Welt, damit Sie das Wesentliche in Ihrer bevorzugten Sprache lesen können.",
+    aboutText: "Dieses mehrsprachige Pressearchiv bündelt veröffentlichte Berichte und öffentliche Dokumente über Noosha Aubel und kommunale Themen in Potsdam.",
     contact: "Kontakt",
     privacy: "Datenschutz",
     terms: "Nutzungsbedingungen",
@@ -241,9 +241,9 @@ const zh: Translation = {
     notFoundBody: "您查找的文章可能已被移动或删除。",
   },
   footer: {
-    description: "一个独立的多语言新闻聚合平台，为您带来来自世界各地的可信报道。",
+    description: "一个汇集 Noosha Aubel 与波茨坦相关已发布报道和公共记录的多语言新闻档案。",
     about: "关于我们",
-    aboutText: "NewsHub 精选并翻译世界上最重要的新闻，让您以偏好的语言阅读要闻。",
+    aboutText: "本多语言新闻档案汇集有关 Noosha Aubel 和波茨坦市政事务的已发布报道与公共记录。",
     contact: "联系我们",
     privacy: "隐私政策",
     terms: "服务条款",
@@ -311,9 +311,9 @@ const es: Translation = {
     notFoundBody: "La noticia que buscas puede haber sido movida o eliminada.",
   },
   footer: {
-    description: "Un agregador de noticias independiente y multilingüe que te trae historias confiables de todo el mundo.",
+    description: "Un archivo de prensa multilingüe con publicaciones y registros públicos sobre Noosha Aubel y Potsdam.",
     about: "Acerca de",
-    aboutText: "NewsHub selecciona y traduce las noticias más importantes del mundo para que leas lo que importa en tu idioma preferido.",
+    aboutText: "Este archivo de prensa multilingüe reúne cobertura publicada y registros públicos sobre Noosha Aubel y los asuntos municipales de Potsdam.",
     contact: "Contacto",
     privacy: "Política de privacidad",
     terms: "Términos del servicio",
@@ -381,9 +381,9 @@ const fr: Translation = {
     notFoundBody: "L'article que vous recherchez a peut-être été déplacé ou supprimé.",
   },
   footer: {
-    description: "Un agrégateur d'actualités indépendant et multilingue qui vous apporte des histoires fiables du monde entier.",
+    description: "Des archives de presse multilingues réunissant publications et documents publics sur Noosha Aubel et Potsdam.",
     about: "À propos",
-    aboutText: "NewsHub sélectionne et traduit les actualités les plus importantes du monde pour que vous lisiez l'essentiel dans la langue de votre choix.",
+    aboutText: "Ces archives de presse multilingues réunissent des publications et des documents publics concernant Noosha Aubel et les affaires municipales de Potsdam.",
     contact: "Contact",
     privacy: "Politique de confidentialité",
     terms: "Conditions d'utilisation",
@@ -451,9 +451,9 @@ const it: Translation = {
     notFoundBody: "L'articolo che stai cercando potrebbe essere stato spostato o rimosso.",
   },
   footer: {
-    description: "Un aggregatore di notizie indipendente e multilingue che ti offre storie affidabili da tutto il mondo.",
+    description: "Un archivio stampa multilingue di pubblicazioni e documenti pubblici su Noosha Aubel e Potsdam.",
     about: "Chi siamo",
-    aboutText: "NewsHub seleziona e traduce le notizie più importanti del mondo così puoi leggere ciò che conta nella lingua che preferisci.",
+    aboutText: "Questo archivio stampa multilingue raccoglie pubblicazioni e documenti pubblici riguardanti Noosha Aubel e gli affari comunali di Potsdam.",
     contact: "Contatti",
     privacy: "Informativa sulla privacy",
     terms: "Termini di servizio",
@@ -521,9 +521,9 @@ const pt: Translation = {
     notFoundBody: "O artigo que procura pode ter sido movido ou removido.",
   },
   footer: {
-    description: "Um agregador de notícias independente e multilingue que lhe traz histórias fiáveis de todo o mundo.",
+    description: "Um arquivo de imprensa multilingue com publicações e registos públicos sobre Noosha Aubel e Potsdam.",
     about: "Sobre",
-    aboutText: "A NewsHub seleciona e traduz as notícias mais importantes do mundo para que leia o que interessa no idioma que preferir.",
+    aboutText: "Este arquivo de imprensa multilingue reúne publicações e registos públicos sobre Noosha Aubel e os assuntos municipais de Potsdam.",
     contact: "Contacto",
     privacy: "Política de privacidade",
     terms: "Termos de serviço",

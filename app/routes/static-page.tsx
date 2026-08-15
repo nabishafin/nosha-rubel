@@ -2,14 +2,13 @@ import { isRouteErrorResponse, Link, useParams } from "react-router";
 import { isLanguageCode, DEFAULT_LANGUAGE } from "~/lib/languages";
 import { getTranslation, type Translation } from "~/lib/i18n";
 import { getOrigin } from "~/lib/http";
-import { buildMeta, SITE_NAME, SOCIAL_PREVIEW_IMAGE } from "~/lib/seo";
+import { buildMeta, localizedAlternates, SOCIAL_PREVIEW_IMAGE, staticPageJsonLd } from "~/lib/seo";
 import { localePath } from "~/lib/i18n-context";
+import { SITE_CONTACT_EMAIL, SITE_NAME } from "~/lib/site-identity";
+import { isStaticPage, staticPageLanguages, type StaticPage } from "~/lib/static-pages";
 import { Container } from "~/components/Container";
 import { EditorialStatementContent } from "~/components/EditorialStatementContent";
 import type { Route } from "./+types/static-page";
-
-const PAGES = ["about", "contact", "privacy", "terms", "editorial-statement"] as const;
-type StaticPage = (typeof PAGES)[number];
 
 function pageContent(page: StaticPage, t: Translation): { title: string; paragraphs: string[] } {
   switch (page) {
@@ -26,16 +25,16 @@ function pageContent(page: StaticPage, t: Translation): { title: string; paragra
       return {
         title: t.footer.contact,
         paragraphs: [
-          "Dhaka News Times / HRD Media",
+          SITE_NAME,
           "Address: 28/A Toyenbee Circular Road, Dhaka-1000 & 9/A, HRC Bhaban, 45 Kawran Bazar, Dhaka-1217",
-          "Telephone: +880 1812-345678 · Email: DhakaNewsTimes@Proton.me",
+          `Telephone: +880 1812-345678 · Email: ${SITE_CONTACT_EMAIL}`,
         ],
       };
     case "privacy":
       return {
         title: t.footer.privacy,
         paragraphs: [
-          "The publisher complies with applicable data protection legislation including Bangladesh Personal Data Protection Act 2026 and Icelandic Data Protection Act No. 90/2018 (GDPR).",
+          "This website is intended to minimize personal-data collection and use personal information only for clearly stated purposes.",
           t.footer.description,
         ],
       };
@@ -43,15 +42,11 @@ function pageContent(page: StaticPage, t: Translation): { title: string; paragra
       return {
         title: t.footer.terms,
         paragraphs: [
-          "Dhaka News Times Editorial Terms & Press Guidelines.",
+          `${SITE_NAME} editorial terms and source-archive guidelines.`,
           t.footer.description,
         ],
       };
   }
-}
-
-function isStaticPage(value: unknown): value is StaticPage {
-  return typeof value === "string" && (PAGES as readonly string[]).includes(value);
 }
 
 export function loader({ params, request }: Route.LoaderArgs) {
@@ -66,13 +61,30 @@ export function meta({ loaderData }: Route.MetaArgs) {
   const { lang, page, origin } = loaderData;
   const t = getTranslation(lang);
   const { title, paragraphs } = pageContent(page, t);
-  return buildMeta({
+  const translatedLanguages = staticPageLanguages(page);
+  const indexable = translatedLanguages.includes(lang);
+  const canonical = `${origin}${localePath(lang, page)}`;
+  const metadata = buildMeta({
     title: `${title} — ${SITE_NAME}`,
     description: paragraphs[0],
-    canonical: `${origin}${localePath(lang, page)}`,
+    canonical,
     image: SOCIAL_PREVIEW_IMAGE,
     lang,
+    robots: indexable ? undefined : "noindex, follow",
+    alternates: indexable ? localizedAlternates(origin, page, translatedLanguages) : undefined,
   });
+  if (indexable) {
+    metadata.push({
+      "script:ld+json": staticPageJsonLd({
+        origin,
+        canonical,
+        lang,
+        title,
+        description: paragraphs[0],
+      }),
+    });
+  }
+  return metadata;
 }
 
 export default function StaticPageRoute({ loaderData }: Route.ComponentProps) {

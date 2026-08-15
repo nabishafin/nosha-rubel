@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { LANGUAGE_LIST } from "~/lib/languages";
 import { useI18n, localePath } from "~/lib/i18n-context";
+import { SITE_CONTACT_EMAIL, SITE_NAME, SITE_PRODUCT_LABEL } from "~/lib/site-identity";
 import { Container } from "./Container";
 import { EditorialStatementContent } from "./EditorialStatementContent";
 
@@ -18,7 +19,7 @@ export function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <Link to={localePath(lang)} className="flex items-center gap-2">
               <span className="text-xl font-extrabold tracking-tight text-gray-900">
-                Dhaka News Times <span className="text-xs font-semibold text-blue-600">/ HRD Media</span>
+                {SITE_NAME} <span className="text-xs font-semibold text-blue-600">/ Press Dossier</span>
               </span>
             </Link>
             <p className="max-w-sm text-sm leading-relaxed text-gray-600">{t.footer.description}</p>
@@ -26,22 +27,22 @@ export function Footer() {
             {/* Official Publisher & Press Legal Imprint Box */}
             <div className="rounded-xl border border-gray-200 bg-white p-4 text-xs space-y-2 text-gray-700 shadow-xs">
               <div className="flex items-center justify-between border-b border-gray-100 pb-2">
-                <span className="font-bold text-gray-900 uppercase tracking-wider text-[11px]">Publisher Imprint</span>
-                <span className="rounded bg-blue-50 px-1.5 py-0.5 text-[10px] font-bold text-blue-700">Official Press</span>
+                <span className="font-bold text-gray-900 uppercase tracking-wider text-[11px]">Site Information</span>
+                <span className="rounded bg-blue-50 px-1.5 py-0.5 text-[10px] font-bold text-blue-700">Independent Archive</span>
               </div>
               <p>
-                <strong>Editor-in-Chief:</strong> Imran Tabassum
+                <strong>Site:</strong> {SITE_NAME}
                 <br />
-                <strong>Published by:</strong> Haroonur Rashid at Dhaka News Times Press
+                <strong>Purpose:</strong> {SITE_PRODUCT_LABEL}
                 <br />
-                <strong>Press Address:</strong> 28/A Toyenbee Circular Road, Dhaka-1000
+                <strong>Contact address:</strong> 28/A Toyenbee Circular Road, Dhaka-1000
                 <br />
-                <strong>On behalf of:</strong> HRD Media, 9/A, HRC Bhaban, 45 Kawran Bazar, Dhaka-1217
+                <strong>Additional address:</strong> 9/A, HRC Bhaban, 45 Kawran Bazar, Dhaka-1217
               </p>
               <p className="text-gray-500 pt-1">
                 <strong>Tel:</strong> +880 1812-345678 | <strong>Email:</strong>{" "}
-                <a href="mailto:DhakaNewsTimes@Proton.me" className="text-blue-600 font-semibold hover:underline">
-                  DhakaNewsTimes@Proton.me
+                <a href={`mailto:${SITE_CONTACT_EMAIL}`} className="text-blue-600 font-semibold hover:underline">
+                  {SITE_CONTACT_EMAIL}
                 </a>
               </p>
             </div>
@@ -78,7 +79,7 @@ export function Footer() {
                 <li key={info.code}>
                   <Link
                     to={localePath(info.code)}
-                    hrefLang={info.code}
+                    hrefLang={info.hreflang}
                     className="flex items-center gap-2 text-sm text-gray-600 transition hover:text-blue-700"
                   >
                     <span aria-hidden="true">{info.flag}</span>
@@ -124,7 +125,7 @@ export function Footer() {
 
         <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-gray-200 pt-6 text-sm text-gray-500 sm:flex-row">
           <p>
-            © {year} Dhaka News Times / HRD Media. {t.footer.rights}
+            © {year} {SITE_NAME}. {t.footer.rights}
           </p>
           <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <Link to={localePath(lang, "editorial-statement")} className="font-semibold text-blue-600 hover:text-blue-800">

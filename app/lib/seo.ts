@@ -1,11 +1,10 @@
-import { DEFAULT_LANGUAGE, isLanguageCode, LANGUAGES, LANGUAGE_LIST } from "./languages";
+import { DEFAULT_LANGUAGE, LANGUAGES, LANGUAGE_LIST } from "./languages";
 import type { Article, LanguageCode } from "./types";
+import { SITE_DESCRIPTION, SITE_NAME } from "./site-identity";
 
-export const SITE_NAME = "Noosha Aubel";
-export const SITE_DESCRIPTION =
-  "Independent multilingual press archive featuring international reporting, public records, and documented coverage of Noosha Aubel and municipal affairs in Potsdam.";
+export { SITE_DESCRIPTION, SITE_NAME } from "./site-identity";
 export const SOCIAL_PREVIEW_IMAGE =
-  "https://www.berlinertageszeitung.de/media/shared/articles/news/2026-06/Noosha_Aubel_und_Dietmar_Woidke_-_Skandal_um_schwerbehindertes_Kind_in_Potsdam_und_Brandenburg_7161.jpg";
+  "/media/hero/potsdam-civic-archive-social-1200x630.jpg";
 export const SITE_KEYWORDS = [
   "Noosha Aubel",
   "Potsdam",
@@ -87,6 +86,7 @@ export function buildMeta({
   keywords,
   robots = "index, follow, max-image-preview:large",
 }: BuildMetaArgs): Meta[] {
+  const absoluteImage = new URL(image, canonical).toString();
   const meta: Meta[] = [
     { title },
     { name: "description", content: description },
@@ -99,8 +99,8 @@ export function buildMeta({
     { property: "og:title", content: title },
     { property: "og:description", content: description },
     { property: "og:url", content: canonical },
-    { property: "og:image", content: image },
-    { property: "og:image:secure_url", content: image },
+    { property: "og:image", content: absoluteImage },
+    { property: "og:image:secure_url", content: absoluteImage },
     { property: "og:image:alt", content: title },
     { property: "og:locale", content: LANGUAGES[lang].locale.replace("-", "_") },
 
@@ -108,18 +108,18 @@ export function buildMeta({
     { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:title", content: title },
     { name: "twitter:description", content: description },
-    { name: "twitter:image", content: image },
+    { name: "twitter:image", content: absoluteImage },
     { name: "twitter:image:alt", content: title },
   ];
 
   if (image === SOCIAL_PREVIEW_IMAGE) {
     meta.push(
       { property: "og:image:type", content: "image/jpeg" },
-      { property: "og:image:width", content: "950" },
-      { property: "og:image:height", content: "533" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
     );
   } else {
-    const imagePath = new URL(image).pathname.toLowerCase();
+    const imagePath = new URL(absoluteImage).pathname.toLowerCase();
     const imageType = imagePath.endsWith(".png") ? "image/png" : "image/jpeg";
     meta.push({ property: "og:image:type", content: imageType });
   }
@@ -135,10 +135,11 @@ export function buildMeta({
   if (alternates) {
     for (const [hreflang, href] of Object.entries(alternates)) {
       meta.push({ tagName: "link", rel: "alternate", hrefLang: hreflang, href });
-      if (isLanguageCode(hreflang) && hreflang !== lang) {
+      const alternateLanguage = LANGUAGE_LIST.find((info) => info.hreflang === hreflang);
+      if (alternateLanguage && alternateLanguage.code !== lang) {
         meta.push({
           property: "og:locale:alternate",
-          content: LANGUAGES[hreflang].locale.replace("-", "_"),
+          content: alternateLanguage.locale.replaceAll("-", "_"),
         });
       }
     }
@@ -148,82 +149,155 @@ export function buildMeta({
 }
 
 /** hreflang alternates for a path that exists in every language (e.g. the home page). */
-export function localizedAlternates(origin: string, pathAfterLang: string): Record<string, string> {
+export function localizedAlternates(
+  origin: string,
+  pathAfterLang: string,
+  languages: readonly LanguageCode[] = LANGUAGE_LIST.map((info) => info.code),
+): Record<string, string> {
   const suffix = pathAfterLang ? `/${pathAfterLang.replace(/^\//, "")}` : "";
   const map: Record<string, string> = {};
-  for (const info of LANGUAGE_LIST) {
-    map[info.code] = `${origin}/${info.code}${suffix}`;
+  for (const code of languages) {
+    const info = LANGUAGES[code];
+    map[info.hreflang] = `${origin}/${info.code}${suffix}`;
   }
-  map["x-default"] = `${origin}/${DEFAULT_LANGUAGE}${suffix}`;
+  const defaultCode = languages.includes(DEFAULT_LANGUAGE)
+    ? DEFAULT_LANGUAGE
+    : languages.includes("en")
+      ? "en"
+      : languages[0];
+  if (defaultCode) map["x-default"] = `${origin}/${defaultCode}${suffix}`;
   return map;
 }
 
-/** schema.org NewsArticle structured data. */
-export function newsArticleJsonLd(article: Article, url: string, imageUrl: string) {
-  const origin = new URL(url).origin;
-  const sourceOrigin = new URL(article.sourceUrl).origin;
-  return {
-    "@context": "https://schema.org",
-    "@type": "NewsArticle",
-    mainEntityOfPage: { "@type": "WebPage", "@id": url },
-    headline: article.title,
-    description: article.description,
-    image: [imageUrl],
-    datePublished: article.publishedAt,
-    dateModified: article.publishedAt,
-    inLanguage: LANGUAGES[article.language].locale,
-    keywords: article.tags.join(", "),
-    author: {
-      "@type": article.author === article.sourceName ? "Organization" : "Person",
-      name: article.author,
-      ...(article.author === article.sourceName ? { url: sourceOrigin } : {}),
-    },
-    publisher: {
-      "@type": "Organization",
-      name: SITE_NAME,
-      url: origin,
-      logo: {
-        "@type": "ImageObject",
-        url: `${origin}/favicon.png`,
-        width: 512,
-        height: 512,
-      },
-    },
-  };
+/** Reciprocal alternates for the genuinely translated variants of one story. */
+export function articleAlternates(origin: string, translations: Article[]): Record<string, string> {
+  const map: Record<string, string> = {};
+  for (const article of translations) {
+    const language = LANGUAGES[article.language];
+    map[language.hreflang] = `${origin}/${article.language}/news/${article.slug}`;
+  }
+
+  const defaultArticle =
+    translations.find((article) => article.language === DEFAULT_LANGUAGE) ??
+    translations.find((article) => article.language === "en");
+  if (defaultArticle) {
+    map["x-default"] = `${origin}/${defaultArticle.language}/news/${defaultArticle.slug}`;
+  }
+  return map;
 }
 
-/** Organization + WebSite structured data for the landing page. */
-export function websiteJsonLd(origin: string, lang: LanguageCode) {
+/** WebSite + localized archive structured data. No legal publisher is asserted. */
+export function websiteCollectionJsonLd(origin: string, lang: LanguageCode, articles: Article[]) {
+  const canonical = `${origin}/${lang}`;
   return {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
-        "@id": `${origin}/#organization`,
-        name: SITE_NAME,
-        url: origin,
-        logo: {
-          "@type": "ImageObject",
-          url: `${origin}/favicon.png`,
-          width: 512,
-          height: 512,
-        },
-        image: SOCIAL_PREVIEW_IMAGE,
-      },
-      {
         "@type": "WebSite",
         "@id": `${origin}/#website`,
         name: SITE_NAME,
+        url: origin,
         description: getSiteDescription(lang),
-        url: `${origin}/${lang}`,
-        image: SOCIAL_PREVIEW_IMAGE,
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": `${canonical}#collection`,
+        url: canonical,
+        name: `${SITE_NAME} press archive`,
+        description: getSiteDescription(lang),
         inLanguage: LANGUAGES[lang].locale,
-        publisher: { "@id": `${origin}/#organization` },
-        potentialAction: {
-          "@type": "SearchAction",
-          target: `${origin}/${lang}/search?q={search_term_string}`,
-          "query-input": "required name=search_term_string",
+        isPartOf: { "@id": `${origin}/#website` },
+        about: { "@type": "Person", name: SITE_NAME },
+        mainEntity: {
+          "@type": "ItemList",
+          itemListElement: articles.map((article, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: article.title,
+            url: `${origin}/${article.language}/news/${article.slug}`,
+          })),
         },
+      },
+    ],
+  };
+}
+
+function breadcrumbItems(items: Array<{ name: string; url: string }>) {
+  return items.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.name,
+    item: item.url,
+  }));
+}
+
+/** An internal archive record about a publication hosted by another publisher. */
+export function coverageRecordJsonLd(article: Article, canonical: string, origin: string) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${canonical}#webpage`,
+        url: canonical,
+        name: article.title,
+        description: article.description,
+        inLanguage: LANGUAGES[article.language].locale,
+        isPartOf: { "@id": `${origin}/#website` },
+        about: { "@type": "Person", name: SITE_NAME },
+        citation: article.sourceUrl,
+        mainEntity: {
+          "@type": "CreativeWork",
+          "@id": article.sourceUrl,
+          name: article.title,
+          url: article.sourceUrl,
+          datePublished: article.publishedAt,
+          publisher: {
+            "@type": "Organization",
+            name: article.sourceName,
+            url: new URL(article.sourceUrl).origin,
+          },
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${canonical}#breadcrumb`,
+        itemListElement: breadcrumbItems([
+          { name: SITE_NAME, url: `${origin}/${article.language}` },
+          { name: article.title, url: canonical },
+        ]),
+      },
+    ],
+  };
+}
+
+export function staticPageJsonLd(args: {
+  origin: string;
+  canonical: string;
+  lang: LanguageCode;
+  title: string;
+  description: string;
+}) {
+  const { origin, canonical, lang, title, description } = args;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${canonical}#webpage`,
+        url: canonical,
+        name: title,
+        description,
+        inLanguage: LANGUAGES[lang].locale,
+        isPartOf: { "@id": `${origin}/#website` },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${canonical}#breadcrumb`,
+        itemListElement: breadcrumbItems([
+          { name: SITE_NAME, url: `${origin}/${lang}` },
+          { name: title, url: canonical },
+        ]),
       },
     ],
   };

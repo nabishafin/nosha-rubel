@@ -13,7 +13,10 @@ import type { Route } from "./+types/search";
 export function loader({ params, request }: Route.LoaderArgs) {
   const lang = isLanguageCode(params.lang) ? params.lang : DEFAULT_LANGUAGE;
   const url = new URL(request.url);
-  const query = url.searchParams.get("q")?.trim() ?? "";
+  const query = (url.searchParams.get("q") ?? "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 160);
   const origin = getOrigin(request);
 
   return {
@@ -21,6 +24,13 @@ export function loader({ params, request }: Route.LoaderArgs) {
     origin,
     query,
     results: query ? searchArticles(lang, query) : [],
+  };
+}
+
+export function headers() {
+  return {
+    "X-Robots-Tag": "noindex, follow",
+    "Cache-Control": "private, no-store",
   };
 }
 

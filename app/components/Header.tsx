@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useI18n, localePath } from "~/lib/i18n-context";
+import { SITE_NAME } from "~/lib/site-identity";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Container } from "./Container";
 
@@ -28,7 +29,7 @@ export function Header() {
           <Link to={localePath(lang)} className="group flex shrink-0 items-center gap-3">
            
             <span className="text-2xl font-black tracking-tight text-red-800">
-              Noosha Aubel<span className="text-blue-600"></span>
+              {SITE_NAME}<span className="text-blue-600"></span>
             </span>
           </Link>
 

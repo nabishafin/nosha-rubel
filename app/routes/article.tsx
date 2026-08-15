@@ -3,9 +3,10 @@ import { isLanguageCode, DEFAULT_LANGUAGE } from "~/lib/languages";
 import { getTranslation } from "~/lib/i18n";
 import { getArticleBySlug, getRelated, getTranslations } from "~/lib/news";
 import { getOrigin } from "~/lib/http";
-import { buildMeta, newsArticleJsonLd, withSiteName } from "~/lib/seo";
-import { formatDate, formatViews, readingTime } from "~/lib/format";
+import { articleAlternates, buildMeta, coverageRecordJsonLd, SOCIAL_PREVIEW_IMAGE, withSiteName } from "~/lib/seo";
+import { formatDate, readingTime } from "~/lib/format";
 import { localePath } from "~/lib/i18n-context";
+import { SITE_CONTACT_EMAIL } from "~/lib/site-identity";
 
 import { Container } from "~/components/Container";
 import { Section } from "~/components/Section";
@@ -26,14 +27,7 @@ export function loader({ params, request }: Route.LoaderArgs) {
 
   // hreflang alternates: point each language at its own version of this story.
   const translations = getTranslations(article);
-  const alternates: Record<string, string> = {};
-  for (const alt of translations) {
-    alternates[alt.language] = `${origin}${localePath(alt.language, `news/${alt.slug}`)}`;
-  }
-  const defaultAlt =
-    translations.find((a) => a.language === DEFAULT_LANGUAGE) ??
-    translations.find((a) => a.language === "en");
-  if (defaultAlt) alternates["x-default"] = `${origin}${localePath(defaultAlt.language, `news/${defaultAlt.slug}`)}`;
+  const alternates = translations.length > 1 ? articleAlternates(origin, translations) : undefined;
 
   return {
     lang,
@@ -47,22 +41,18 @@ export function loader({ params, request }: Route.LoaderArgs) {
 
 export function meta({ loaderData }: Route.MetaArgs) {
   if (!loaderData) return [];
-  const { article, canonical, lang, alternates } = loaderData;
+  const { article, canonical, lang, alternates, origin } = loaderData;
   return [
     ...buildMeta({
       title: withSiteName(article.title),
       description: article.description,
       canonical,
-      image: article.image,
+      image: SOCIAL_PREVIEW_IMAGE,
       lang,
-      type: "article",
-      publishedAt: article.publishedAt,
-      tags: article.tags,
       keywords: article.tags,
       alternates,
     }),
-    { "script:ld+json": newsArticleJsonLd(article, canonical, article.image) },
-    { name: "author", content: article.author },
+    { "script:ld+json": coverageRecordJsonLd(article, canonical, origin) },
   ];
 }
 
@@ -76,19 +66,22 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
       {/* Article header */}
       <Container className="pt-8">
         <div className="mx-auto max-w-3xl">
+          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-gray-500">
+            <Link to={localePath(lang)} className="hover:text-gray-800">{t.nav.home}</Link>
+            <span aria-hidden="true"> / </span>
+            <span>{t.article.source}</span>
+          </nav>
           <h1 className="text-3xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-4xl">
             {article.title}
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-gray-600">{article.description}</p>
 
           <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 border-y border-gray-100 py-4 text-sm text-gray-500">
-            <span className="font-semibold text-gray-800">{article.author}</span>
+            <span className="font-semibold text-gray-800">{t.article.source}: {article.sourceName}</span>
             <span aria-hidden="true">·</span>
             <time dateTime={article.publishedAt}>{formatDate(article.publishedAt, lang)}</time>
             <span aria-hidden="true">·</span>
             <span>{mins} {t.article.minRead}</span>
-            <span aria-hidden="true">·</span>
-            <span>{formatViews(article.views, lang)} {t.article.views}</span>
           </div>
         </div>
       </Container>
@@ -103,6 +96,8 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
             eager
             className="rounded-lg"
             sizes="(max-width: 896px) 100vw, 896px"
+            width={950}
+            height={534}
           />
         </div>
       </Container>
@@ -110,6 +105,9 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
       {/* Body */}
       <Container className="mt-10">
         <div className="mx-auto max-w-3xl">
+          <div lang="en" className="mb-7 rounded-lg border border-blue-100 bg-blue-50 p-5 text-sm leading-relaxed text-blue-950">
+            This is an independent coverage record summarizing a publication from {article.sourceName}. The original publisher remains responsible for the source article.
+          </div>
           <div className="space-y-5 text-lg leading-relaxed text-gray-800">
             {article.content.map((para, i) => (
               <p key={i}>{para}</p>
@@ -122,7 +120,7 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
             <a
               href={article.sourceUrl}
               target="_blank"
-              rel="noreferrer nofollow"
+              rel="noopener noreferrer"
               className="mt-1 inline-flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-800"
             >
               {article.sourceName}
@@ -130,6 +128,13 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
                 <path d="M7 17L17 7M9 7h8v8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
+          </div>
+
+          <div lang="en" className="mt-5 rounded-lg border border-gray-200 bg-white p-5 text-sm leading-relaxed text-gray-600">
+            Corrections or source updates can be reported to{" "}
+            <a href={`mailto:${SITE_CONTACT_EMAIL}`} className="font-semibold text-blue-600 hover:text-blue-800">
+              {SITE_CONTACT_EMAIL}
+            </a>.
           </div>
 
           {/* Tags */}

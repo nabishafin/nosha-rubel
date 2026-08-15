@@ -1,3 +1,5 @@
+import { SITE_CONTACT_EMAIL, SITE_NAME, SITE_PRODUCT_LABEL } from "~/lib/site-identity";
+
 export function EditorialStatementContent() {
   return (
     <div className="space-y-8 text-sm leading-relaxed text-gray-700">
@@ -6,27 +8,27 @@ export function EditorialStatementContent() {
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200/80 pb-4">
           <div>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-100 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-blue-800">
-              Official Legal Publication
+              Editorial Information
             </span>
             <h2 className="mt-2 text-xl font-extrabold tracking-tight text-gray-900 sm:text-2xl">
-              Dhaka News Times
+              {SITE_NAME}
             </h2>
             <p className="text-xs font-semibold text-gray-500">
-              Editor-in-Chief: Imran Tabassum
+              {SITE_PRODUCT_LABEL}
             </p>
           </div>
           <div className="text-right text-xs text-gray-600">
-            <p className="font-bold text-gray-900">Date of Legal Review</p>
+            <p className="font-bold text-gray-900">Statement Date</p>
             <p className="font-semibold text-blue-700">12 July 2026</p>
           </div>
         </div>
 
         <div className="mt-4 grid gap-6 sm:grid-cols-2 text-xs leading-relaxed text-gray-700">
           <div>
-            <p className="font-bold text-gray-900 uppercase tracking-wider">Press & Publishing Address</p>
-            <p className="mt-1 font-medium">Published by Haroonur Rashid at:</p>
+            <p className="font-bold text-gray-900 uppercase tracking-wider">Contact Address</p>
+            <p className="mt-1 font-medium">Correspondence address:</p>
             <p className="text-gray-800">
-              <strong>Dhaka News Times Press</strong>
+              <strong>{SITE_NAME}</strong>
               <br />
               28/A Toyenbee Circular Road, Dhaka-1000
               <br />
@@ -34,8 +36,8 @@ export function EditorialStatementContent() {
             </p>
           </div>
           <div>
-            <p className="font-bold text-gray-900 uppercase tracking-wider">Published On Behalf Of</p>
-            <p className="mt-1 font-medium">HRD Media</p>
+            <p className="font-bold text-gray-900 uppercase tracking-wider">Additional Contact</p>
+            <p className="mt-1 font-medium">Site correspondence</p>
             <p className="text-gray-800">
               9/A, HRC Bhaban, 45 Kawran Bazar
               <br />
@@ -45,8 +47,8 @@ export function EditorialStatementContent() {
               <strong>Telephone:</strong> +880 1812-345678
               <br />
               <strong>Email:</strong>{" "}
-              <a href="mailto:DhakaNewsTimes@Proton.me" className="font-semibold text-blue-600 underline">
-                DhakaNewsTimes@Proton.me
+              <a href={`mailto:${SITE_CONTACT_EMAIL}`} className="font-semibold text-blue-600 underline">
+                {SITE_CONTACT_EMAIL}
               </a>
             </p>
           </div>
@@ -68,7 +70,7 @@ export function EditorialStatementContent() {
       <section className="space-y-2">
         <h4 className="text-base font-bold text-gray-900">1. Identity and Editorial Responsibility</h4>
         <p>
-          The ‘Dhaka News Times’ is presented as an editorial publication operated on behalf of HRD Media. Its stated aim is to collect, review, analyse and explain information, opinions and documentary material on international issues of legitimate public interest, and to disseminate information, opinions and documentary material on issues of legitimate public interest.
+          This website is presented as an independent multilingual press dossier. Its stated aim is to collect, review and contextualise published coverage and documentary material concerning matters of legitimate public interest.
         </p>
         <p>
           The editor is responsible for establishing and monitoring editorial standards, including procedures for fact-checking, legal review, corrections, right of reply, source protection, data protection checks, and distinguishing between factual reporting, assertions, analyses, opinions, commentary, satire and advertising.
@@ -82,7 +84,7 @@ export function EditorialStatementContent() {
       <section className="space-y-2">
         <h4 className="text-base font-bold text-gray-900">2. Scope of This Statement</h4>
         <p>
-          This statement applies to all editorial services over which Dhaka News Times or HRD Media exercises effective editorial control, including:
+          This statement applies only to services over which this website exercises effective editorial control, including:
         </p>
         <ul className="list-disc pl-5 space-y-1 text-gray-600">
           <li>websites, domains and subdomains;</li>
@@ -98,7 +100,7 @@ export function EditorialStatementContent() {
           <li>technically replicated copies or copies intended for disaster recovery that are controlled by the publisher.</li>
         </ul>
         <p className="text-xs italic text-gray-500">
-          This statement does not automatically apply to an independent third party merely because they link to, quote from, archive, embed, republish or comment on material from the ‘Dhaka News Times’.
+          This statement does not automatically apply to an independent third party merely because it links to, is quoted by, archived by, embedded by or discussed on this website.
         </p>
       </section>
 
@@ -165,14 +167,14 @@ export function EditorialStatementContent() {
         <div>
           <h5 className="font-bold text-gray-900">6. Constitutional Protection of Freedom of Expression</h5>
           <p>
-            The ‘Dhaka News Times’ recognises the constitutional significance of freedom of thought, conscience, speech, expression and the press in the People’s Republic of Bangladesh. Article 39 of the Constitution guarantees freedom of thought and conscience and protects freedom of speech, expression and the press.
+            This website recognises the constitutional significance of freedom of thought, conscience, speech, expression and the press in the People’s Republic of Bangladesh. Article 39 of the Constitution guarantees freedom of thought and conscience and protects freedom of speech, expression and the press.
           </p>
         </div>
 
         <div>
           <h5 className="font-bold text-gray-900">7. Press Council Act of 1974</h5>
           <p>
-            The publisher recognises the Press Council Act of 1974. Section 11 states that the purpose of the Press Council is to safeguard freedom of the press and maintain standards. The ‘Dhaka News Times’ regards press freedom and responsibility as interlinked, committed to accuracy, fairness, accountability, and effective corrections.
+            The publisher recognises the Press Council Act of 1974. Section 11 states that the purpose of the Press Council is to safeguard freedom of the press and maintain standards. This website regards press freedom and responsibility as interlinked, with commitments to accuracy, fairness, accountability and effective corrections.
           </p>
         </div>
 
@@ -273,7 +275,7 @@ export function EditorialStatementContent() {
         <div>
           <h5 className="font-bold text-gray-900">24. Policy on Corrections & Right of Reply Procedure</h5>
           <p>
-            The “Dhaka News Times” will correct any material factual errors promptly and proportionately. Any person who considers that a publication contains a factually incorrect statement about them may submit a request in person or via email:
+            This website will correct material factual errors promptly and proportionately. Any person who considers that a publication contains a factually incorrect statement about them may submit a request in person or via email:
           </p>
           <div className="mt-2 rounded-lg border border-gray-200 bg-white p-3 text-xs">
             <p className="font-bold text-gray-900">Right of Reply Submission Channel:</p>
@@ -300,7 +302,7 @@ export function EditorialStatementContent() {
           <strong>27-29. Source Protection & Minimisation:</strong> Confidential source agreements require editor approval. Private addresses, phone numbers, bank details, medical records, or whereabouts are strictly protected under data minimisation rules. Technical and organisational measures safeguard unpublished material and personal data.
         </p>
         <p>
-          <strong>30. Final Editorial Commitment:</strong> The “Dhaka News Times” and HRD Media undertake to publish material reasonably believed to be supported by sufficient evidence, proportionate to a legitimate journalistic purpose, and consistent with applicable law. Freedom of expression is accompanied by a duty to accuracy, fairness, transparency, and meaningful rights of reply.
+          <strong>30. Final Editorial Commitment:</strong> This website aims to publish material reasonably believed to be supported by sufficient evidence, proportionate to a legitimate editorial purpose and consistent with applicable law. Freedom of expression is accompanied by a duty to accuracy, fairness, transparency and meaningful rights of reply.
         </p>
       </section>
 
@@ -336,14 +338,14 @@ export function EditorialStatementContent() {
       {/* Closing Publisher Signature */}
       <div className="border-t border-gray-200 pt-6 text-xs text-gray-600 flex flex-wrap justify-between gap-4">
         <div>
-          <p className="font-bold text-gray-900">Dhaka News Times Press</p>
+          <p className="font-bold text-gray-900">{SITE_NAME}</p>
           <p>28/A Toyenbee Circular Road, Dhaka-1000, Bangladesh</p>
-          <p>Editor-in-Chief: Imran Tabassum</p>
+          <p>{SITE_PRODUCT_LABEL}</p>
         </div>
         <div className="text-right">
-          <p className="font-bold text-gray-900">HRD Media</p>
+          <p className="font-bold text-gray-900">Additional contact address</p>
           <p>9/A, HRC Bhaban, 45 Kawran Bazar, Dhaka-1217</p>
-          <p>Tel: +880 1812-345678 | Email: DhakaNewsTimes@Proton.me</p>
+          <p>Tel: +880 1812-345678 | Email: {SITE_CONTACT_EMAIL}</p>
         </div>
       </div>
     </div>

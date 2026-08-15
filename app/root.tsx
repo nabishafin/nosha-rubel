@@ -14,7 +14,6 @@ import {
   SITE_DESCRIPTION,
   SITE_KEYWORDS,
   SITE_NAME,
-  SOCIAL_PREVIEW_IMAGE,
 } from "./lib/seo";
 import "./app.css";
 
@@ -46,17 +45,9 @@ export const meta: Route.MetaFunction = () => [
   { property: "og:type", content: "website" },
   { property: "og:title", content: SITE_NAME },
   { property: "og:description", content: SITE_DESCRIPTION },
-  { property: "og:image", content: SOCIAL_PREVIEW_IMAGE },
-  { property: "og:image:secure_url", content: SOCIAL_PREVIEW_IMAGE },
-  { property: "og:image:type", content: "image/jpeg" },
-  { property: "og:image:width", content: "950" },
-  { property: "og:image:height", content: "533" },
-  { property: "og:image:alt", content: "Noosha Aubel press coverage" },
   { name: "twitter:card", content: "summary_large_image" },
   { name: "twitter:title", content: SITE_NAME },
   { name: "twitter:description", content: SITE_DESCRIPTION },
-  { name: "twitter:image", content: SOCIAL_PREVIEW_IMAGE },
-  { name: "twitter:image:alt", content: "Noosha Aubel press coverage" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -68,7 +59,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const info = LANGUAGES[code];
 
   return (
-    <html lang={code} dir={info.dir}>
+    <html lang={info.locale} dir={info.dir}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

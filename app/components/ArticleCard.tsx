@@ -1,4 +1,5 @@
-import { useI18n } from "~/lib/i18n-context";
+import { Link } from "react-router";
+import { localePath, useI18n } from "~/lib/i18n-context";
 import type { Article } from "~/lib/types";
 import { SmartImage } from "./SmartImage";
 import { ArticleMeta } from "./ArticleMeta";
@@ -15,16 +16,15 @@ interface ArticleCardProps {
 
 export function ArticleCard({ article, variant = "vertical", rank, eager }: ArticleCardProps) {
   const { t } = useI18n();
-  // Cards link out to the original source article, not the internal detail page.
-  const href = article.sourceUrl;
-  const linkProps = { href, target: "_blank" as const, rel: "noreferrer nofollow" };
+  const href = localePath(article.language, `news/${article.slug}`);
+  const linkProps = { to: href };
   const cardTitle = article.title;
   const cardSummary = article.description;
 
   // Compact: text-first row for "Most Read" style lists.
   if (variant === "compact") {
     return (
-      <a
+      <Link
         {...linkProps}
         className="group flex items-start gap-4 border-b border-gray-100 py-4 last:border-0"
       >
@@ -38,16 +38,16 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
             {cardTitle}
           </h3>
           <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-gray-600">{cardSummary}</p>
-          <ArticleMeta article={article} showViews className="mt-1.5" />
+          <ArticleMeta article={article} className="mt-1.5" />
         </div>
-      </a>
+      </Link>
     );
   }
 
   // Horizontal: image beside text — good for sidebars / dense lists.
   if (variant === "horizontal") {
     return (
-      <a {...linkProps} className="group flex gap-4">
+      <Link {...linkProps} className="group flex gap-4">
         <SmartImage
           src={article.image}
           alt={article.title}
@@ -59,16 +59,16 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
             {cardTitle}
           </h3>
           <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-gray-600">{cardSummary}</p>
-          <ArticleMeta article={article} showViews className="mt-1.5" />
+          <ArticleMeta article={article} className="mt-1.5" />
         </div>
-      </a>
+      </Link>
     );
   }
 
   // Overlay: full-bleed image with text on top — used for feature tiles.
   if (variant === "overlay") {
     return (
-      <a {...linkProps} className="group relative block overflow-hidden rounded-lg">
+      <Link {...linkProps} className="group relative block overflow-hidden rounded-lg">
         <SmartImage
           src={article.image}
           alt={article.title}
@@ -80,38 +80,38 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
         <div className="absolute inset-x-0 bottom-0 p-4">
           <h3 className="line-clamp-2 text-lg font-bold leading-snug text-white">{cardTitle}</h3>
           <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-gray-200">{cardSummary}</p>
-          <ArticleMeta article={article} showViews className="mt-2 text-gray-300" />
+          <ArticleMeta article={article} className="mt-2 text-gray-300" />
         </div>
-      </a>
+      </Link>
     );
   }
 
   // Vertical (default): the primary news card.
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white transition hover:border-gray-300 hover:shadow-sm">
-      <a {...linkProps} className="block overflow-hidden">
+      <Link {...linkProps} className="block overflow-hidden">
         <SmartImage
           src={article.image}
           alt={article.title}
           eager={eager}
           className="transition duration-500 group-hover:scale-105"
         />
-      </a>
+      </Link>
       <div className="flex flex-1 flex-col p-4">
-        <a {...linkProps}>
+        <Link {...linkProps}>
           <h3 className="line-clamp-2 text-[17px] font-bold leading-snug text-gray-900 group-hover:text-blue-700">
             {cardTitle}
           </h3>
-        </a>
+        </Link>
         <p className="mt-1.5 line-clamp-2 flex-1 text-sm leading-relaxed text-gray-600">{cardSummary}</p>
         <div className="mt-3 flex items-center justify-between">
-          <ArticleMeta article={article} showViews />
-          <a
+          <ArticleMeta article={article} />
+          <Link
             {...linkProps}
             className="text-sm font-semibold text-blue-600 hover:text-blue-800 group-hover:text-blue-800"
           >
             {t.actions.readMore} →
-          </a>
+          </Link>
         </div>
       </div>
     </article>

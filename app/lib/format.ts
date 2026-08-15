@@ -10,14 +10,6 @@ export function formatDate(iso: string, lang: LanguageCode): string {
   }).format(new Date(iso));
 }
 
-/** Compact view count, e.g. "12.4K". */
-export function formatViews(views: number, lang: LanguageCode): string {
-  return new Intl.NumberFormat(LANGUAGES[lang].locale, {
-    notation: "compact",
-    maximumFractionDigits: 1,
-  }).format(views);
-}
-
 /** Rough reading time from paragraph content (~200 wpm). */
 export function readingTime(content: string[]): number {
   const words = content.join(" ").trim().split(/\s+/).filter(Boolean).length;

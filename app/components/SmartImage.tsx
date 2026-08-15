@@ -9,6 +9,8 @@ interface SmartImageProps {
   /** Skip lazy loading for above-the-fold hero images. */
   eager?: boolean;
   sizes?: string;
+  width?: number;
+  height?: number;
 }
 
 /**
@@ -23,6 +25,8 @@ export function SmartImage({
   aspect = "aspect-[950/756]",
   eager = false,
   sizes,
+  width = 950,
+  height = 756,
 }: SmartImageProps) {
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -43,7 +47,10 @@ export function SmartImage({
         src={src}
         alt={alt}
         sizes={sizes}
+        width={width}
+        height={height}
         loading={eager ? "eager" : "lazy"}
+        fetchPriority={eager ? "high" : "auto"}
         decoding="async"
         onLoad={() => setLoaded(true)}
         onError={() => {

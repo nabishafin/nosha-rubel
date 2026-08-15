@@ -24,3 +24,9 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* Skip layout/paint work for long sections until they approach the viewport. */
+.content-auto-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}

@@ -14,7 +14,7 @@ export function LanguageGrid() {
           <Link
             key={info.code}
             to={localePath(info.code)}
-            hrefLang={info.code}
+            hrefLang={info.hreflang}
             className={`flex flex-col items-center gap-2 rounded-lg border p-3.5 text-center transition ${
               active ? "border-blue-300 bg-blue-50" : "border-gray-200 bg-white hover:border-blue-300 hover:bg-blue-50/40"
             }`}

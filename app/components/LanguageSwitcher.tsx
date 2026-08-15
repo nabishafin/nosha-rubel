@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { LANGUAGES, LANGUAGE_LIST } from "~/lib/languages";
-import { useI18n, localePath } from "~/lib/i18n-context";
+import { useI18n } from "~/lib/i18n-context";
+import { getLocaleSwitchTarget } from "~/lib/locale-routing";
+import { getTranslatedArticleSlug } from "~/lib/news";
 
-/** Dropdown to switch editions. Switching returns to the chosen language's home. */
+/** Dropdown that preserves the current content identity when switching locale. */
 export function LanguageSwitcher() {
   const { lang } = useI18n();
+  const location = useLocation();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const current = LANGUAGES[lang];
@@ -44,8 +47,15 @@ export function LanguageSwitcher() {
             <li key={info.code} role="none">
               <Link
                 role="menuitem"
-                to={localePath(info.code)}
-                hrefLang={info.code}
+                to={getLocaleSwitchTarget({
+                  pathname: location.pathname,
+                  search: location.search,
+                  hash: location.hash,
+                  sourceLang: lang,
+                  targetLang: info.code,
+                  resolveArticleSlug: getTranslatedArticleSlug,
+                })}
+                hrefLang={info.hreflang}
                 onClick={() => setOpen(false)}
                 className={`flex items-center gap-2.5 px-4 py-2.5 text-sm transition hover:bg-blue-50 ${
                   info.code === lang ? "font-semibold text-blue-700" : "font-medium text-gray-700"

@@ -7,7 +7,6 @@ import type { Article, LanguageCode } from "./types";
 
 const byNewest = (a: Article, b: Article) =>
   new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
-const byViews = (a: Article, b: Article) => b.views - a.views;
 
 function inLanguage(lang: LanguageCode): Article[] {
   return ARTICLES.filter((a) => a.language === lang);
@@ -18,31 +17,13 @@ export function getLatest(lang: LanguageCode, limit?: number): Article[] {
   return limit ? list.slice(0, limit) : list;
 }
 
-export function getTotalViews(lang: LanguageCode): number {
-  return inLanguage(lang).reduce((sum, a) => sum + a.views, 0);
-}
-
-export function getTrending(lang: LanguageCode, limit = 6): Article[] {
-  // "Trending" = recent + heavily viewed. Blend recency and views.
-  const now = Date.now();
-  return inLanguage(lang)
-    .map((a) => {
-      const ageDays = (now - new Date(a.publishedAt).getTime()) / 86_400_000;
-      const score = a.views / (1 + ageDays);
-      return { a, score };
-    })
-    .sort((x, y) => y.score - x.score)
-    .slice(0, limit)
-    .map((x) => x.a);
-}
-
-export function getMostRead(lang: LanguageCode, limit = 5): Article[] {
-  return inLanguage(lang).slice().sort(byViews).slice(0, limit);
+export function getSourceCount(lang: LanguageCode): number {
+  return new Set(inLanguage(lang).map((article) => article.sourceName)).size;
 }
 
 export function getFeatured(lang: LanguageCode, limit = 4): Article[] {
   const featured = inLanguage(lang).filter((a) => a.featured).sort(byNewest);
-  const pool = featured.length ? featured : inLanguage(lang).slice().sort(byViews);
+  const pool = featured.length ? featured : inLanguage(lang).slice().sort(byNewest);
   return pool.slice(0, limit);
 }
 
@@ -68,11 +49,30 @@ export function getTranslations(article: Article): Article[] {
   return new Set(languages).size === languages.length ? group : [article];
 }
 
+/** Resolve the translated slug for a stable story group. */
+export function getTranslatedArticleSlug(
+  sourceLang: LanguageCode,
+  sourceSlug: string,
+  targetLang: LanguageCode,
+): string | undefined {
+  const source = getArticleBySlug(sourceLang, sourceSlug);
+  if (!source) return undefined;
+  return getTranslations(source).find((article) => article.language === targetLang)?.slug;
+}
+
 export function getRelated(article: Article, limit = 3): Article[] {
-  const sameLang = inLanguage(article.language).filter((a) => a.id !== article.id);
-  const sameCategory = sameLang.filter((a) => a.category === article.category);
-  const others = sameLang.filter((a) => a.category !== article.category);
-  return [...sameCategory, ...others].slice(0, limit);
+  const articleTags = new Set(article.tags.map((tag) => tag.toLowerCase()));
+  return inLanguage(article.language)
+    .filter((candidate) => candidate.id !== article.id)
+    .map((candidate) => ({
+      candidate,
+      score:
+        (candidate.category === article.category ? 4 : 0) +
+        candidate.tags.filter((tag) => articleTags.has(tag.toLowerCase())).length,
+    }))
+    .sort((left, right) => right.score - left.score || byNewest(left.candidate, right.candidate))
+    .slice(0, limit)
+    .map(({ candidate }) => candidate);
 }
 
 export function searchArticles(lang: LanguageCode, query: string): Article[] {

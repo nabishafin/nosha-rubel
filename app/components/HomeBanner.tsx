@@ -1,4 +1,7 @@
+import { Link } from "react-router";
+import { localePath } from "~/lib/i18n-context";
 import { LANGUAGES } from "~/lib/languages";
+import { SITE_NAME, SITE_PRODUCT_LABEL } from "~/lib/site-identity";
 import type { Article, LanguageCode } from "~/lib/types";
 import { Container } from "./Container";
 
@@ -7,27 +10,32 @@ interface HomeBannerProps {
   tagline: string;
   article?: Article;
   articleCount: number;
-  totalViews: number;
+  sourceCount: number;
   readLabel: string;
 }
 
-export function HomeBanner({ lang, tagline, article, articleCount, totalViews, readLabel }: HomeBannerProps) {
+export function HomeBanner({ lang, tagline, article, articleCount, sourceCount, readLabel }: HomeBannerProps) {
   const edition = LANGUAGES[lang];
-  const bgImg = article?.image;
-
   return (
     <section className="relative isolate overflow-hidden bg-gray-950">
-      {bgImg && (
+      <picture aria-hidden="true">
+        <source
+          type="image/webp"
+          srcSet="/media/hero/potsdam-civic-archive-640.webp 640w, /media/hero/potsdam-civic-archive-960.webp 960w, /media/hero/potsdam-civic-archive-1440.webp 1440w"
+          sizes="100vw"
+        />
         <img
-          src={bgImg}
+          src="/media/hero/potsdam-civic-archive-960.jpg"
+          srcSet="/media/hero/potsdam-civic-archive-640.jpg 640w, /media/hero/potsdam-civic-archive-960.jpg 960w, /media/hero/potsdam-civic-archive-1440.jpg 1440w"
+          sizes="100vw"
+          width="1440"
+          height="810"
           alt=""
-          aria-hidden="true"
-          onError={(event) => {
-            event.currentTarget.style.display = "none";
-          }}
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover opacity-45"
         />
-      )}
+      </picture>
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,7,18,0.96),rgba(17,24,39,0.85)_50%,rgba(185,28,28,0.6))] " />
       <div className="absolute inset-x-0 bottom-0 h-px bg-white/20" />
 
@@ -50,11 +58,11 @@ export function HomeBanner({ lang, tagline, article, articleCount, totalViews, r
             </div>
 
             <h1 className="mt-4 text-4xl font-black leading-none tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Noosha Aubel
+              {SITE_NAME}
             </h1>
 
             <p className="mt-2 text-base font-bold text-blue-300 sm:text-lg">
-              Independent Newsroom & Multilingual Press Dossier
+              {SITE_PRODUCT_LABEL}
             </p>
 
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-200 sm:text-base">
@@ -67,7 +75,7 @@ export function HomeBanner({ lang, tagline, article, articleCount, totalViews, r
                 📰 <strong>{articleCount}</strong> Stories
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-md">
-                👁️ <strong>{totalViews.toLocaleString()}</strong> Views
+                📚 <strong>{sourceCount}</strong> Sources
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-md">
                 🌍 <strong>26</strong> Wikipedia Archives
@@ -76,22 +84,20 @@ export function HomeBanner({ lang, tagline, article, articleCount, totalViews, r
                 🗣️ {edition.nativeName}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-lg border border-blue-400/30 bg-blue-500/20 px-3 py-2 text-blue-200 backdrop-blur-md">
-                🏛️ Official Records
+                🏛️ Public Records
               </span>
             </div>
           </div>
 
           {/* Right Column: Lead Article Spotlight Card */}
           {article && (
-            <a
-              href={article.sourceUrl}
-              target="_blank"
-              rel="noreferrer nofollow"
+            <Link
+              to={localePath(article.language, `news/${article.slug}`)}
               className="group block rounded-2xl border border-white/20 bg-white/95 p-5 text-gray-950 shadow-2xl backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white"
             >
               <div className="flex items-center justify-end">
                 <span className="rounded bg-red-100 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-red-700">
-                  Featured Story
+                  Coverage Record
                 </span>
               </div>
               <h2 className="mt-2.5 line-clamp-3 text-lg font-extrabold leading-snug text-gray-900 group-hover:text-blue-700">
@@ -102,9 +108,9 @@ export function HomeBanner({ lang, tagline, article, articleCount, totalViews, r
               </p>
               <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-3 text-xs font-bold text-blue-600">
                 <span>{readLabel} →</span>
-                <span className="text-[11px] font-normal text-gray-400">External Source</span>
+                <span className="text-[11px] font-normal text-gray-400">Internal Dossier</span>
               </div>
-            </a>
+            </Link>
           )}
         </div>
       </Container>
