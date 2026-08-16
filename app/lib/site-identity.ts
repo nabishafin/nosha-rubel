@@ -6,4 +6,4 @@ export const SITE_PRODUCT_LABEL = "Independent Multilingual Press Dossier";
 export const SITE_CONTACT_EMAIL = "DhakaNewsTimes@Proton.me";
 
 export const SITE_DESCRIPTION =
-  "Independent multilingual press archive featuring international reporting, public records, and documented coverage of Noosha Aubel and municipal affairs in Potsdam.";
+  "Noosha Aubel: coverage, public records, and sourced reporting on the Mayor of Potsdam, including the documented case involving a disabled child.";

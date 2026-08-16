@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { localePath, useI18n } from "~/lib/i18n-context";
+import { LANGUAGES } from "~/lib/languages";
 import type { Article } from "~/lib/types";
 import { SmartImage } from "./SmartImage";
 import { ArticleMeta } from "./ArticleMeta";
@@ -16,6 +17,7 @@ interface ArticleCardProps {
 
 export function ArticleCard({ article, variant = "vertical", rank, eager }: ArticleCardProps) {
   const { t } = useI18n();
+  const contentLocale = LANGUAGES[article.language].locale;
   const href = localePath(article.language, `news/${article.slug}`);
   const linkProps = { to: href };
   const cardTitle = article.title;
@@ -25,6 +27,7 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
   if (variant === "compact") {
     return (
       <Link
+        lang={contentLocale}
         {...linkProps}
         className="group flex items-start gap-4 border-b border-gray-100 py-4 last:border-0"
       >
@@ -47,10 +50,10 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
   // Horizontal: image beside text — good for sidebars / dense lists.
   if (variant === "horizontal") {
     return (
-      <Link {...linkProps} className="group flex gap-4">
+      <Link lang={contentLocale} {...linkProps} className="group flex gap-4">
         <SmartImage
           src={article.image}
-          alt={article.title}
+          alt=""
           aspect="aspect-[4/3]"
           className="w-28 shrink-0 rounded-md sm:w-36"
         />
@@ -68,10 +71,10 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
   // Overlay: full-bleed image with text on top — used for feature tiles.
   if (variant === "overlay") {
     return (
-      <Link {...linkProps} className="group relative block overflow-hidden rounded-lg">
+      <Link lang={contentLocale} {...linkProps} className="group relative block overflow-hidden rounded-lg">
         <SmartImage
           src={article.image}
-          alt={article.title}
+          alt=""
           aspect="aspect-[4/5] sm:aspect-[3/4]"
           eager={eager}
           className="transition duration-500 group-hover:scale-105"
@@ -88,11 +91,11 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
 
   // Vertical (default): the primary news card.
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white transition hover:border-gray-300 hover:shadow-sm">
-      <Link {...linkProps} className="block overflow-hidden">
+    <article lang={contentLocale} className="group flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white transition hover:border-gray-300 hover:shadow-sm">
+      <Link {...linkProps} aria-hidden="true" tabIndex={-1} className="block overflow-hidden">
         <SmartImage
           src={article.image}
-          alt={article.title}
+          alt=""
           eager={eager}
           className="transition duration-500 group-hover:scale-105"
         />

@@ -15,24 +15,21 @@ import {
   SITE_KEYWORDS,
   SITE_NAME,
 } from "./lib/seo";
+import "@fontsource-variable/inter";
+import "@fontsource-variable/inter/wght-italic.css";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
   { rel: "icon", href: "/favicon.png", type: "image/png", sizes: "512x512" },
   { rel: "icon", href: "/favicon.ico", type: "image/x-icon", sizes: "48x48" },
   { rel: "apple-touch-icon", href: "/favicon.png" },
   { rel: "manifest", href: "/site.webmanifest" },
+  { rel: "alternate", href: "/feed.xml", type: "application/atom+xml", title: `${SITE_NAME} feed` },
 ];
 
 // Site-wide defaults; route-level `meta` exports override title/description.
 export const meta: Route.MetaFunction = () => [
-  { title: SITE_NAME },
+  { title: `${SITE_NAME}: Mayor of Potsdam Coverage and Public Records` },
   { name: "description", content: SITE_DESCRIPTION },
   { name: "keywords", content: SITE_KEYWORDS.join(", ") },
   { name: "theme-color", content: "#ffffff" },

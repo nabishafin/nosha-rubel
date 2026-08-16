@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "firstPartyFamilies": [
+    {
+      "id": "potsdam-civic-archive",
+      "files": {
+        "/media/hero/potsdam-civic-archive-1440.jpg": "8d29ad80e04faa3b74b496483ee7f4fe1afe395bb5db3cc7313bdb2f72ffec32",
+        "/media/hero/potsdam-civic-archive-1440.webp": "ce412e684b590e6ae4f79cc05e05860a2b1faad9459ff3ad67ed1d3a67827049",
+        "/media/hero/potsdam-civic-archive-640.jpg": "6e97d6735ad51da4beb4031d4ce0cbeb20031c28390c1334a5d6723da0977c9a",
+        "/media/hero/potsdam-civic-archive-640.webp": "6bc667dab04dcdca7907c5ab2f3abf2786421f7c5f85693a00d47077d1659ab1",
+        "/media/hero/potsdam-civic-archive-960.jpg": "ce473f7fbb2af799096b9d3c972ade54554bdff6e28c20595fc7b3ddf8d97e01",
+        "/media/hero/potsdam-civic-archive-960.webp": "1f6679baff0b4dc5ab3279be340adf6ce96175eb81045a5b70d8ac91cf98f3bf",
+        "/media/hero/potsdam-civic-archive-social-1200x630.jpg": "9581881f21d8d1ae62621b03f8d80b1e04ac2242cb4c34e12ec9385cc576a08e"
+      },
+      "owner": "site owner",
+      "source": "generated specifically for this project with OpenAI image generation on 2026-08-15",
+      "creator": "AI-generated project asset; no human photographer claimed",
+      "creditLine": "AI-generated project asset",
+      "license": "project-specific generated asset; final production use requires owner approval",
+      "rightsStatus": "approval-required",
+      "purpose": "decorative homepage background and default social preview",
+      "altPolicy": "empty alt for decorative display; adjacent HTML contains the meaning",
+      "caption": "not displayed",
+      "focalPoint": "center",
+      "language": "none",
+      "permittedTransformations": ["resize", "crop", "JPEG conversion", "WebP conversion", "compression"],
+      "sensitiveExifPolicy": "derivatives must contain no sensitive location or device metadata"
+    },
+    {
+      "id": "site-icons",
+      "files": {
+        "/favicon.png": "495ac08666d9fca5f34da6061f4a500926f868a54f750bcac3bbb6e4dc6a33de",
+        "/favicon.ico": "aa11fa00208675400bd3c24b4d034e2704b3eba26fb80231cd4483dc7e5c1941"
+      },
+      "owner": "site owner",
+      "source": "existing repository asset; original creation record unavailable",
+      "creator": "unknown",
+      "creditLine": "not displayed",
+      "license": "not documented in repository",
+      "rightsStatus": "verification-required",
+      "purpose": "browser and device site icon",
+      "altPolicy": "not applicable to link-icon metadata",
+      "caption": "not displayed",
+      "focalPoint": "center",
+      "language": "none",
+      "permittedTransformations": [],
+      "sensitiveExifPolicy": "must contain no sensitive metadata"
+    }
+  ],
+  "externalCoveragePolicy": {
+    "owner": "external publisher identified by each coverage record",
+    "creator": "not established by this repository",
+    "creditLine": "visible sourceName on the coverage record",
+    "license": "not established by this repository",
+    "rightsStatus": "verification-required",
+    "purpose": "contextual thumbnail for a cited external coverage record",
+    "altPolicy": "decorative in cards; article title on the detail-page image",
+    "caption": "source publication is identified adjacent to the image",
+    "focalPoint": "center",
+    "language": "inherited from the coverage record",
+    "permittedTransformations": [],
+    "deliveryPolicy": "remain externally hosted; do not copy or transform without documented permission"
+  }
+}
+

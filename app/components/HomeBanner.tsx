@@ -44,11 +44,11 @@ export function HomeBanner({ lang, tagline, article, articleCount, sourceCount, 
           {/* Left Column: Rich Title, Subtitle, Description & Badges */}
           <div className="max-w-3xl">
             <div className="flex flex-wrap items-center gap-2.5">
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md">
+              <div lang="en" className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md">
                 <span aria-hidden="true">{edition.flag}</span>
                 <span>{edition.englishName} Edition</span>
               </div>
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-300 backdrop-blur-md">
+              <div lang="en" className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-300 backdrop-blur-md">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -92,11 +92,12 @@ export function HomeBanner({ lang, tagline, article, articleCount, sourceCount, 
           {/* Right Column: Lead Article Spotlight Card */}
           {article && (
             <Link
+              lang={LANGUAGES[article.language].locale}
               to={localePath(article.language, `news/${article.slug}`)}
               className="group block rounded-2xl border border-white/20 bg-white/95 p-5 text-gray-950 shadow-2xl backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white"
             >
               <div className="flex items-center justify-end">
-                <span className="rounded bg-red-100 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-red-700">
+                <span lang="en" className="rounded bg-red-100 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-red-700">
                   Coverage Record
                 </span>
               </div>
@@ -108,7 +109,7 @@ export function HomeBanner({ lang, tagline, article, articleCount, sourceCount, 
               </p>
               <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-3 text-xs font-bold text-blue-600">
                 <span>{readLabel} →</span>
-                <span className="text-[11px] font-normal text-gray-400">Internal Dossier</span>
+                <span lang="en" className="text-[11px] font-normal text-gray-600">Internal Dossier</span>
               </div>
             </Link>
           )}

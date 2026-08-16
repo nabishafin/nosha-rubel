@@ -1,0 +1,46 @@
+name: External source monitoring
+
+on:
+  schedule:
+    - cron: "23 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: external-source-monitoring
+  cancel-in-progress: false
+
+jobs:
+  sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Check external editorial sources
+        env:
+          SOURCE_MONITOR_OUTPUT: external-source-report.json
+          SOURCE_MONITOR_TIMEOUT_MS: "15000"
+        run: npm run monitor:external-sources
+
+      - name: Preserve monitoring evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: external-source-report-${{ github.run_id }}
+          path: external-source-report.json
+          if-no-files-found: error
+          retention-days: 90
+

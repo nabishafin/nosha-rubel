@@ -37,7 +37,8 @@ try {
   const html = await (await fetch(`${base}/en`)).text();
   assert.ok(Buffer.byteLength(html) <= 160 * KIB, "homepage HTML exceeds 160 KiB");
 
-  const preloads = [...html.matchAll(/<link rel="preload" as="image"[^>]*>/g)].map((match) => match[0]);
+  const links = [...html.matchAll(/<link\b[^>]*>/g)].map((match) => match[0]);
+  const preloads = links.filter((link) => /\srel="preload"/.test(link) && /\sas="image"/.test(link));
   assert.equal(preloads.length, 1, "homepage must preload exactly one image");
   assert.match(preloads[0], /potsdam-civic-archive-960\.webp/);
   assert.match(preloads[0], /fetchPriority="high"/);
@@ -45,14 +46,19 @@ try {
   assert.match(html, /class="content-auto-section/);
   assert.match(html, /loading="lazy"/);
 
-  const moduleUrls = [...html.matchAll(/<link rel="modulepreload" href="([^"]+)"/g)].map((match) => match[1]);
+  const moduleUrls = links
+    .filter((link) => /\srel="modulepreload"/.test(link))
+    .map((link) => link.match(/\shref="([^"]+)"/)?.[1])
+    .filter(Boolean);
   let initialJavaScript = 0;
   for (const url of moduleUrls) {
     initialJavaScript += (await stat(resolve("build/client", url.replace(/^\//, "")))).size;
   }
   assert.ok(initialJavaScript <= 550 * KIB, `initial JavaScript is ${initialJavaScript} bytes`);
 
-  const css = html.match(/<link rel="stylesheet" href="\/(assets\/root-[^"]+\.css)"/)?.[1];
+  const css = links
+    .find((link) => /\srel="stylesheet"/.test(link) && /\shref="\/assets\/root-[^"]+\.css"/.test(link))
+    ?.match(/\shref="\/([^"]+)"/)?.[1];
   const landing = moduleUrls.find((file) => /\/assets\/landing-.*\.js$/.test(file))?.replace(/^\//, "");
   assert.ok(css && landing, "expected CSS and landing assets in manifest");
   await fileSize(resolve("build/client", css), 75 * KIB);

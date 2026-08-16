@@ -7,6 +7,7 @@ export default [
   // SEO resource routes (served at the domain root).
   route("robots.txt", "routes/robots.tsx"),
   route("sitemap.xml", "routes/sitemap.tsx"),
+  route("feed.xml", "routes/feed.tsx"),
   route("category/*", "routes/legacy-category.tsx"),
 
   // Localized area. The layout validates :lang, renders chrome and provides i18n.

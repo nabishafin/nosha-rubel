@@ -96,11 +96,13 @@ export function Footer() {
           <button
             type="button"
             onClick={() => setShowStatement((prev) => !prev)}
+            aria-expanded={showStatement}
+            aria-controls="editorial-legal-statement"
             className="flex w-full items-center justify-between rounded-xl border border-gray-200 bg-white p-4 text-left text-sm font-bold text-gray-800 shadow-xs transition hover:border-blue-300 hover:bg-blue-50/30"
           >
             <div className="flex items-center gap-2">
               <span className="rounded-full bg-blue-100 p-1 text-blue-700">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                   <polyline points="14 2 14 8 20 8" />
                   <line x1="16" y1="13" x2="8" y2="13" />
@@ -117,7 +119,7 @@ export function Footer() {
           </button>
 
           {showStatement && (
-            <div className="mt-4 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+            <div id="editorial-legal-statement" className="mt-4 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
               <EditorialStatementContent />
             </div>
           )}

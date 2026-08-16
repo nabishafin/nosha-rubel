@@ -1,3 +1,5 @@
+import { ExternalLink } from "./ExternalLink";
+
 const VIDEO_ID = "9Zzm9aq5sV4";
 const VIDEO_URL = `https://www.youtube.com/shorts/${VIDEO_ID}`;
 const EMBED_URL = `https://www.youtube-nocookie.com/embed/${VIDEO_ID}?cc_lang_pref=de&cc_load_policy=1`;
@@ -34,15 +36,13 @@ export function VideoFeature() {
             Accessibility status: this is a short contextual summary, not a verified transcript. German captions are requested from the source player, but their availability and accuracy have not been independently verified.
           </p>
           <div className="mt-6">
-            <a
+            <ExternalLink
               href={VIDEO_URL}
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-red-500"
             >
               Original auf YouTube ansehen
               <span aria-hidden="true">↗</span>
-            </a>
+            </ExternalLink>
           </div>
         </div>
       </div>

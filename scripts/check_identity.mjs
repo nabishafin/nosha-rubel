@@ -3,7 +3,7 @@ import { extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = fileURLToPath(new URL("../app/", import.meta.url));
-const SOURCE_EXTENSIONS = new Set([".ts", ".tsx", ".css"]);
+const SOURCE_EXTENSIONS = new Set([".ts", ".tsx", ".css", ".json"]);
 const FORBIDDEN = [
   { label: "legacy NewsHub identity", pattern: /NewsHub/i },
   { label: "legacy Dhaka News Times identity", pattern: /Dhaka News Times/i },

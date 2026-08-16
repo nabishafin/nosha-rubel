@@ -72,10 +72,11 @@ export default function DocumentPage({ loaderData }: Route.ComponentProps) {
           <a
             href={localePath(lang, `documents/${document.id}/file`)}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             className="mt-8 inline-flex rounded-lg bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-700"
           >
             Open archived PDF
+            <span className="sr-only"> (opens in a new tab)</span>
           </a>
         </div>
       </div>

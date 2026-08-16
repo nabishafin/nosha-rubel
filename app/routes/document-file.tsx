@@ -9,9 +9,9 @@ export async function loader({ params }: Route.LoaderArgs) {
   const document = DOCUMENTS.find((item) => item.id === params.docId);
   if (!document) throw new Response("Document Not Found", { status: 404 });
 
-  const publicRoot = resolve(process.cwd(), "public");
-  const filePath = resolve(publicRoot, document.filename);
-  if (!filePath.startsWith(`${publicRoot}${sep}`)) throw new Response("Invalid document path", { status: 400 });
+  const documentRoot = resolve(process.cwd(), "storage", "documents");
+  const filePath = resolve(documentRoot, document.filename);
+  if (!filePath.startsWith(`${documentRoot}${sep}`)) throw new Response("Invalid document path", { status: 400 });
 
   let body: Uint8Array;
   try {

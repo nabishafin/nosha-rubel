@@ -18,7 +18,7 @@ export function SearchBar({ defaultValue = "", variant = "default", autoFocus = 
   return (
     <Form action={localePath(lang, "search")} method="get" role="search" className="relative w-full">
       <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <circle cx="11" cy="11" r="7" />
           <path d="M21 21l-4.3-4.3" strokeLinecap="round" />
         </svg>
@@ -32,7 +32,7 @@ export function SearchBar({ defaultValue = "", variant = "default", autoFocus = 
         autoFocus={autoFocus}
         placeholder={t.search.placeholder}
         aria-label={t.search.title}
-        className={`w-full rounded-md border border-gray-200 bg-white pl-10 pr-24 text-gray-900 placeholder:text-gray-400 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-100 ${
+        className={`w-full rounded-md border border-gray-200 bg-white pl-10 pr-24 text-gray-900 placeholder:text-gray-500 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-100 ${
           compact ? "py-2 text-sm" : "py-3 text-base"
         }`}
       />

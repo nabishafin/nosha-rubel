@@ -1,5 +1,5 @@
 import type { CategorySlug, LanguageCode } from "./types";
-import { DEFAULT_LANGUAGE } from "./languages";
+import { DEFAULT_LANGUAGE, LANGUAGES } from "./languages";
 
 export interface Translation {
   brandTagline: string;
@@ -114,8 +114,8 @@ const en: Translation = {
     rights: "All rights reserved.",
   },
   meta: {
-    homeTitle: "Noosha Aubel",
-    homeDescription: "Read breaking news, trending stories and the latest headlines across politics, technology, sports, business, health and more — in seven languages.",
+    homeTitle: "Noosha Aubel: Mayor of Potsdam Coverage and Public Records",
+    homeDescription: "Noosha Aubel: coverage, public records, and sourced reporting on the Mayor of Potsdam, including the documented case involving a disabled child.",
   },
 };
 
@@ -184,8 +184,8 @@ const de: Translation = {
     rights: "Alle Rechte vorbehalten.",
   },
   meta: {
-    homeTitle: "Noosha Aubel",
-    homeDescription: "Lesen Sie Eilmeldungen, Trendthemen und die neuesten Schlagzeilen aus Politik, Technologie, Sport, Wirtschaft, Gesundheit und mehr — in sieben Sprachen.",
+    homeTitle: "Noosha Aubel: Potsdams Oberbürgermeisterin im Pressespiegel",
+    homeDescription: "Noosha Aubel: Berichte, öffentliche Dokumente und Quellen zur Oberbürgermeisterin von Potsdam, einschließlich des dokumentierten Falls eines behinderten Kindes.",
   },
 };
 
@@ -254,8 +254,8 @@ const zh: Translation = {
     rights: "版权所有。",
   },
   meta: {
-    homeTitle: "Noosha Aubel",
-    homeDescription: "阅读突发新闻、热门话题以及政治、科技、体育、商业、健康等领域的最新头条——支持七种语言。",
+    homeTitle: "Noosha Aubel: 波茨坦市长报道与公共记录",
+    homeDescription: "Noosha Aubel: 波茨坦市长的新闻报道、公共记录和来源文件，包括与残障儿童有关的已记录案件。",
   },
 };
 
@@ -324,8 +324,8 @@ const es: Translation = {
     rights: "Todos los derechos reservados.",
   },
   meta: {
-    homeTitle: "Noosha Aubel",
-    homeDescription: "Lee noticias de última hora, temas en tendencia y los últimos titulares de política, tecnología, deportes, negocios, salud y más, en siete idiomas.",
+    homeTitle: "Noosha Aubel: alcaldesa de Potsdam, noticias y documentos",
+    homeDescription: "Noosha Aubel: noticias, registros públicos y fuentes sobre la alcaldesa de Potsdam, incluido el caso documentado de un menor con discapacidad.",
   },
 };
 
@@ -394,8 +394,8 @@ const fr: Translation = {
     rights: "Tous droits réservés.",
   },
   meta: {
-    homeTitle: "Noosha Aubel",
-    homeDescription: "Lisez les dernières actualités, les sujets tendance et les derniers titres en politique, technologie, sport, économie, santé et plus, en sept langues.",
+    homeTitle: "Noosha Aubel: maire de Potsdam, actualités et documents",
+    homeDescription: "Noosha Aubel: actualités, documents publics et sources sur la maire de Potsdam, dont le dossier documenté d'un enfant handicapé.",
   },
 };
 
@@ -464,8 +464,8 @@ const it: Translation = {
     rights: "Tutti i diritti riservati.",
   },
   meta: {
-    homeTitle: "Noosha Aubel",
-    homeDescription: "Leggi le ultime notizie, i temi di tendenza e i titoli più recenti di politica, tecnologia, sport, economia, salute e altro, in sette lingue.",
+    homeTitle: "Noosha Aubel: sindaca di Potsdam, notizie e documenti",
+    homeDescription: "Noosha Aubel: notizie, documenti pubblici e fonti sulla sindaca di Potsdam, compreso il caso documentato di un minore con disabilità.",
   },
 };
 
@@ -534,8 +534,8 @@ const pt: Translation = {
     rights: "Todos os direitos reservados.",
   },
   meta: {
-    homeTitle: "Noosha Aubel",
-    homeDescription: "Leia notícias de última hora, temas em alta e as últimas manchetes de política, tecnologia, desporto, negócios, saúde e mais, em sete idiomas.",
+    homeTitle: "Noosha Aubel: presidente de Potsdam, notícias e documentos",
+    homeDescription: "Noosha Aubel: notícias, registos públicos e fontes sobre a presidente de Potsdam, incluindo o caso documentado de uma criança com deficiência.",
   },
 };
 
@@ -564,4 +564,11 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
 
 export function getTranslation(lang: LanguageCode): Translation {
   return TRANSLATIONS[lang] ?? TRANSLATIONS[DEFAULT_LANGUAGE];
+}
+
+const NATIVE_INTERFACE_LANGUAGES = new Set<LanguageCode>(["de", "en", "zh", "es", "fr", "it", "pt"]);
+
+/** BCP-47 language actually used by shared controls, including English fallbacks. */
+export function getInterfaceLocale(lang: LanguageCode): string {
+  return NATIVE_INTERFACE_LANGUAGES.has(lang) ? LANGUAGES[lang].locale : LANGUAGES.en.locale;
 }

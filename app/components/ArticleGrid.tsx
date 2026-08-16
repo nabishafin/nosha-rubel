@@ -16,10 +16,12 @@ const COLS: Record<number, string> = {
 
 export function ArticleGrid({ articles, columns = 3, eagerFirst = false }: ArticleGridProps) {
   return (
-    <div className={`grid grid-cols-1 gap-4 sm:gap-5 ${COLS[columns]}`}>
+    <ul aria-label="Coverage records" className={`grid grid-cols-1 gap-4 sm:gap-5 ${COLS[columns]}`}>
       {articles.map((a, i) => (
-        <ArticleCard key={a.id} article={a} eager={eagerFirst && i === 0} />
+        <li key={a.id}>
+          <ArticleCard article={a} eager={eagerFirst && i === 0} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

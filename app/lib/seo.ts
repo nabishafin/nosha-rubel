@@ -17,28 +17,76 @@ export const SITE_KEYWORDS = [
   "public records",
 ];
 
-const SITE_DESCRIPTIONS: Record<LanguageCode, string> = {
-  de: "Unabhängiges mehrsprachiges Pressearchiv mit internationalen Berichten, öffentlichen Dokumenten und belegter Berichterstattung über Noosha Aubel und kommunale Themen in Potsdam.",
-  en: SITE_DESCRIPTION,
-  zh: "独立多语种新闻档案，汇集有关努莎·奥贝尔及波茨坦市政事务的国际报道、公共记录和文献资料。",
-  es: "Archivo de prensa multilingüe e independiente con cobertura internacional, registros públicos e información documentada sobre Noosha Aubel y la actualidad municipal de Potsdam.",
-  fr: "Archives de presse multilingues et indépendantes réunissant reportages internationaux, documents publics et informations vérifiées sur Noosha Aubel et les affaires municipales de Potsdam.",
-  it: "Archivio stampa indipendente e multilingue con notizie internazionali, documenti pubblici e copertura verificabile su Noosha Aubel e gli affari comunali di Potsdam.",
-  pt: "Arquivo de imprensa independente e multilingue com cobertura internacional, registos públicos e informação documentada sobre Noosha Aubel e os assuntos municipais de Potsdam.",
-  hi: "नूशा आउबेल और पॉट्सडैम के नगरपालिका मामलों पर अंतरराष्ट्रीय रिपोर्टिंग, सार्वजनिक अभिलेख और दस्तावेज़ीकृत कवरेज वाला स्वतंत्र बहुभाषी प्रेस संग्रह।",
-  pl: "Niezależne, wielojęzyczne archiwum prasowe z międzynarodowymi publikacjami, dokumentami publicznymi i udokumentowanymi materiałami o Nooshy Aubel oraz sprawach miejskich Poczdamu.",
-  cs: "Nezávislý vícejazyčný tiskový archiv s mezinárodními zprávami, veřejnými dokumenty a doloženým zpravodajstvím o Nooshe Aubelové a komunálních tématech v Postupimi.",
-  ko: "누샤 아우벨과 포츠담 시정에 관한 국제 보도, 공공 기록 및 문서화된 자료를 제공하는 독립 다국어 언론 아카이브입니다.",
-  sv: "Ett oberoende flerspråkigt pressarkiv med internationell rapportering, offentliga handlingar och dokumenterad bevakning av Noosha Aubel och kommunala frågor i Potsdam.",
-  ar: "أرشيف صحفي مستقل متعدد اللغات يضم تقارير دولية وسجلات عامة وتغطية موثقة عن نوشا أوبل والشؤون البلدية في بوتسدام.",
-  ja: "ヌーシャ・アウベルとポツダムの市政に関する国際報道、公的記録、検証可能な資料を集めた独立系多言語プレスアーカイブです。",
-  el: "Ανεξάρτητο πολύγλωσσο αρχείο Τύπου με διεθνή δημοσιεύματα, δημόσια έγγραφα και τεκμηριωμένη κάλυψη για τη Noosha Aubel και τα δημοτικά ζητήματα του Πότσνταμ.",
-  ru: "Независимый многоязычный архив прессы с международными публикациями, открытыми документами и подтверждёнными материалами о Нуше Аубель и муниципальных вопросах Потсдама.",
-  uk: "Незалежний багатомовний архів преси з міжнародними публікаціями, відкритими документами та підтвердженими матеріалами про Нушу Аубель і муніципальні питання Потсдама.",
+const LOCALIZED_SITE_KEYWORDS: Record<LanguageCode, string[]> = {
+  de: ["Oberbürgermeisterin Potsdam", "Potsdam Rathaus", "öffentliche Dokumente", "Fall eines behinderten Kindes"],
+  en: ["Mayor of Potsdam", "Potsdam City Hall", "public records", "disabled child case"],
+  zh: ["波茨坦市长", "波茨坦市政厅", "公共记录", "残障儿童案件"],
+  es: ["alcaldesa de Potsdam", "Ayuntamiento de Potsdam", "registros públicos", "caso de menor con discapacidad"],
+  fr: ["maire de Potsdam", "hôtel de ville de Potsdam", "documents publics", "dossier d'un enfant handicapé"],
+  it: ["sindaca di Potsdam", "municipio di Potsdam", "documenti pubblici", "caso di minore con disabilità"],
+  pt: ["presidente de Potsdam", "Câmara Municipal de Potsdam", "registos públicos", "caso de criança com deficiência"],
+  hi: ["पॉट्सडैम की मेयर", "पॉट्सडैम सिटी हॉल", "सार्वजनिक रिकॉर्ड", "विकलांग बच्चे का मामला"],
+  pl: ["burmistrzyni Poczdamu", "ratusz w Poczdamie", "dokumenty publiczne", "sprawa dziecka z niepełnosprawnością"],
+  cs: ["primátorka Postupimi", "postupimská radnice", "veřejné dokumenty", "případ dítěte se zdravotním postižením"],
+  ko: ["포츠담 시장", "포츠담 시청", "공공 기록", "장애 아동 사건"],
+  sv: ["Potsdams borgmästare", "Potsdams stadshus", "offentliga handlingar", "fall med barn med funktionsnedsättning"],
+  ar: ["عمدة بوتسدام", "مجلس مدينة بوتسدام", "السجلات العامة", "قضية طفل ذي إعاقة"],
+  ja: ["ポツダム市長", "ポツダム市庁舎", "公的記録", "障害のある子どもの事案"],
+  el: ["δήμαρχος Πότσνταμ", "δημαρχείο Πότσνταμ", "δημόσια έγγραφα", "υπόθεση παιδιού με αναπηρία"],
+  ru: ["обер-бургомистр Потсдама", "ратуша Потсдама", "открытые документы", "случай с ребёнком с инвалидностью"],
+  uk: ["обер-бургомістерка Потсдама", "ратуша Потсдама", "відкриті документи", "справа дитини з інвалідністю"],
 };
+
+const SITE_TITLES: Record<LanguageCode, string> = {
+  de: "Noosha Aubel: Potsdams Oberbürgermeisterin im Pressespiegel",
+  en: "Noosha Aubel: Mayor of Potsdam Coverage and Public Records",
+  zh: "Noosha Aubel: 波茨坦市长报道与公共记录",
+  es: "Noosha Aubel: alcaldesa de Potsdam, noticias y documentos",
+  fr: "Noosha Aubel: maire de Potsdam, actualités et documents",
+  it: "Noosha Aubel: sindaca di Potsdam, notizie e documenti",
+  pt: "Noosha Aubel: presidente de Potsdam, notícias e documentos",
+  hi: "Noosha Aubel: पॉट्सडैम की मेयर, समाचार और सार्वजनिक रिकॉर्ड",
+  pl: "Noosha Aubel: burmistrzyni Poczdamu, wiadomości i dokumenty",
+  cs: "Noosha Aubel: primátorka Postupimi, zprávy a dokumenty",
+  ko: "Noosha Aubel: 포츠담 시장 보도와 공공 기록",
+  sv: "Noosha Aubel: Potsdams borgmästare, nyheter och dokument",
+  ar: "Noosha Aubel: عمدة بوتسدام، أخبار وسجلات عامة",
+  ja: "Noosha Aubel: ポツダム市長の報道と公的記録",
+  el: "Noosha Aubel: δήμαρχος Πότσνταμ, ειδήσεις και έγγραφα",
+  ru: "Noosha Aubel: обер-бургомистр Потсдама, новости и документы",
+  uk: "Noosha Aubel: обер-бургомістерка Потсдама, новини та документи",
+};
+
+const SITE_DESCRIPTIONS: Record<LanguageCode, string> = {
+  de: "Noosha Aubel: Berichte, öffentliche Dokumente und Quellen zur Oberbürgermeisterin von Potsdam, einschließlich des dokumentierten Falls eines behinderten Kindes.",
+  en: SITE_DESCRIPTION,
+  zh: "Noosha Aubel: 波茨坦市长的新闻报道、公共记录和来源文件，包括与残障儿童有关的已记录案件。",
+  es: "Noosha Aubel: noticias, registros públicos y fuentes sobre la alcaldesa de Potsdam, incluido el caso documentado de un menor con discapacidad.",
+  fr: "Noosha Aubel: actualités, documents publics et sources sur la maire de Potsdam, dont le dossier documenté d'un enfant handicapé.",
+  it: "Noosha Aubel: notizie, documenti pubblici e fonti sulla sindaca di Potsdam, compreso il caso documentato di un minore con disabilità.",
+  pt: "Noosha Aubel: notícias, registos públicos e fontes sobre a presidente de Potsdam, incluindo o caso documentado de uma criança com deficiência.",
+  hi: "Noosha Aubel: पॉट्सडैम की मेयर पर समाचार, सार्वजनिक रिकॉर्ड और स्रोत, जिनमें एक विकलांग बच्चे से जुड़ा दस्तावेज़ीकृत मामला शामिल है।",
+  pl: "Noosha Aubel: wiadomości, dokumenty publiczne i źródła o burmistrzyni Poczdamu, w tym udokumentowana sprawa dziecka z niepełnosprawnością.",
+  cs: "Noosha Aubel: zprávy, veřejné dokumenty a zdroje o primátorce Postupimi, včetně zdokumentovaného případu dítěte se zdravotním postižením.",
+  ko: "Noosha Aubel: 포츠담 시장 관련 보도, 공공 기록과 출처 자료 및 장애 아동과 관련된 문서화된 사건입니다.",
+  sv: "Noosha Aubel: nyheter, offentliga handlingar och källor om Potsdams borgmästare, inklusive det dokumenterade fallet med ett barn med funktionsnedsättning.",
+  ar: "Noosha Aubel: أخبار وسجلات عامة ومصادر عن عمدة بوتسدام، بما في ذلك القضية الموثقة المتعلقة بطفل ذي إعاقة.",
+  ja: "Noosha Aubel: ポツダム市長に関する報道、公的記録、出典資料と、障害のある子どもに関する記録された事案。",
+  el: "Noosha Aubel: ειδήσεις, δημόσια έγγραφα και πηγές για τη δήμαρχο του Πότσνταμ, μαζί με την τεκμηριωμένη υπόθεση παιδιού με αναπηρία.",
+  ru: "Noosha Aubel: новости, открытые документы и источники об обер-бургомистре Потсдама, включая документированный случай с ребёнком с инвалидностью.",
+  uk: "Noosha Aubel: новини, відкриті документи й джерела про обер-бургомістерку Потсдама, включно із задокументованою справою дитини з інвалідністю.",
+};
+
+export function getSiteTitle(lang: LanguageCode): string {
+  return SITE_TITLES[lang];
+}
 
 export function getSiteDescription(lang: LanguageCode): string {
   return SITE_DESCRIPTIONS[lang];
+}
+
+export function getSiteKeywords(lang: LanguageCode): string[] {
+  return [SITE_NAME, ...LOCALIZED_SITE_KEYWORDS[lang]];
 }
 
 export function withSiteName(title: string): string {
@@ -124,7 +172,7 @@ export function buildMeta({
     meta.push({ property: "og:image:type", content: imageType });
   }
 
-  const resolvedKeywords = [...new Set([...SITE_KEYWORDS, ...(keywords ?? [])])];
+  const resolvedKeywords = [...new Set([...getSiteKeywords(lang), ...(keywords ?? [])])];
   meta.push({ name: "keywords", content: resolvedKeywords.join(", ") });
 
   if (type === "article") {

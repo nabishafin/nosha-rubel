@@ -1,6 +1,6 @@
 import { Link, isRouteErrorResponse, useParams } from "react-router";
-import { isLanguageCode, DEFAULT_LANGUAGE } from "~/lib/languages";
-import { getTranslation } from "~/lib/i18n";
+import { isLanguageCode, DEFAULT_LANGUAGE, LANGUAGES } from "~/lib/languages";
+import { getInterfaceLocale, getTranslation } from "~/lib/i18n";
 import { getArticleBySlug, getRelated, getTranslations } from "~/lib/news";
 import { getOrigin } from "~/lib/http";
 import { articleAlternates, buildMeta, coverageRecordJsonLd, SOCIAL_PREVIEW_IMAGE, withSiteName } from "~/lib/seo";
@@ -9,6 +9,7 @@ import { localePath } from "~/lib/i18n-context";
 import { SITE_CONTACT_EMAIL } from "~/lib/site-identity";
 
 import { Container } from "~/components/Container";
+import { ExternalLink } from "~/components/ExternalLink";
 import { Section } from "~/components/Section";
 import { SectionHeading } from "~/components/SectionHeading";
 import { SmartImage } from "~/components/SmartImage";
@@ -59,14 +60,15 @@ export function meta({ loaderData }: Route.MetaArgs) {
 export default function ArticlePage({ loaderData }: Route.ComponentProps) {
   const { lang, article, related } = loaderData;
   const t = getTranslation(lang);
+  const interfaceLocale = getInterfaceLocale(lang);
   const mins = readingTime(article.content);
 
   return (
-    <article>
+    <article lang={LANGUAGES[article.language].locale}>
       {/* Article header */}
       <Container className="pt-8">
         <div className="mx-auto max-w-3xl">
-          <nav aria-label="Breadcrumb" className="mb-5 text-sm text-gray-500">
+          <nav lang={interfaceLocale} aria-label="Breadcrumb" className="mb-5 text-sm text-gray-500">
             <Link to={localePath(lang)} className="hover:text-gray-800">{t.nav.home}</Link>
             <span aria-hidden="true"> / </span>
             <span>{t.article.source}</span>
@@ -81,7 +83,7 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
             <span aria-hidden="true">·</span>
             <time dateTime={article.publishedAt}>{formatDate(article.publishedAt, lang)}</time>
             <span aria-hidden="true">·</span>
-            <span>{mins} {t.article.minRead}</span>
+            <span lang={interfaceLocale}>{mins} {t.article.minRead}</span>
           </div>
         </div>
       </Container>
@@ -116,18 +118,16 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
 
           {/* Source */}
           <div className="mt-8 rounded-lg border border-gray-200 bg-gray-50 p-5">
-            <p className="text-sm font-semibold text-gray-900">{t.article.source}</p>
-            <a
+            <p lang={interfaceLocale} className="text-sm font-semibold text-gray-900">{t.article.source}</p>
+            <ExternalLink
               href={article.sourceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
               className="mt-1 inline-flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-800"
             >
               {article.sourceName}
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 <path d="M7 17L17 7M9 7h8v8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-            </a>
+            </ExternalLink>
           </div>
 
           <div lang="en" className="mt-5 rounded-lg border border-gray-200 bg-white p-5 text-sm leading-relaxed text-gray-600">
@@ -139,7 +139,7 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
 
           {/* Tags */}
           <div className="mt-8">
-            <h2 className="mb-3 text-sm font-semibold text-gray-900">{t.sections.tags}</h2>
+            <h2 lang={interfaceLocale} className="mb-3 text-sm font-semibold text-gray-900">{t.sections.tags}</h2>
             <TagCloud tags={article.tags} />
           </div>
         </div>

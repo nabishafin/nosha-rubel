@@ -5,8 +5,8 @@ import { getOrigin } from "~/lib/http";
 import {
   buildMeta,
   getSiteDescription,
+  getSiteTitle,
   localizedAlternates,
-  SITE_NAME,
   SOCIAL_PREVIEW_IMAGE,
   websiteCollectionJsonLd,
 } from "~/lib/seo";
@@ -57,7 +57,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
 
   return [
     ...buildMeta({
-      title: SITE_NAME,
+      title: getSiteTitle(lang),
       description: getSiteDescription(lang),
       canonical,
       image: SOCIAL_PREVIEW_IMAGE,
@@ -104,11 +104,13 @@ export default function Landing({ loaderData }: Route.ComponentProps) {
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <SectionHeading title={t.sections.featured} />
-            <div className="rounded-lg border border-gray-200 bg-white px-5">
+            <ol aria-label={t.sections.featured} className="rounded-lg border border-gray-200 bg-white px-5">
               {selectedCoverage.map((a, i) => (
-                <ArticleCard key={a.id} article={a} variant="compact" rank={i + 1} />
+                <li key={a.id}>
+                  <ArticleCard article={a} variant="compact" rank={i + 1} />
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
           <div>
             <SectionHeading title={t.sections.tags} />
