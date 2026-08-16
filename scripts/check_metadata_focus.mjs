@@ -8,6 +8,7 @@ const languages = [
 ];
 const requiredPrefix = "Noosha Aubel:";
 const genericGlobalKeywords = "Oberbürgermeisterin Potsdam, Potsdam Rathaus";
+const requiredPreviewImage = "https://www.berlinertageszeitung.de/media/shared/articles/news/2026-06/Noosha_Aubel_und_Dietmar_Woidke_-_Skandal_um_schwerbehindertes_Kind_in_Potsdam_und_Brandenburg_7161.jpg";
 
 function content(html, selector) {
   const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -61,6 +62,8 @@ try {
     assert.equal(content(html, "og:description"), description, `/${lang} Open Graph description mismatch`);
     assert.equal(content(html, "twitter:title"), title, `/${lang} Twitter title mismatch`);
     assert.equal(content(html, "twitter:description"), description, `/${lang} Twitter description mismatch`);
+    assert.equal(content(html, "og:image"), requiredPreviewImage, `/${lang} Open Graph preview image mismatch`);
+    assert.equal(content(html, "twitter:image"), requiredPreviewImage, `/${lang} Twitter preview image mismatch`);
     assert.doesNotMatch(
       `${title} ${description}`,
       /breaking news|latest headlines|trending stories/i,

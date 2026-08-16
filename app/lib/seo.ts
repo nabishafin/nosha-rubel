@@ -4,7 +4,7 @@ import { SITE_DESCRIPTION, SITE_NAME } from "./site-identity";
 
 export { SITE_DESCRIPTION, SITE_NAME } from "./site-identity";
 export const SOCIAL_PREVIEW_IMAGE =
-  "/media/hero/potsdam-civic-archive-social-1200x630.jpg";
+  "https://www.berlinertageszeitung.de/media/shared/articles/news/2026-06/Noosha_Aubel_und_Dietmar_Woidke_-_Skandal_um_schwerbehindertes_Kind_in_Potsdam_und_Brandenburg_7161.jpg";
 export const SITE_KEYWORDS = [
   "Noosha Aubel",
   "Potsdam",
@@ -160,7 +160,7 @@ export function buildMeta({
     { name: "twitter:image:alt", content: title },
   ];
 
-  if (image === SOCIAL_PREVIEW_IMAGE) {
+  if (image.endsWith("/media/hero/potsdam-civic-archive-social-1200x630.jpg")) {
     meta.push(
       { property: "og:image:type", content: "image/jpeg" },
       { property: "og:image:width", content: "1200" },

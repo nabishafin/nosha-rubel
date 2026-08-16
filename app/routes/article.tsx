@@ -3,7 +3,7 @@ import { isLanguageCode, DEFAULT_LANGUAGE, LANGUAGES } from "~/lib/languages";
 import { getInterfaceLocale, getTranslation } from "~/lib/i18n";
 import { getArticleBySlug, getRelated, getTranslations } from "~/lib/news";
 import { getOrigin } from "~/lib/http";
-import { articleAlternates, buildMeta, coverageRecordJsonLd, SOCIAL_PREVIEW_IMAGE, withSiteName } from "~/lib/seo";
+import { articleAlternates, buildMeta, coverageRecordJsonLd, withSiteName } from "~/lib/seo";
 import { formatDate, readingTime } from "~/lib/format";
 import { localePath } from "~/lib/i18n-context";
 import { SITE_CONTACT_EMAIL } from "~/lib/site-identity";
@@ -48,7 +48,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
       title: withSiteName(article.title),
       description: article.description,
       canonical,
-      image: SOCIAL_PREVIEW_IMAGE,
+      image: article.image,
       lang,
       keywords: article.tags,
       alternates,

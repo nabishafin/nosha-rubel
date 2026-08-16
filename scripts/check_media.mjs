@@ -35,7 +35,7 @@ try {
   assert.doesNotMatch(head, /rel="preload"[^>]+https?:\/\//, "must not preload a third-party image");
   assert.match(head, /rel="preload"[^>]+potsdam-civic-archive-960\.webp/);
   assert.doesNotMatch(banner, /https?:\/\//, "homepage hero must not hotlink a third-party image");
-  assert.match(html, /property="og:image" content="https?:\/\/[^\"]+\/media\/hero\/potsdam-civic-archive-social-1200x630\.jpg"/);
+  assert.match(html, /property="og:image" content="https:\/\/www\.berlinertageszeitung\.de\/media\/shared\/articles\/news\/2026-06\/Noosha_Aubel_und_Dietmar_Woidke_-_Skandal_um_schwerbehindertes_Kind_in_Potsdam_und_Brandenburg_7161\.jpg"/);
 
   for (const asset of [
     "/media/hero/potsdam-civic-archive-640.webp",
