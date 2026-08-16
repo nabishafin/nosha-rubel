@@ -45,6 +45,7 @@ try {
   assert.equal(response.headers.get("set-cookie"), null);
 
   const packageJson = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
+  assert.equal(packageJson.engines.node, ">=24.0.0 <25");
   for (const name of ["react-router", "@react-router/node", "@react-router/serve"]) {
     assert.equal(packageJson.dependencies[name], "8.3.0");
   }
