@@ -53,7 +53,7 @@ export function HomeBanner({ lang, tagline, article, articleCount, sourceCount, 
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                 </span>
-                Live Press Coverage
+                Sourced Coverage Archive
               </div>
             </div>
 
@@ -66,19 +66,19 @@ export function HomeBanner({ lang, tagline, article, articleCount, sourceCount, 
             </p>
 
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-200 sm:text-base">
-              {tagline} — Comprehensive investigative reporting, public record documentation, and global press archives covering municipal governance, civic policy, and international affairs in Potsdam and beyond.
+              {tagline}. Each internal record provides an original summary, editorial context, verification notes and a direct citation to the external publication.
             </p>
 
             {/* Feature Pills */}
             <div className="mt-6 flex flex-wrap items-center gap-2.5 text-xs font-semibold text-white">
               <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-md">
-                📰 <strong>{articleCount}</strong> Stories
+                📰 <strong>{articleCount}</strong> Coverage records
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-md">
-                📚 <strong>{sourceCount}</strong> Sources
+                📚 <strong>{sourceCount}</strong> Cited publishers
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-md">
-                🌍 <strong>26</strong> Wikipedia Archives
+                📄 <strong>26</strong> Secondary PDF snapshots
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-md">
                 🗣️ {edition.nativeName}

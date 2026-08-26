@@ -9,7 +9,7 @@ Legacy URLs must receive one intentional response. Do not redirect unrelated URL
 | `/:lang/search?...` | `200` with `noindex, follow` | Search remains useful to people but must not compete in the index. | Keep out of XML sitemaps. |
 | `/:lang/translation-unavailable?...` | `200` with `noindex, follow` | Explicit user-facing fallback, not indexable content. | Keep out of XML sitemaps. |
 
-No RSS or Atom endpoint is published currently. A feed should be added only when there is a maintained first-party publication stream with stable internal records and an assigned editorial owner.
+The canonical Atom endpoint is `/feed.xml`; legacy or locale-specific RSS/feed variants are not published. Add another feed only when it has a maintained, distinct scope and an assigned editorial owner.
 
 Before adding any migration redirect, record:
 

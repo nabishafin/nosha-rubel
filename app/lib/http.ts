@@ -1,4 +1,5 @@
 const configuredSiteUrl = process.env.SITE_URL?.trim();
+const DEFAULT_PRODUCTION_ORIGIN = "https://noosha-aubel.com";
 
 function normalizeOrigin(value: string): string | undefined {
   try {
@@ -21,6 +22,10 @@ function normalizeOrigin(value: string): string | undefined {
 export function getOrigin(request: Request): string {
   const publicOrigin = configuredSiteUrl && normalizeOrigin(configuredSiteUrl);
   if (publicOrigin) return publicOrigin;
+
+  // Never let a proxy Host header silently choose the indexable production
+  // origin. SITE_URL remains the explicit override for an approved migration.
+  if (process.env.NODE_ENV === "production") return DEFAULT_PRODUCTION_ORIGIN;
 
   const forwardedHost = request.headers.get("x-forwarded-host")?.split(",")[0]?.trim();
   const host = forwardedHost ?? request.headers.get("host");

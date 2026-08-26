@@ -15,7 +15,7 @@ export function Footer() {
     <footer className="mt-12 border-t border-gray-200 bg-gray-50">
       <Container className="py-10">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-          {/* Brand + about + Publisher Notice */}
+          {/* Brand + about + site status */}
           <div className="lg:col-span-2 space-y-4">
             <Link to={localePath(lang)} className="flex items-center gap-2">
               <span className="text-xl font-extrabold tracking-tight text-gray-900">
@@ -24,7 +24,7 @@ export function Footer() {
             </Link>
             <p className="max-w-sm text-sm leading-relaxed text-gray-600">{t.footer.description}</p>
 
-            {/* Official Publisher & Press Legal Imprint Box */}
+            {/* Site identity status */}
             <div className="rounded-xl border border-gray-200 bg-white p-4 text-xs space-y-2 text-gray-700 shadow-xs">
               <div className="flex items-center justify-between border-b border-gray-100 pb-2">
                 <span className="font-bold text-gray-900 uppercase tracking-wider text-[11px]">Site Information</span>
@@ -35,12 +35,12 @@ export function Footer() {
                 <br />
                 <strong>Purpose:</strong> {SITE_PRODUCT_LABEL}
                 <br />
-                <strong>Contact address:</strong> 28/A Toyenbee Circular Road, Dhaka-1000
+                <strong>Editorial model:</strong> Source-attributed summaries and context
                 <br />
-                <strong>Additional address:</strong> 9/A, HRC Bhaban, 45 Kawran Bazar, Dhaka-1217
+                <strong>Publisher status:</strong> Identity and jurisdiction pending documentary verification
               </p>
               <p className="text-gray-500 pt-1">
-                <strong>Tel:</strong> +880 1812-345678 | <strong>Email:</strong>{" "}
+                <strong>Corrections:</strong>{" "}
                 <a href={`mailto:${SITE_CONTACT_EMAIL}`} className="text-blue-600 font-semibold hover:underline">
                   {SITE_CONTACT_EMAIL}
                 </a>

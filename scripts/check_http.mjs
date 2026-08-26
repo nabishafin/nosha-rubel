@@ -72,5 +72,10 @@ try {
 
   console.log("HTTP route checks passed.");
 } finally {
-  server.kill();
+  if (!server.killed) server.kill();
+  await Promise.race([
+    new Promise((resolve) => server.once("exit", resolve)),
+    new Promise((resolve) => setTimeout(resolve, 1_000)),
+  ]);
+  if (server.exitCode === null) server.kill("SIGKILL");
 }

@@ -51,5 +51,10 @@ try {
 
   console.log(`Internal-link checks passed (${pagePaths.length} sitemap pages, ${linkedPaths.size} unique internal destinations).`);
 } finally {
-  server.kill();
+  if (!server.killed) server.kill();
+  await Promise.race([
+    new Promise((resolve) => server.once("exit", resolve)),
+    new Promise((resolve) => setTimeout(resolve, 1_000)),
+  ]);
+  if (server.exitCode === null) server.kill("SIGKILL");
 }

@@ -10,6 +10,7 @@
     "check:identity": "node scripts/check_identity.mjs",
     "check:metadata-focus": "node scripts/check_metadata_focus.mjs",
     "check:trust-claims": "node scripts/check_trust_claims.mjs",
+    "check:coverage-depth": "node scripts/check_coverage_depth.mjs",
     "check:locale-routes": "node scripts/check_locale_routes.mjs",
     "check:crawl-controls": "node scripts/check_crawl_controls.mjs",
     "check:feed": "node scripts/check_feed.mjs",
@@ -47,7 +48,9 @@
     "@react-router/node": "8.3.0",
     "@react-router/serve": "8.3.0",
     "axios": "^1.18.1",
+    "dotenv": "^8.2.0",
     "isbot": "^5.1.36",
+    "node-fetch": "^3.3.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router": "8.3.0"

@@ -74,7 +74,7 @@ const en: Translation = {
     newsletter: "Newsletter",
     search: "Search Results",
   },
-  actions: { readMore: "Read more", viewAll: "View all", subscribe: "Subscribe", search: "Search", readFull: "Read full story", backHome: "Back to home" },
+  actions: { readMore: "Open dossier", viewAll: "View all", subscribe: "Subscribe", search: "Search", readFull: "Open coverage dossier", backHome: "Back to home" },
   hero: { breaking: "Breaking", subtitle: "Stay informed with the stories shaping the world right now." },
   newsletter: {
     title: "Never miss a headline",
@@ -144,7 +144,7 @@ const de: Translation = {
     newsletter: "Newsletter",
     search: "Suchergebnisse",
   },
-  actions: { readMore: "Weiterlesen", viewAll: "Alle ansehen", subscribe: "Abonnieren", search: "Suchen", readFull: "Ganzen Artikel lesen", backHome: "Zurück zur Startseite" },
+  actions: { readMore: "Dossier öffnen", viewAll: "Alle ansehen", subscribe: "Abonnieren", search: "Suchen", readFull: "Berichtsdossier öffnen", backHome: "Zurück zur Startseite" },
   hero: { breaking: "Eilmeldung", subtitle: "Bleiben Sie informiert über die Geschichten, die die Welt gerade bewegen." },
   newsletter: {
     title: "Verpassen Sie keine Schlagzeile",
@@ -214,7 +214,7 @@ const zh: Translation = {
     newsletter: "订阅通讯",
     search: "搜索结果",
   },
-  actions: { readMore: "阅读更多", viewAll: "查看全部", subscribe: "订阅", search: "搜索", readFull: "阅读全文", backHome: "返回首页" },
+  actions: { readMore: "打开档案", viewAll: "查看全部", subscribe: "订阅", search: "搜索", readFull: "打开报道档案", backHome: "返回首页" },
   hero: { breaking: "突发", subtitle: "及时了解正在改变世界的重要报道。" },
   newsletter: {
     title: "不错过任何头条",
@@ -284,7 +284,7 @@ const es: Translation = {
     newsletter: "Boletín",
     search: "Resultados de búsqueda",
   },
-  actions: { readMore: "Leer más", viewAll: "Ver todo", subscribe: "Suscribirse", search: "Buscar", readFull: "Leer la noticia completa", backHome: "Volver al inicio" },
+  actions: { readMore: "Abrir dossier", viewAll: "Ver todo", subscribe: "Suscribirse", search: "Buscar", readFull: "Abrir dossier de cobertura", backHome: "Volver al inicio" },
   hero: { breaking: "Última hora", subtitle: "Mantente informado con las historias que están moldeando el mundo ahora." },
   newsletter: {
     title: "No te pierdas ningún titular",
@@ -354,7 +354,7 @@ const fr: Translation = {
     newsletter: "Newsletter",
     search: "Résultats de recherche",
   },
-  actions: { readMore: "Lire la suite", viewAll: "Voir tout", subscribe: "S'abonner", search: "Rechercher", readFull: "Lire l'article complet", backHome: "Retour à l'accueil" },
+  actions: { readMore: "Ouvrir le dossier", viewAll: "Voir tout", subscribe: "S'abonner", search: "Rechercher", readFull: "Ouvrir le dossier de couverture", backHome: "Retour à l'accueil" },
   hero: { breaking: "Urgent", subtitle: "Restez informé des histoires qui façonnent le monde en ce moment." },
   newsletter: {
     title: "Ne manquez aucun titre",
@@ -424,7 +424,7 @@ const it: Translation = {
     newsletter: "Newsletter",
     search: "Risultati della ricerca",
   },
-  actions: { readMore: "Leggi di più", viewAll: "Vedi tutto", subscribe: "Iscriviti", search: "Cerca", readFull: "Leggi l'articolo completo", backHome: "Torna alla home" },
+  actions: { readMore: "Apri il dossier", viewAll: "Vedi tutto", subscribe: "Iscriviti", search: "Cerca", readFull: "Apri il dossier di copertura", backHome: "Torna alla home" },
   hero: { breaking: "Ultim'ora", subtitle: "Resta informato sulle storie che stanno plasmando il mondo in questo momento." },
   newsletter: {
     title: "Non perderti nessun titolo",
@@ -494,7 +494,7 @@ const pt: Translation = {
     newsletter: "Newsletter",
     search: "Resultados da pesquisa",
   },
-  actions: { readMore: "Ler mais", viewAll: "Ver tudo", subscribe: "Subscrever", search: "Pesquisar", readFull: "Ler notícia completa", backHome: "Voltar ao início" },
+  actions: { readMore: "Abrir dossiê", viewAll: "Ver tudo", subscribe: "Subscrever", search: "Pesquisar", readFull: "Abrir dossiê de cobertura", backHome: "Voltar ao início" },
   hero: { breaking: "Urgente", subtitle: "Mantenha-se informado com as histórias que estão a moldar o mundo agora." },
   newsletter: {
     title: "Nunca perca uma manchete",

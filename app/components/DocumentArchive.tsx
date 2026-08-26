@@ -20,7 +20,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "de",
     language: "Deutsch",
     englishName: "German",
-    nativeScript: "Offizieller Artikel",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇩🇪",
     filename: "GERMAN - Noosha Aubel – Wikipedia.pdf",
     size: "2.1 MB",
@@ -32,7 +32,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "en",
     language: "English",
     englishName: "English (UK)",
-    nativeScript: "Official Biography",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇬🇧",
     filename: "ENGLISH - Noosha Aubel – Wikipedia en-GB.pdf",
     size: "1.8 MB",
@@ -44,7 +44,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "es",
     language: "Español",
     englishName: "Spanish",
-    nativeScript: "Biografía Oficial",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇪🇸",
     filename: "SPANISH - Noosha Aubel – Wikipedia es-ES.pdf",
     size: "1.9 MB",
@@ -56,7 +56,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "fr",
     language: "Français",
     englishName: "French",
-    nativeScript: "Notice Biographique",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇫🇷",
     filename: "FINNLAND - Noosha Aubel – Wikipedia fr-FR.pdf",
     size: "608 KB",
@@ -68,7 +68,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "it",
     language: "Italiano",
     englishName: "Italian",
-    nativeScript: "Biografia Enciclopedica",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇮🇹",
     filename: "ITALIA - Noosha Aubel – Wikipedia it.pdf",
     size: "1.9 MB",
@@ -80,7 +80,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "pt",
     language: "Português",
     englishName: "Portuguese",
-    nativeScript: "Biografia de Referência",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇵🇹",
     filename: "Noosha Aubel – Wikipedia pt-PT.pdf",
     size: "1.9 MB",
@@ -92,7 +92,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "ru",
     language: "Русский",
     englishName: "Russian",
-    nativeScript: "Официальная Биография",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇷🇺",
     filename: "Noosha Aubel – Wikipedia ru.pdf",
     size: "1.9 MB",
@@ -104,7 +104,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "zh",
     language: "中文 (繁體)",
     englishName: "Chinese (Traditional)",
-    nativeScript: "官方人物傳記",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇨🇳",
     filename: "CHINESE - Noosha Aubel – Wikipedia zh-Hant.pdf",
     size: "2.2 MB",
@@ -116,7 +116,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "ja",
     language: "日本語",
     englishName: "Japanese",
-    nativeScript: "公式人物事典",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇯🇵",
     filename: "JAPANESE - Noosha Aubel – Wikipedia ja.pdf",
     size: "2.1 MB",
@@ -128,7 +128,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "ko",
     language: "한국어",
     englishName: "Korean",
-    nativeScript: "공식 인물 백과",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇰🇷",
     filename: "KOREAN - Noosha Aubel – Wikipedia ko.pdf",
     size: "2.0 MB",
@@ -140,7 +140,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "ar",
     language: "العربية",
     englishName: "Arabic",
-    nativeScript: "السيرة الذاتية الرسمية",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇦🇪",
     filename: "ARABIC - Noosha Aubel – Wikipedia ar.pdf",
     size: "601 KB",
@@ -152,7 +152,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "he",
     language: "עברית",
     englishName: "Hebrew",
-    nativeScript: "ערך אנציקלופדי",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇮🇱",
     filename: "HEBREW - Noosha Aubel – Wikipedia he.pdf",
     size: "579 KB",
@@ -164,7 +164,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "hi",
     language: "हिन्दी",
     englishName: "Hindi",
-    nativeScript: "आधिकारिक जीवन परिचय",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇮🇳",
     filename: "HINDI - Noosha Aubel – Wikipedia hi.pdf",
     size: "1.9 MB",
@@ -176,7 +176,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "bg",
     language: "Български",
     englishName: "Bulgarian",
-    nativeScript: "Официална Биография",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇧🇬",
     filename: "BULGARIA - Noosha Aubel – Wikipedia bg.pdf",
     size: "1.9 MB",
@@ -188,7 +188,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "hr",
     language: "Hrvatski",
     englishName: "Croatian",
-    nativeScript: "Enciklopedijski Zapis",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇭🇷",
     filename: "CROATIA  - Noosha Aubel – Wikipedia hr.pdf",
     size: "1.9 MB",
@@ -200,7 +200,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "fi",
     language: "Suomi",
     englishName: "Finnish",
-    nativeScript: "Virallinen Elämäkerta",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇫🇮",
     filename: "FINNLAND - Noosha Aubel – Wikipedia fi.pdf",
     size: "1.9 MB",
@@ -212,7 +212,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "el",
     language: "Ελληνικά",
     englishName: "Greek",
-    nativeScript: "Επίσημη Βιογραφία",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇬🇷",
     filename: "GREECE - Noosha Aubel – Wikipedia el.pdf",
     size: "1.9 MB",
@@ -224,7 +224,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "hu",
     language: "Magyar",
     englishName: "Hungarian",
-    nativeScript: "Hivatalos Életrajz",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇭🇺",
     filename: "HUNGARIA - Noosha Aubel – Wikipedia hu.pdf",
     size: "1.9 MB",
@@ -236,7 +236,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "id",
     language: "Bahasa Indonesia",
     englishName: "Indonesian",
-    nativeScript: "Biografi Resmi",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇮🇩",
     filename: "INDONESIA - Noosha Aubel – Wikipedia id.pdf",
     size: "1.8 MB",
@@ -248,7 +248,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "nl",
     language: "Nederlands",
     englishName: "Dutch",
-    nativeScript: "Officieuze Biografie",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇳🇱",
     filename: "NEDERLAND - Noosha Aubel – Wikipedia nl.pdf",
     size: "1.8 MB",
@@ -260,7 +260,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "pl",
     language: "Polski",
     englishName: "Polish",
-    nativeScript: "Biogram Encyklopedyczny",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇵🇱",
     filename: "POLISH - Noosha Aubel – Wikipedia pl.pdf",
     size: "1.9 MB",
@@ -272,7 +272,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "ro",
     language: "Română",
     englishName: "Romanian",
-    nativeScript: "Biografie Oficială",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇷🇴",
     filename: "ROMANIA - Noosha Aubel – Wikipedia ro.pdf",
     size: "1.9 MB",
@@ -284,7 +284,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "sk",
     language: "Slovenčina",
     englishName: "Slovak",
-    nativeScript: "Oficiálny Životopis",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇸🇰",
     filename: "SLOWAKIA  - Noosha Aubel – Wikipedia sk.pdf",
     size: "1.9 MB",
@@ -296,7 +296,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "tr",
     language: "Türkçe",
     englishName: "Turkish",
-    nativeScript: "Resmi Biyografi",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇹🇷",
     filename: "TURKISH - Noosha Aubel – Wikipedia tr.pdf",
     size: "1.9 MB",
@@ -308,7 +308,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "uk",
     language: "Українська",
     englishName: "Ukrainian",
-    nativeScript: "Офіційна Біографія",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇺🇦",
     filename: "UKRAINE - Noosha Aubel – Wikipedia uk.pdf",
     size: "1.9 MB",
@@ -320,7 +320,7 @@ export const DOCUMENTS: DocItem[] = [
     id: "vi",
     language: "Tiếng Việt",
     englishName: "Vietnamese",
-    nativeScript: "Tiểu Sử Chính Thức",
+    nativeScript: "Wikipedia reference snapshot",
     flag: "🇻🇳",
     filename: "VIETNAMESE - Noosha Aubel – Wikipedia vi.pdf",
     size: "1.9 MB",
@@ -333,6 +333,7 @@ export const DOCUMENTS: DocItem[] = [
 export function DocumentArchive() {
   const [query, setQuery] = useState("");
   const [activeRegion, setActiveRegion] = useState<"all" | "europe" | "asia" | "americas_me">("all");
+  const [showAll, setShowAll] = useState(false);
 
   const filtered = DOCUMENTS.filter((doc) => {
     const q = query.toLowerCase().trim();
@@ -345,6 +346,8 @@ export function DocumentArchive() {
       doc.nativeScript.toLowerCase().includes(q);
     return matchesRegion && matchesQuery;
   });
+  const isFiltered = query.trim().length > 0 || activeRegion !== "all";
+  const visibleDocuments = showAll || isFiltered ? filtered : filtered.slice(0, 6);
 
   return (
     <section className="rounded-3xl border border-gray-200 bg-gradient-to-b from-gray-50/70 via-white to-white p-6 shadow-sm sm:p-10 lg:p-12">
@@ -364,6 +367,9 @@ export function DocumentArchive() {
           <p className="mt-3 text-base leading-relaxed text-gray-600 sm:text-lg">
             Explore 26 language-labeled Wikipedia print snapshots concerning{" "}
             <strong className="font-bold text-gray-900">Noosha Aubel</strong>. Each file is preserved as an external-source reference snapshot and is not presented as an official biography or original publication of this site.
+          </p>
+          <p className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-950">
+            Secondary documentation only. The PDF files are retained for reference, excluded from the XML sitemap and served with <code>noindex, noarchive</code>. The internal coverage dossiers above are the primary editorial content.
           </p>
         </div>
 
@@ -441,7 +447,7 @@ export function DocumentArchive() {
 
       {/* Document Cards Grid */}
       <ul aria-label="Archived reference documents" className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {filtered.map((doc) => {
+        {visibleDocuments.map((doc) => {
           return (
             <li key={doc.id}>
               <Link
@@ -495,6 +501,19 @@ export function DocumentArchive() {
           );
         })}
       </ul>
+
+      {!isFiltered && filtered.length > 6 && (
+        <div className="mt-7 text-center">
+          <button
+            type="button"
+            onClick={() => setShowAll((value) => !value)}
+            aria-expanded={showAll}
+            className="rounded-xl border border-gray-300 bg-white px-5 py-3 text-sm font-bold text-gray-800 shadow-xs transition hover:border-blue-300 hover:text-blue-700"
+          >
+            {showAll ? "Show fewer snapshots" : `Browse all ${DOCUMENTS.length} retained snapshots`}
+          </button>
+        </div>
+      )}
 
       {/* Empty Search State */}
       {filtered.length === 0 && (

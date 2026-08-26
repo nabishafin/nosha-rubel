@@ -86,6 +86,18 @@ This template comes with [Tailwind CSS](https://tailwindcss.com/) already config
 
 Built with ❤️ using React Router.
 
+## Product model
+
+This repository serves an SSR multilingual press dossier about Noosha Aubel and municipal affairs in Potsdam. It is not a general breaking-news template.
+
+- Coverage cards link to first-party dossier pages with source-language summaries, original context, verification notes and citations to external publishers.
+- Third-party articles are not reproduced in full without documented permission.
+- Genuine translation groups drive reciprocal article-level hreflang links.
+- The 26 retained Wikipedia PDF snapshots are secondary reference documents. Their binaries are excluded from the sitemap and served with `noindex, noarchive`.
+- Publisher identity, jurisdiction, contact assertions, source-image rights and native-language review remain evidence-dependent release approvals.
+
+See `docs/coverage-content-policy.md`, `docs/trust-claim-policy.md` and `docs/release-quality-gates.md` before changing content or indexing behavior.
+
 ## Production domain and indexing
 
 Set `SITE_URL` in the production hosting environment to the one canonical,

@@ -26,8 +26,8 @@ function pageContent(page: StaticPage, t: Translation): { title: string; paragra
         title: t.footer.contact,
         paragraphs: [
           SITE_NAME,
-          "Address: 28/A Toyenbee Circular Road, Dhaka-1000 & 9/A, HRC Bhaban, 45 Kawran Bazar, Dhaka-1217",
-          `Telephone: +880 1812-345678 · Email: ${SITE_CONTACT_EMAIL}`,
+          `Corrections and source updates: ${SITE_CONTACT_EMAIL}`,
+          "Publisher-supplied address and telephone details are withheld from the public contact page until documentary verification and legal review are complete.",
         ],
       };
     case "privacy":

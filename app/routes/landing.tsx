@@ -96,10 +96,6 @@ export default function Landing({ loaderData }: Route.ComponentProps) {
         <LanguageGrid />
       </Section>
 
-      <Section>
-        <DocumentArchive />
-      </Section>
-
       <Section muted>
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
@@ -117,6 +113,10 @@ export default function Landing({ loaderData }: Route.ComponentProps) {
             <TagCloud tags={tags} />
           </div>
         </div>
+      </Section>
+
+      <Section>
+        <DocumentArchive />
       </Section>
     </>
   );

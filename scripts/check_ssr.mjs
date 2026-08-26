@@ -53,7 +53,9 @@ try {
   assert.ok(firstArticlePath, "expected a crawlable article URL in raw HTML");
   const article = await get(firstArticlePath);
   assert.match(article.visible, /<h1[^>]*>[^<]+<\/h1>/);
-  assert.match(article.visible, /independent coverage record/i);
+  assert.match(article.visible, /original dossier summary/i);
+  assert.match(article.visible, /What the cited publication reports/i);
+  assert.match(article.visible, /Verification status/i);
   assert.match(article.visible, /target="_blank" rel="noopener noreferrer"/);
   assert.match(article.visible, /rel="canonical" href="[^"]+\/en\/news\//);
   assert.match(article.html, /"@type":"WebPage"/);

@@ -7,6 +7,7 @@ import { articleAlternates, buildMeta, coverageRecordJsonLd, withSiteName } from
 import { formatDate, readingTime } from "~/lib/format";
 import { localePath } from "~/lib/i18n-context";
 import { SITE_CONTACT_EMAIL } from "~/lib/site-identity";
+import { getCoverageDossier } from "~/lib/coverage-dossiers";
 
 import { Container } from "~/components/Container";
 import { ExternalLink } from "~/components/ExternalLink";
@@ -37,6 +38,7 @@ export function loader({ params, request }: Route.LoaderArgs) {
     related: getRelated(article, 3),
     canonical,
     alternates,
+    dossier: getCoverageDossier(article),
   };
 }
 
@@ -58,10 +60,16 @@ export function meta({ loaderData }: Route.MetaArgs) {
 }
 
 export default function ArticlePage({ loaderData }: Route.ComponentProps) {
-  const { lang, article, related } = loaderData;
+  const { lang, article, related, dossier } = loaderData;
   const t = getTranslation(lang);
   const interfaceLocale = getInterfaceLocale(lang);
-  const mins = readingTime(article.content);
+  const mins = readingTime([
+    ...article.content,
+    ...dossier.overview,
+    ...dossier.keyPoints,
+    dossier.context,
+    dossier.verificationNote,
+  ]);
 
   return (
     <article lang={LANGUAGES[article.language].locale}>
@@ -108,13 +116,59 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
       <Container className="mt-10">
         <div className="mx-auto max-w-3xl">
           <div lang="en" className="mb-7 rounded-lg border border-blue-100 bg-blue-50 p-5 text-sm leading-relaxed text-blue-950">
-            This is an independent coverage record summarizing a publication from {article.sourceName}. The original publisher remains responsible for the source article.
+            This is an original dossier summary of a publication from {article.sourceName}. It adds context and verification notes without reproducing the publisher&apos;s article. The original publisher remains responsible for the source report.
           </div>
-          <div className="space-y-5 text-lg leading-relaxed text-gray-800">
-            {article.content.map((para, i) => (
-              <p key={i}>{para}</p>
-            ))}
-          </div>
+          <section aria-labelledby="source-summary-heading">
+            <p id="source-summary-heading" lang="en" className="text-xs font-extrabold uppercase tracking-[0.18em] text-blue-700">
+              Source-language summary
+            </p>
+            <div className="mt-3 space-y-5 text-lg leading-relaxed text-gray-800">
+              {article.content.map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+            </div>
+          </section>
+
+          <section
+            lang={dossier.language}
+            aria-labelledby="dossier-overview-heading"
+            className="mt-10 border-t border-gray-200 pt-9"
+          >
+            <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-red-700">
+              Independent editorial context · {dossier.language === "de" ? "Deutsch" : "English"}
+            </p>
+            <h2 id="dossier-overview-heading" className="mt-2 text-2xl font-extrabold tracking-tight text-gray-950">
+              What the cited publication reports
+            </h2>
+            <div className="mt-5 space-y-5 text-lg leading-relaxed text-gray-800">
+              {dossier.overview.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
+
+            <div className="mt-8 rounded-2xl border border-gray-200 bg-gray-50 p-6">
+              <h2 className="text-lg font-bold text-gray-950">Key points in the coverage record</h2>
+              <ul className="mt-4 space-y-3 text-base leading-relaxed text-gray-700">
+                {dossier.keyPoints.map((point) => (
+                  <li key={point} className="flex gap-3">
+                    <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-blue-600" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="mt-8 grid gap-5 sm:grid-cols-2">
+              <div className="rounded-xl border border-gray-200 bg-white p-5">
+                <h2 className="text-base font-bold text-gray-950">Context for readers</h2>
+                <p className="mt-2 text-sm leading-relaxed text-gray-700">{dossier.context}</p>
+              </div>
+              <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
+                <h2 className="text-base font-bold text-amber-950">Verification status</h2>
+                <p className="mt-2 text-sm leading-relaxed text-amber-950">{dossier.verificationNote}</p>
+              </div>
+            </div>
+          </section>
 
           {/* Source */}
           <div className="mt-8 rounded-lg border border-gray-200 bg-gray-50 p-5">
