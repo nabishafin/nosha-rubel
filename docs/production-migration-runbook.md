@@ -1,6 +1,6 @@
 # Production migration runbook
 
-The repository currently declares `https://noosha-aubel.com` as the intended canonical origin in `.env.example`. Ownership, legal approval, DNS access, Search Console access, and the final primary-host decision must be confirmed before using this value in production. If the approved origin differs, update `.env.example`, hosting configuration, this runbook, and all baseline evidence together.
+The repository declares `https://nooshaaubel.com` as the canonical origin in `.env.example`, matching the public website supplied for the 2026-08-31 SEO review. The previously indexed `noosha-aubel.com` host is a migration source and must permanently redirect one-to-one to the canonical host. Ownership, DNS access, Search Console access and redirect deployment still require infrastructure confirmation.
 
 ## 1. Required owners and evidence
 
@@ -12,6 +12,8 @@ The repository currently declares `https://noosha-aubel.com` as the intended can
 
 Do not launch without named people, contact paths, a change window, and a previous deploy artifact that can be restored.
 
+Before deployment, rotate the historical API credential removed from the tracked `.env` file. Treat it as compromised because deleting the working-tree file does not remove it from prior Git commits.
+
 ## 2. Pre-migration inventory
 
 1. Copy `docs/migration-url-map-template.csv` into the controlled release evidence location.
@@ -20,7 +22,7 @@ Do not launch without named people, contact paths, a change window, and a previo
 4. Approve one-to-one targets only when semantically equivalent. Never redirect all missing URLs to a homepage.
 5. Preserve redirects long term and reject chains, loops, query loss, and redirects to noindex/error pages.
 
-The application already handles slash normalization and intentional category `410` responses. Protocol, hostname, mirror-domain and old static-file redirects belong at the CDN/reverse proxy.
+The application handles known `noosha-aubel.com`/`www` duplicate hosts, slash normalization and intentional category `410` responses. Repeat hostname redirects at the CDN/reverse proxy so they occur before application rendering and remain available during application outages.
 
 ## 3. Staging gate
 

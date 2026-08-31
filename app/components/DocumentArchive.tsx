@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { localePath } from "~/lib/i18n-context";
+import { localePath, useI18n } from "~/lib/i18n-context";
 
 export interface DocItem {
   id: string;
@@ -331,6 +331,7 @@ export const DOCUMENTS: DocItem[] = [
 ];
 
 export function DocumentArchive() {
+  const { lang } = useI18n();
   const [query, setQuery] = useState("");
   const [activeRegion, setActiveRegion] = useState<"all" | "europe" | "asia" | "americas_me">("all");
   const [showAll, setShowAll] = useState(false);
@@ -348,6 +349,59 @@ export function DocumentArchive() {
   });
   const isFiltered = query.trim().length > 0 || activeRegion !== "all";
   const visibleDocuments = showAll || isFiltered ? filtered : filtered.slice(0, 6);
+  const labels = lang === "de"
+    ? {
+        kicker: "Mehrsprachiges Quellenarchiv",
+        title: "Mehrsprachiges Referenzarchiv",
+        intro: "Entdecken Sie 26 nach Sprache gekennzeichnete Wikipedia-Druckkopien zu",
+        introEnd: "Jede Datei wird als externe Referenzkopie aufbewahrt und ist weder eine offizielle Biografie noch eine Originalveröffentlichung dieser Website.",
+        notice: "Nur Sekundärdokumentation. Die PDF-Dateien und ihre HTML-Hinweisseiten bleiben als Referenz zugänglich, sind aber aus dem XML-Sitemap ausgeschlossen und mit noindex versehen. Die internen Berichtsdossiers oben sind der primäre redaktionelle Inhalt.",
+        languages: "Sprachen",
+        snapshots: "Kopien",
+        format: "Format",
+        filterAria: "Dokumente nach Region filtern",
+        all: "Alle Sprachen (26)",
+        europe: "Europa",
+        asia: "Asien & Pazifik",
+        other: "Nahost & weitere",
+        searchAria: "Archivdokumente nach Sprache oder Stichwort durchsuchen",
+        searchPlaceholder: "Sprache oder Stichwort suchen …",
+        clear: "Dokumentsuche leeren",
+        listAria: "Archivierte Referenzdokumente",
+        reference: "Wikipedia-Referenzkopie",
+        view: "Dokument ansehen",
+        less: "Weniger Kopien anzeigen",
+        allSnapshots: `Alle ${DOCUMENTS.length} Referenzkopien anzeigen`,
+        empty: "Keine passenden Dokumente gefunden",
+        emptyHint: "Versuchen Sie eine andere Sprache oder ein anderes Land.",
+        reset: "Filter zurücksetzen",
+      }
+    : {
+        kicker: "Multilingual Reference Archive",
+        title: "Multilingual Reference Archive",
+        intro: "Explore 26 language-labeled Wikipedia print snapshots concerning",
+        introEnd: "Each file is preserved as an external-source reference snapshot and is not presented as an official biography or original publication of this site.",
+        notice: "Secondary documentation only. The PDF files and their HTML context pages remain available for reference, but are excluded from the XML sitemap and marked noindex. The internal coverage dossiers above are the primary editorial content.",
+        languages: "Languages",
+        snapshots: "Snapshots",
+        format: "Format",
+        filterAria: "Filter documents by region",
+        all: "All Languages (26)",
+        europe: "Europe",
+        asia: "Asia & Pacific",
+        other: "Middle East & Others",
+        searchAria: "Search archived documents by language or keyword",
+        searchPlaceholder: "Search language or keyword...",
+        clear: "Clear document search",
+        listAria: "Archived reference documents",
+        reference: "Wikipedia reference snapshot",
+        view: "View document",
+        less: "Show fewer snapshots",
+        allSnapshots: `Browse all ${DOCUMENTS.length} retained snapshots`,
+        empty: "No matching documents found",
+        emptyHint: "Try searching for a different language or country.",
+        reset: "Reset Filters",
+      };
 
   return (
     <section className="rounded-3xl border border-gray-200 bg-gradient-to-b from-gray-50/70 via-white to-white p-6 shadow-sm sm:p-10 lg:p-12">
@@ -359,17 +413,16 @@ export function DocumentArchive() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-600" />
             </span>
-            Multilingual Reference Archive
+            {labels.kicker}
           </div>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
-            Multilingual Reference Archive
+            {labels.title}
           </h2>
           <p className="mt-3 text-base leading-relaxed text-gray-600 sm:text-lg">
-            Explore 26 language-labeled Wikipedia print snapshots concerning{" "}
-            <strong className="font-bold text-gray-900">Noosha Aubel</strong>. Each file is preserved as an external-source reference snapshot and is not presented as an official biography or original publication of this site.
+            {labels.intro}{" "}<strong className="font-bold text-gray-900">Noosha Aubel</strong>. {labels.introEnd}
           </p>
           <p className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-relaxed text-amber-950">
-            Secondary documentation only. The PDF files are retained for reference, excluded from the XML sitemap and served with <code>noindex, noarchive</code>. The internal coverage dossiers above are the primary editorial content.
+            {labels.notice}
           </p>
         </div>
 
@@ -377,15 +430,15 @@ export function DocumentArchive() {
         <div className="grid grid-cols-3 gap-3 shrink-0 sm:gap-4">
           <div className="rounded-2xl border border-gray-200 bg-white p-3.5 text-center shadow-xs sm:p-4">
             <p className="text-2xl font-extrabold text-blue-600 sm:text-3xl">26</p>
-            <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">Languages</p>
+            <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">{labels.languages}</p>
           </div>
           <div className="rounded-2xl border border-gray-200 bg-white p-3.5 text-center shadow-xs sm:p-4">
             <p className="text-2xl font-extrabold text-emerald-600 sm:text-3xl">26</p>
-            <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">Snapshots</p>
+            <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">{labels.snapshots}</p>
           </div>
           <div className="rounded-2xl border border-gray-200 bg-white p-3.5 text-center shadow-xs sm:p-4">
             <p className="text-2xl font-extrabold text-red-600 sm:text-3xl">PDF</p>
-            <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">Format</p>
+            <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-wider text-gray-500">{labels.format}</p>
           </div>
         </div>
       </div>
@@ -393,12 +446,12 @@ export function DocumentArchive() {
       {/* Filter Controls: Tabs + Search Bar */}
       <div className="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         {/* Region Tabs */}
-        <div role="group" aria-label="Filter documents by region" className="flex flex-wrap gap-2 rounded-xl border border-gray-200 bg-gray-100/80 p-1.5">
+        <div role="group" aria-label={labels.filterAria} className="flex flex-wrap gap-2 rounded-xl border border-gray-200 bg-gray-100/80 p-1.5">
           {[
-            { id: "all", label: "All Languages (26)" },
-            { id: "europe", label: "Europe" },
-            { id: "asia", label: "Asia & Pacific" },
-            { id: "americas_me", label: "Middle East & Others" },
+            { id: "all", label: labels.all },
+            { id: "europe", label: labels.europe },
+            { id: "asia", label: labels.asia },
+            { id: "americas_me", label: labels.other },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -428,15 +481,15 @@ export function DocumentArchive() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            aria-label="Search archived documents by language or keyword"
-            placeholder="Search language or keyword..."
+            aria-label={labels.searchAria}
+            placeholder={labels.searchPlaceholder}
             className="w-full rounded-xl border border-gray-200 bg-white pl-10 pr-9 py-2.5 text-sm text-gray-900 placeholder:text-gray-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-100"
           />
           {query && (
             <button
               type="button"
               onClick={() => setQuery("")}
-              aria-label="Clear document search"
+              aria-label={labels.clear}
               className="absolute inset-y-0 right-0 flex min-w-11 items-center justify-center text-xs font-bold text-gray-600 hover:text-gray-800"
             >
               ✕
@@ -446,7 +499,7 @@ export function DocumentArchive() {
       </div>
 
       {/* Document Cards Grid */}
-      <ul aria-label="Archived reference documents" className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <ul aria-label={labels.listAria} className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {visibleDocuments.map((doc) => {
           return (
             <li key={doc.id}>
@@ -480,7 +533,7 @@ export function DocumentArchive() {
                   <h3 className="text-lg font-bold text-gray-900 transition-colors duration-200 group-hover:text-blue-700">
                     {doc.language}
                   </h3>
-                  <p className="text-xs font-semibold text-gray-500">{doc.englishName}</p>
+                  <p className="text-xs font-semibold text-gray-500">{lang === "de" ? labels.reference : doc.englishName}</p>
                   <p className="mt-2.5 line-clamp-2 text-xs leading-relaxed text-gray-600">
                     {doc.summary}
                   </p>
@@ -490,7 +543,7 @@ export function DocumentArchive() {
               <div className="mt-6 flex items-center justify-between border-t border-gray-100 pt-4 text-xs font-semibold">
                 <span className="text-gray-600">{doc.size}</span>
                 <span className="inline-flex items-center gap-1 font-bold text-blue-600 transition-colors duration-200 group-hover:text-blue-800">
-                  <span>View document</span>
+                  <span>{labels.view}</span>
                   <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-transform duration-200 group-hover:translate-x-0.5">
                     <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -510,7 +563,7 @@ export function DocumentArchive() {
             aria-expanded={showAll}
             className="rounded-xl border border-gray-300 bg-white px-5 py-3 text-sm font-bold text-gray-800 shadow-xs transition hover:border-blue-300 hover:text-blue-700"
           >
-            {showAll ? "Show fewer snapshots" : `Browse all ${DOCUMENTS.length} retained snapshots`}
+            {showAll ? labels.less : labels.allSnapshots}
           </button>
         </div>
       )}
@@ -519,8 +572,8 @@ export function DocumentArchive() {
       {filtered.length === 0 && (
         <div className="mt-8 rounded-2xl border border-gray-200 bg-white py-16 text-center">
           <p className="text-5xl">🔍</p>
-          <h3 className="mt-4 text-lg font-bold text-gray-900">No matching documents found</h3>
-          <p className="mt-1 text-sm text-gray-500">Try searching for a different language or country.</p>
+          <h3 className="mt-4 text-lg font-bold text-gray-900">{labels.empty}</h3>
+          <p className="mt-1 text-sm text-gray-500">{labels.emptyHint}</p>
           <button
             type="button"
             onClick={() => {
@@ -529,7 +582,7 @@ export function DocumentArchive() {
             }}
             className="mt-5 rounded-xl bg-blue-600 px-5 py-2.5 text-xs font-bold text-white transition hover:bg-blue-700"
           >
-            Reset Filters
+            {labels.reset}
           </button>
         </div>
       )}

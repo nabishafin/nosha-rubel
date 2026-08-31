@@ -1,5 +1,11 @@
 const configuredSiteUrl = process.env.SITE_URL?.trim();
-const DEFAULT_PRODUCTION_ORIGIN = "https://noosha-aubel.com";
+export const DEFAULT_PRODUCTION_ORIGIN = "https://nooshaaubel.com";
+const CANONICAL_HOSTNAMES = new Set([
+  "nooshaaubel.com",
+  "www.nooshaaubel.com",
+  "noosha-aubel.com",
+  "www.noosha-aubel.com",
+]);
 
 function normalizeOrigin(value: string): string | undefined {
   try {
@@ -34,4 +40,23 @@ export function getOrigin(request: Request): string {
     return `${proto}://${host}`;
   }
   return new URL(request.url).origin;
+}
+
+/**
+ * Return a one-hop permanent redirect when a request arrives on a known
+ * duplicate production hostname. Preview and localhost hosts are intentionally
+ * ignored so staging remains testable.
+ */
+export function getCanonicalHostRedirect(request: Request): string | undefined {
+  const requestUrl = new URL(request.url);
+  const forwardedHost = request.headers.get("x-forwarded-host")?.split(",", 1)[0]?.trim();
+  const requestHostname = (forwardedHost ? forwardedHost.split(":", 1)[0] : requestUrl.hostname).toLowerCase();
+  if (!CANONICAL_HOSTNAMES.has(requestHostname)) return undefined;
+
+  const canonical =
+    (configuredSiteUrl && normalizeOrigin(configuredSiteUrl)) ?? DEFAULT_PRODUCTION_ORIGIN;
+  const canonicalUrl = new URL(canonical);
+  if (requestHostname === canonicalUrl.hostname.toLowerCase()) return undefined;
+
+  return `${canonicalUrl.origin}${requestUrl.pathname}${requestUrl.search}`;
 }

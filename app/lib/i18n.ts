@@ -120,7 +120,7 @@ const en: Translation = {
 };
 
 const de: Translation = {
-  brandTagline: "Weltweite Nachrichten, in Ihrer Sprache",
+  brandTagline: "Quellenbasierte Berichte, amtliche Dokumente und kommunalpolitische Einordnung aus Potsdam",
   nav: { home: "Startseite", search: "Suche", subscribe: "Abonnieren", menu: "Menü" },
   categories: {
     politics: "Politik",
@@ -184,8 +184,8 @@ const de: Translation = {
     rights: "Alle Rechte vorbehalten.",
   },
   meta: {
-    homeTitle: "Noosha Aubel: Potsdams Oberbürgermeisterin im Pressespiegel",
-    homeDescription: "Noosha Aubel: Berichte, öffentliche Dokumente und Quellen zur Oberbürgermeisterin von Potsdam, einschließlich des dokumentierten Falls eines behinderten Kindes.",
+    homeTitle: "Noosha Aubel: Aktuelles, Biografie und Potsdam-Themen",
+    homeDescription: "Noosha Aubel: aktuelle, quellenbasierte Übersicht zu Biografie, Wahl, Amt und kommunalpolitischen Themen der Oberbürgermeisterin von Potsdam.",
   },
 };
 

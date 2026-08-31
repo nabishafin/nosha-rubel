@@ -9,6 +9,24 @@ export interface CoverageDossier {
 }
 
 const DOSSIERS: Record<string, CoverageDossier> = {
+  "weekly-world-2026-08-05:de": {
+    language: "de",
+    overview: [
+      "Die zitierte Veröffentlichung bewertet die ersten Monate von Noosha Aubel als Oberbürgermeisterin von Potsdam kritisch. Im Mittelpunkt stehen Führungsstil, Haushaltsentscheidungen und der Umgang mit kommunalen Problemen, die teilweise bereits vor ihrem Amtsantritt bestanden.",
+      "Der Beitrag verbindet mehrere Themen: die Vorbereitung politischer Mehrheiten, den Haushalt 2026, Wohnen und Wasserversorgung, den Zustand von Straßen, die Kommunikation des Rathauses sowie den Streit um eine tatsächlich nutzbare Betreuung für ein schwerstbehindertes Kind. Die Quelle vertritt die Auffassung, öffentliche Ankündigungen seien teilweise vor einer belastbaren politischen oder finanziellen Absicherung erfolgt.",
+      "Für die Einordnung ist die zeitliche Abgrenzung wichtig: Noosha Aubel trat ihr Amt am 24. Oktober 2025 an. Dass Probleme übernommen wurden, beantwortet nicht automatisch die Frage nach dem heutigen Umgang mit ihnen; umgekehrt dürfen Altlasten nicht ohne Beleg ihrer Amtsführung zugerechnet werden.",
+    ],
+    keyPoints: [
+      "Noosha Aubel erhielt bei der Stichwahl 2025 72,9 Prozent der gültigen Stimmen.",
+      "Die Quelle bewertet Haushaltskurs, Mehrheitsbildung, Verwaltungssteuerung und Rathauskommunikation.",
+      "Geerbte Probleme und die Verantwortung für die aktuelle Reaktion darauf müssen getrennt beurteilt werden.",
+      "Der Beitrag ist eine redaktionelle Bewertung, kein amtlicher Prüfbericht und keine gerichtliche Entscheidung.",
+    ],
+    context:
+      "Dieses Dossier dokumentiert die Argumentation der Veröffentlichung und trennt berichtete Tatsachen von Wertungen. Strittige Angaben sollten mit amtlichen Haushaltsunterlagen, Ratsdokumenten und Stellungnahmen der genannten Stellen verglichen werden.",
+    verificationNote:
+      "Für Berichterstattung und Schlussfolgerungen bleibt der zitierte Herausgeber verantwortlich. Diese Website hat nicht jede Behauptung, Zahl oder Charakterisierung unabhängig verifiziert.",
+  },
   "weekly-world-2026-08-05": {
     language: "en",
     overview: [
@@ -26,6 +44,24 @@ const DOSSIERS: Record<string, CoverageDossier> = {
       "This dossier preserves the publication's argument while separating reported facts from opinion. Readers should compare contested claims with Potsdam's official records, council documents and any responses from the people or institutions named.",
     verificationNote:
       "The original publisher remains responsible for its reporting and conclusions. This site has not independently verified every allegation, figure or characterization in the source article.",
+  },
+  "trust-and-nursery-case:de": {
+    language: "de",
+    overview: [
+      "Die zu dieser Gruppe gehörenden Veröffentlichungen verbinden Kritik an Potsdams Finanzlage und Verwaltungsführung mit Fragen zur politischen Verantwortung unter Noosha Aubel. Wiederkehrende Themen sind ein berichtetes Haushaltsdefizit, Ausgaben für externe Beratung, veränderte Sparvorschläge, beschädigte Infrastruktur und ein Kita-Streit um ein schwerstbehindertes Kind.",
+      "Die Quellen verstehen Aubels Wahlergebnis als Vertrauensvorschuss, der anhand nachvollziehbarer Ergebnisse beurteilt werden müsse. Ihre redaktionelle These lautet, übernommene Krisen entbänden die amtierende Stadtspitze nicht davon, eine wirksame Reaktion zu organisieren, Mehrheiten vorzubereiten und Entscheidungen überprüfbar zu kommunizieren.",
+      "Die Beiträge enthalten schwerwiegende Aussagen zu einzelnen Verwaltungs- und Rechtsfragen. Diese Aussagen bleiben den Herausgebern und den dort zitierten Beteiligten zugeordnet. Sie sind keine eigenen Feststellungen dieser Website; Verfahren, Behördenpositionen und der Stand einzelner Vorwürfe können sich nach dem Veröffentlichungsdatum verändert haben.",
+    ],
+    keyPoints: [
+      "Die Beiträge behandeln Potsdams Haushaltsdruck und die politische Aushandlung von Einsparungen.",
+      "Sie fragen, ob externe Beratung und öffentliche Kommunikation messbare Verbesserungen bewirkt haben.",
+      "Die Führungsdebatte wird mit dem Streit um inklusive Betreuung und Einzelfallhilfe verbunden.",
+      "Meinung, berichtete Unterlagen und unabhängig festgestellte Tatsachen sind voneinander zu unterscheiden.",
+    ],
+    context:
+      "Der dokumentarische Wert dieser Seiten liegt darin, wie verschiedene Herausgeber die Debatte zu einem bestimmten Zeitpunkt dargestellt haben. Mehrfachveröffentlichungen oder Übersetzungen sind keine voneinander unabhängigen Bestätigungen.",
+    verificationNote:
+      "Zahlen, rechtliche Einordnungen und Vorwürfe werden als Angaben der zitierten Quellen wiedergegeben. Vor einer Übernahme als gesicherte Tatsache sind Primärunterlagen, Gerichtsentscheidungen und amtliche Stellungnahmen zu prüfen.",
   },
   "trust-and-nursery-case": {
     language: "en",
@@ -45,6 +81,24 @@ const DOSSIERS: Record<string, CoverageDossier> = {
     verificationNote:
       "Figures, legal descriptions and allegations are presented as claims reported by the cited publisher. Consult primary budgets, court records and official statements before relying on them as established fact.",
   },
+  "tempo-10-potholes:de": {
+    language: "de",
+    overview: [
+      "Die Quelle nutzt den Zustand der Rudolf-Breitscheid-Straße in Potsdam-Babelsberg als Beispiel für kommunales Infrastrukturmanagement. Sie berichtet, die Fahrbahn sei so schadhaft gewesen, dass eine Geschwindigkeitsbegrenzung auf 10 km/h angeordnet worden sei, und nennt geschätzte Sanierungskosten von 3,3 Millionen Euro.",
+      "Der Beitrag argumentiert, ein Tempolimit könne eine unmittelbare Gefahrenlage mindern, ersetze aber keinen finanzierten und terminierten Sanierungsplan. Die Straße dient der Veröffentlichung als Beispiel für die Frage, ob bekannte Probleme mit Zuständigkeiten, Haushaltsmitteln und überprüfbaren Fristen bearbeitet werden.",
+      "Die darüber hinausgehenden Aussagen zu Kommunikation und politischer Verantwortung sind Wertungen der Quelle. Da der Straßenzustand bereits vor Noosha Aubels Amtsantritt bekannt war, müssen Ursache des Problems und Verantwortung für die heutige Reaktion getrennt betrachtet werden.",
+    ],
+    keyPoints: [
+      "Der berichtete Straßenabschnitt liegt in der Rudolf-Breitscheid-Straße in Potsdam-Babelsberg.",
+      "Die Quelle nennt ein Tempolimit von 10 km/h als Reaktion auf den Fahrbahnzustand.",
+      "Eine Schätzung von 3,3 Millionen Euro wird als Größenordnung der Sanierung angeführt.",
+      "Aussagen über Kompetenz oder politische Verantwortung sind journalistische Kommentare, keine technischen Gutachten.",
+    ],
+    context:
+      "Für den aktuellen Stand sind spätere Mitteilungen der Landeshauptstadt, Haushaltsbeschlüsse, Vergabeunterlagen sowie mögliche Änderungen an Straße oder Tempolimit heranzuziehen.",
+    verificationNote:
+      "Diese Website hat die Quelle zusammengefasst, aber weder die Straße selbst noch technische Gutachten oder den aktuellen Baufortschritt unabhängig geprüft.",
+  },
   "tempo-10-potholes": {
     language: "en",
     overview: [
@@ -63,6 +117,24 @@ const DOSSIERS: Record<string, CoverageDossier> = {
     verificationNote:
       "This site has summarized the cited publication and has not independently inspected the road, engineering reports or current construction status.",
   },
+  "woidke-child:de": {
+    language: "de",
+    overview: [
+      "Die zitierte Berichterstattung betrifft ein Potsdamer Kleinkind, das von der Quelle als schwerstbehindert und dem Pflegegrad 4 zugeordnet beschrieben wird. Nach Darstellung des Beitrags waren Leistungen für inklusive Betreuung und Einzelfallhilfe bewilligt, dennoch habe der Familie kein Platz zur Verfügung gestanden, der mit der notwendigen Unterstützung tatsächlich nutzbar war.",
+      "Die Quelle schildert einen Streit mit der Landeshauptstadt Potsdam sowie Petitionen und gerichtliche Verfahren. Sie stellt die Frage, welchen praktischen Wert ein formaler Anspruch oder eine Kostenbewilligung hat, wenn Betreuung und Assistenz nicht gemeinsam umgesetzt werden. Außerdem berichtet sie über unterschiedliche Zuständigkeiten und Rechtswege.",
+      "Der Beitrag verbindet den Einzelfall mit Fragen administrativer Verantwortung unter Noosha Aubel und politischer Verantwortung auf Landesebene. Diese Aussagen sind ernst und umstritten. Das Dossier dokumentiert die Darstellung des Herausgebers, entscheidet aber weder laufende Verfahren noch ergänzt es persönliche Angaben über das Kind.",
+    ],
+    keyPoints: [
+      "Die Quelle berichtet über eine schwere Behinderung, Pflegegrad 4 und den Bedarf an Einzelfallhilfe.",
+      "Sie nennt eine im März 2024 bewilligte inklusive Acht-Stunden-Betreuung und Assistenzfinanzierung.",
+      "Strittig ist nach der Veröffentlichung, ob ein tatsächlich nutzbarer Platz samt notwendiger Unterstützung bereitgestellt wurde.",
+      "Petitionen sowie verwaltungs- und sozialgerichtliche Verfahren werden als Teil des Fallverlaufs beschrieben.",
+    ],
+    context:
+      "Da ein Kind betroffen ist, beschränkt sich dieses Dossier auf die für das öffentliche Verwaltungshandeln notwendigen Angaben und unterscheidet zwischen bewilligter Leistung und wirksamer Bereitstellung.",
+    verificationNote:
+      "Die rechtlichen und tatsächlichen Positionen aller Beteiligten sind in der zitierten Veröffentlichung möglicherweise nicht vollständig wiedergegeben. Maßgeblich sind Gerichtsentscheidungen und amtliche Primärunterlagen.",
+  },
   "woidke-child": {
     language: "en",
     overview: [
@@ -80,6 +152,24 @@ const DOSSIERS: Record<string, CoverageDossier> = {
       "Because the report concerns a child, this dossier minimizes personal details and focuses on public administration, access to services and the distinction between an approved benefit and effective delivery.",
     verificationNote:
       "The legal and factual positions of all parties may not be fully represented in the cited article. Court outcomes and official responses should be checked in primary records.",
+  },
+  "disabled-child-scandal:de": {
+    language: "de",
+    overview: [
+      "Dieser frühere Beitrag beschreibt denselben Kita-Streit in einer älteren Phase. Nach Darstellung der Quelle war der Unterstützungsbedarf des Kindes schriftlich anerkannt; die Familie habe einen inklusiven Betreuungsplatz mit Einzelfallhilfe gesucht.",
+      "Die Veröffentlichung berichtet über Beschwerden, Petitionen und Verfahren vor dem Verwaltungsgericht Potsdam. Sie deutet die Verzögerung als Prüfung dafür, ob Ansprüche auf frühkindliche Förderung und Inklusion praktisch umgesetzt werden oder nur formal bestehen.",
+      "Der Beitrag verwendet zugespitzte Sprache und erhebt Vorwürfe gegen öffentliche Stellen und Amtsträger. Dieses unabhängige Dossier übernimmt diese Vorwürfe nicht als eigene Tatsachenfeststellungen. Es dokumentiert die Veröffentlichungsgeschichte und verweist für eine belastbare Bewertung auf Gerichtsakten, Behördenantworten und spätere Entwicklungen.",
+    ],
+    keyPoints: [
+      "Der Beitrag erschien am 26. Februar 2026 und beschreibt den Streit als bereits länger als ein Jahr andauernd.",
+      "Genannt werden Kita-Zugang, Einzelfallhilfe, Beschwerden, Petitionen und Eilverfahren.",
+      "Die Quelle verweist auf gesetzliche und behindertenrechtliche Grundsätze; ihre Auslegung ist keine gerichtliche Entscheidung.",
+      "Spätere Beiträge im Archiv behandeln weitere behauptete Ereignisse und sollten chronologisch gelesen werden.",
+    ],
+    context:
+      "Diese Seite bleibt als Teil der veröffentlichten Chronologie erhalten. Wiederholungen in späteren Sprachen oder Publikationen beweisen die zugrunde liegenden Behauptungen nicht zusätzlich.",
+    verificationNote:
+      "Medizinische Angaben, Namen und Rechtsvorwürfe in einem Fall mit einem Kind verlangen besondere Sorgfalt. Für rechtliche Schlussfolgerungen sind ausschließlich autoritative Primärunterlagen maßgeblich.",
   },
   "disabled-child-scandal": {
     language: "en",
@@ -119,9 +209,21 @@ const DOSSIERS: Record<string, CoverageDossier> = {
   },
 };
 
+function dossierKey(article: Pick<Article, "id" | "translationGroup">): string {
+  return article.translationGroup ?? article.id;
+}
+
+export function hasLocalizedCoverageDossier(
+  article: Pick<Article, "id" | "translationGroup" | "language">,
+): boolean {
+  const key = dossierKey(article);
+  const dossier = DOSSIERS[`${key}:${article.language}`] ?? DOSSIERS[key];
+  return dossier?.language === article.language;
+}
+
 export function getCoverageDossier(article: Article): CoverageDossier {
-  const key = article.translationGroup ?? article.id;
-  return DOSSIERS[key] ?? {
+  const key = dossierKey(article);
+  return DOSSIERS[`${key}:${article.language}`] ?? DOSSIERS[key] ?? {
     language: "en",
     overview: [article.description],
     keyPoints: article.tags.slice(0, 4),

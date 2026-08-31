@@ -2,6 +2,7 @@ import { ARTICLES } from "~/data/articles";
 import { getOrigin } from "~/lib/http";
 import { SITE_DESCRIPTION, SITE_NAME } from "~/lib/site-identity";
 import type { Route } from "./+types/feed";
+import { hasLocalizedCoverageDossier } from "~/lib/coverage-dossiers";
 
 const escapeXml = (value: string) =>
   value.replace(/[<>&"']/g, (character) => ({
@@ -14,7 +15,7 @@ const escapeXml = (value: string) =>
 
 export function loader({ request }: Route.LoaderArgs) {
   const origin = getOrigin(request);
-  const articles = ARTICLES.slice()
+  const articles = ARTICLES.filter(hasLocalizedCoverageDossier)
     .sort((left, right) => new Date(right.publishedAt).getTime() - new Date(left.publishedAt).getTime())
     .slice(0, 50);
   const updated = articles[0]?.publishedAt ?? new Date(0).toISOString();

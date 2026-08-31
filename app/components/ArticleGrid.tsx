@@ -1,4 +1,5 @@
 import type { Article } from "~/lib/types";
+import { useI18n } from "~/lib/i18n-context";
 import { ArticleCard } from "./ArticleCard";
 
 interface ArticleGridProps {
@@ -15,8 +16,9 @@ const COLS: Record<number, string> = {
 };
 
 export function ArticleGrid({ articles, columns = 3, eagerFirst = false }: ArticleGridProps) {
+  const { lang } = useI18n();
   return (
-    <ul aria-label="Coverage records" className={`grid grid-cols-1 gap-4 sm:gap-5 ${COLS[columns]}`}>
+    <ul aria-label={lang === "de" ? "Berichtsdossiers" : "Coverage records"} className={`grid grid-cols-1 gap-4 sm:gap-5 ${COLS[columns]}`}>
       {articles.map((a, i) => (
         <li key={a.id}>
           <ArticleCard article={a} eager={eagerFirst && i === 0} />

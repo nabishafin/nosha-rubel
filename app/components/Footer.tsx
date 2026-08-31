@@ -10,6 +10,41 @@ export function Footer() {
   const { lang, t } = useI18n();
   const year = new Date().getFullYear();
   const [showStatement, setShowStatement] = useState(false);
+  const labels = lang === "de"
+    ? {
+        dossier: "Pressedossier",
+        siteInfo: "Website-Informationen",
+        archive: "Unabhängiges Archiv",
+        site: "Website",
+        purpose: "Zweck",
+        purposeValue: "Unabhängiges, mehrsprachiges Pressedossier",
+        model: "Redaktionelles Modell",
+        modelValue: "Quellenbezogene Zusammenfassungen und Einordnung",
+        status: "Betreiberstatus",
+        statusValue: "Identität und Rechtsraum warten auf dokumentarische Prüfung",
+        corrections: "Korrekturen",
+        statement: "Redaktionelle Ziele, Meinungsfreiheit, Rechtskonformität und Datenschutz",
+        show: "Vollständige Erklärung lesen ▼",
+        hide: "Erklärung schließen ▲",
+        statementLink: "Redaktionelle Erklärung",
+      }
+    : {
+        dossier: "Press Dossier",
+        siteInfo: "Site Information",
+        archive: "Independent Archive",
+        site: "Site",
+        purpose: "Purpose",
+        purposeValue: SITE_PRODUCT_LABEL,
+        model: "Editorial model",
+        modelValue: "Source-attributed summaries and context",
+        status: "Publisher status",
+        statusValue: "Identity and jurisdiction pending documentary verification",
+        corrections: "Corrections",
+        statement: "Editorial Objectives, Freedom of Expression, Legal Compliance & Data Protection",
+        show: "Read Full Document ▼",
+        hide: "Hide Legal Document ▲",
+        statementLink: "Editorial Statement",
+      };
 
   return (
     <footer className="mt-12 border-t border-gray-200 bg-gray-50">
@@ -19,7 +54,7 @@ export function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <Link to={localePath(lang)} className="flex items-center gap-2">
               <span className="text-xl font-extrabold tracking-tight text-gray-900">
-                {SITE_NAME} <span className="text-xs font-semibold text-blue-600">/ Press Dossier</span>
+                {SITE_NAME} <span className="text-xs font-semibold text-blue-600">/ {labels.dossier}</span>
               </span>
             </Link>
             <p className="max-w-sm text-sm leading-relaxed text-gray-600">{t.footer.description}</p>
@@ -27,20 +62,20 @@ export function Footer() {
             {/* Site identity status */}
             <div className="rounded-xl border border-gray-200 bg-white p-4 text-xs space-y-2 text-gray-700 shadow-xs">
               <div className="flex items-center justify-between border-b border-gray-100 pb-2">
-                <span className="font-bold text-gray-900 uppercase tracking-wider text-[11px]">Site Information</span>
-                <span className="rounded bg-blue-50 px-1.5 py-0.5 text-[10px] font-bold text-blue-700">Independent Archive</span>
+                <span className="font-bold text-gray-900 uppercase tracking-wider text-[11px]">{labels.siteInfo}</span>
+                <span className="rounded bg-blue-50 px-1.5 py-0.5 text-[10px] font-bold text-blue-700">{labels.archive}</span>
               </div>
               <p>
-                <strong>Site:</strong> {SITE_NAME}
+                <strong>{labels.site}:</strong> {SITE_NAME}
                 <br />
-                <strong>Purpose:</strong> {SITE_PRODUCT_LABEL}
+                <strong>{labels.purpose}:</strong> {labels.purposeValue}
                 <br />
-                <strong>Editorial model:</strong> Source-attributed summaries and context
+                <strong>{labels.model}:</strong> {labels.modelValue}
                 <br />
-                <strong>Publisher status:</strong> Identity and jurisdiction pending documentary verification
+                <strong>{labels.status}:</strong> {labels.statusValue}
               </p>
               <p className="text-gray-500 pt-1">
-                <strong>Corrections:</strong>{" "}
+                <strong>{labels.corrections}:</strong>{" "}
                 <a href={`mailto:${SITE_CONTACT_EMAIL}`} className="text-blue-600 font-semibold hover:underline">
                   {SITE_CONTACT_EMAIL}
                 </a>
@@ -53,7 +88,8 @@ export function Footer() {
             <h3 className="text-sm font-semibold text-gray-900">{t.footer.quickLinks}</h3>
             <ul className="mt-4 space-y-2.5">
               {[
-                { slug: "editorial-statement", label: "Editorial Statement" },
+                ...(lang === "de" ? [{ slug: "noosha-aubel", label: "Biografie & Themen" }] : []),
+                { slug: "editorial-statement", label: labels.statementLink },
                 { slug: "about", label: t.footer.about },
                 { slug: "contact", label: t.footer.contact },
                 { slug: "privacy", label: t.footer.privacy },
@@ -110,11 +146,11 @@ export function Footer() {
                 </svg>
               </span>
               <span>
-                Statement on Editorial Objectives, Freedom of Expression, Legal Compliance & Data Protection
+                {labels.statement}
               </span>
             </div>
             <span className="text-xs font-semibold text-blue-600">
-              {showStatement ? "Hide Legal Document ▲" : "Read Full Document ▼"}
+              {showStatement ? labels.hide : labels.show}
             </span>
           </button>
 
@@ -131,7 +167,7 @@ export function Footer() {
           </p>
           <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <Link to={localePath(lang, "editorial-statement")} className="font-semibold text-blue-600 hover:text-blue-800">
-              Editorial Statement
+              {labels.statementLink}
             </Link>
             <Link to={localePath(lang, "privacy")} className="hover:text-gray-800">
               {t.footer.privacy}

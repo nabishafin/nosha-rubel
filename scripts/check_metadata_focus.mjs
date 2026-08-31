@@ -8,7 +8,6 @@ const languages = [
 ];
 const requiredPrefix = "Noosha Aubel:";
 const genericGlobalKeywords = "Oberbürgermeisterin Potsdam, Potsdam Rathaus";
-const requiredPreviewImage = "https://www.berlinertageszeitung.de/media/shared/articles/news/2026-06/Noosha_Aubel_und_Dietmar_Woidke_-_Skandal_um_schwerbehindertes_Kind_in_Potsdam_und_Brandenburg_7161.jpg";
 
 function content(html, selector) {
   const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -25,6 +24,7 @@ const port = await new Promise((resolve, reject) => {
   });
 });
 const base = `http://127.0.0.1:${port}`;
+const requiredPreviewImage = "https://nooshaaubel.com/media/hero/potsdam-civic-archive-social-1200x630.jpg";
 const server = spawn(process.execPath, ["node_modules/@react-router/serve/bin.cjs", "build/server/index.js"], {
   env: { ...process.env, PORT: String(port) },
   stdio: "ignore",

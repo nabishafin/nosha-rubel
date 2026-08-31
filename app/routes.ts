@@ -1,7 +1,7 @@
 import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
 export default [
-  // Entry: detect language from Accept-Language and redirect to /:lang.
+  // Entry: use the German edition as the deterministic default.
   index("routes/home.tsx"),
 
   // SEO resource routes (served at the domain root).
@@ -18,6 +18,7 @@ export default [
     route("documents/:docId/file", "routes/document-file.tsx"),
     route("search", "routes/search.tsx"),
     route("translation-unavailable", "routes/translation-unavailable.tsx"),
+    route("noosha-aubel", "routes/person-profile.tsx"),
     route("category/*", "routes/legacy-category-localized.tsx"),
     // Single-segment static pages (about/contact/privacy/terms). Least specific,
     // so it never shadows `search` or `news/:slug`.

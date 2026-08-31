@@ -7,6 +7,7 @@ const steps = [
   "build",
   "check:identity",
   "check:metadata-focus",
+  "check:seo-index-quality",
   "check:trust-claims",
   "check:coverage-depth",
   "check:locale-routes",

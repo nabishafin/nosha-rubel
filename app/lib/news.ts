@@ -98,6 +98,7 @@ export function getPopularTags(lang: LanguageCode, limit = 16): string[] {
 }
 
 export interface ArticleRef {
+  id: string;
   language: LanguageCode;
   slug: string;
   publishedAt: string;
@@ -107,6 +108,7 @@ export interface ArticleRef {
 /** Every article's (language, slug, date, group) — used to generate the sitemap. */
 export function getAllArticleRefs(): ArticleRef[] {
   return ARTICLES.map((a) => ({
+    id: a.id,
     language: a.language,
     slug: a.slug,
     publishedAt: a.publishedAt,

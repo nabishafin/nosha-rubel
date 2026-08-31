@@ -27,7 +27,7 @@ const port = await new Promise((resolve, reject) => {
 });
 const base = `http://127.0.0.1:${port}`;
 const server = spawn(process.execPath, ["node_modules/@react-router/serve/bin.cjs", "build/server/index.js"], {
-  env: { ...process.env, PORT: String(port), SITE_URL: "https://noosha-aubel.com" },
+  env: { ...process.env, PORT: String(port), SITE_URL: "https://nooshaaubel.com" },
   stdio: "ignore",
 });
 

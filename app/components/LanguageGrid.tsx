@@ -7,7 +7,7 @@ export function LanguageGrid() {
   const { lang } = useI18n();
 
   return (
-    <ul lang="en" aria-label="Language editions" className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-7">
+    <ul lang={lang === "de" ? "de" : "en"} aria-label={lang === "de" ? "Sprachausgaben" : "Language editions"} className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-7">
       {LANGUAGE_LIST.map((info) => {
         const active = info.code === lang;
         return (

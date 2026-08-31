@@ -16,6 +16,31 @@ interface HomeBannerProps {
 
 export function HomeBanner({ lang, tagline, article, articleCount, sourceCount, readLabel }: HomeBannerProps) {
   const edition = LANGUAGES[lang];
+  const labels = lang === "de"
+    ? {
+        edition: "Deutsche Ausgabe",
+        archive: "Quellenbasiertes Pressedossier",
+        coverage: "Berichtsdossiers",
+        publishers: "zitierte Herausgeber",
+        documents: "PDF-Quellenkopien",
+        records: "Öffentliche Dokumente",
+        internal: "Internes Dossier",
+        product: "Unabhängiges, mehrsprachiges Pressedossier",
+        description: `${tagline}. Jeder interne Eintrag enthält eine eigenständige Zusammenfassung, redaktionellen Kontext, Prüfhinweise und einen direkten Link zur zitierten Veröffentlichung.`,
+        coverageRecord: "Berichtsdossier",
+      }
+    : {
+        edition: `${edition.englishName} Edition`,
+        archive: "Sourced Coverage Archive",
+        coverage: "Coverage records",
+        publishers: "Cited publishers",
+        documents: "Secondary PDF snapshots",
+        records: "Public Records",
+        internal: "Internal Dossier",
+        product: SITE_PRODUCT_LABEL,
+        description: `${tagline}. Each internal record provides an original summary, editorial context, verification notes and a direct citation to the external publication.`,
+        coverageRecord: "Coverage Record",
+      };
   return (
     <section className="relative isolate overflow-hidden bg-gray-950">
       <picture aria-hidden="true">
@@ -44,16 +69,16 @@ export function HomeBanner({ lang, tagline, article, articleCount, sourceCount, 
           {/* Left Column: Rich Title, Subtitle, Description & Badges */}
           <div className="max-w-3xl">
             <div className="flex flex-wrap items-center gap-2.5">
-              <div lang="en" className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md">
+              <div lang={lang === "de" ? "de" : "en"} className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md">
                 <span aria-hidden="true">{edition.flag}</span>
-                <span>{edition.englishName} Edition</span>
+                <span>{labels.edition}</span>
               </div>
-              <div lang="en" className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-300 backdrop-blur-md">
+              <div lang={lang === "de" ? "de" : "en"} className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-300 backdrop-blur-md">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                 </span>
-                Sourced Coverage Archive
+                {labels.archive}
               </div>
             </div>
 
@@ -62,35 +87,57 @@ export function HomeBanner({ lang, tagline, article, articleCount, sourceCount, 
             </h1>
 
             <p className="mt-2 text-base font-bold text-blue-300 sm:text-lg">
-              {SITE_PRODUCT_LABEL}
+              {labels.product}
             </p>
 
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-200 sm:text-base">
-              {tagline}. Each internal record provides an original summary, editorial context, verification notes and a direct citation to the external publication.
+              {labels.description}
             </p>
 
             {/* Feature Pills */}
             <div className="mt-6 flex flex-wrap items-center gap-2.5 text-xs font-semibold text-white">
               <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-md">
-                📰 <strong>{articleCount}</strong> Coverage records
+                📰 <strong>{articleCount}</strong> {labels.coverage}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-md">
-                📚 <strong>{sourceCount}</strong> Cited publishers
+                📚 <strong>{sourceCount}</strong> {labels.publishers}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-md">
-                📄 <strong>26</strong> Secondary PDF snapshots
+                📄 <strong>26</strong> {labels.documents}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-md">
                 🗣️ {edition.nativeName}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-lg border border-blue-400/30 bg-blue-500/20 px-3 py-2 text-blue-200 backdrop-blur-md">
-                🏛️ Public Records
+                🏛️ {labels.records}
               </span>
             </div>
           </div>
 
-          {/* Right Column: Lead Article Spotlight Card */}
-          {article && (
+          {/* German search intent is served by the neutral entity profile first. */}
+          {lang === "de" ? (
+            <Link
+              lang="de"
+              to={localePath("de", "noosha-aubel")}
+              className="group block rounded-2xl border border-white/20 bg-white/95 p-5 text-gray-950 shadow-2xl backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white"
+            >
+              <div className="flex items-center justify-end">
+                <span className="rounded bg-blue-100 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-blue-800">
+                  Person und Amt
+                </span>
+              </div>
+              <h2 className="mt-2.5 text-xl font-extrabold leading-snug text-gray-900 group-hover:text-blue-700">
+                Noosha Aubel: Biografie und Amt in Potsdam
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                Quellenbasierte Fakten zu Lebenslauf, Oberbürgermeisterwahl 2025, Amtsantritt und aktuellen kommunalpolitischen Themen.
+              </p>
+              <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-3 text-xs font-bold text-blue-700">
+                <span>Profil und Quellen ansehen →</span>
+                <span className="text-[11px] font-normal text-gray-600">Aktualisiert am 31.08.2026</span>
+              </div>
+            </Link>
+          ) : article ? (
             <Link
               lang={LANGUAGES[article.language].locale}
               to={localePath(article.language, `news/${article.slug}`)}
@@ -98,7 +145,7 @@ export function HomeBanner({ lang, tagline, article, articleCount, sourceCount, 
             >
               <div className="flex items-center justify-end">
                 <span lang="en" className="rounded bg-red-100 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-red-700">
-                  Coverage Record
+                  {labels.coverageRecord}
                 </span>
               </div>
               <h2 className="mt-2.5 line-clamp-3 text-lg font-extrabold leading-snug text-gray-900 group-hover:text-blue-700">
@@ -109,10 +156,10 @@ export function HomeBanner({ lang, tagline, article, articleCount, sourceCount, 
               </p>
               <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-3 text-xs font-bold text-blue-600">
                 <span>{readLabel} →</span>
-                <span lang="en" className="text-[11px] font-normal text-gray-600">Internal Dossier</span>
+                <span lang="en" className="text-[11px] font-normal text-gray-600">{labels.internal}</span>
               </div>
             </Link>
-          )}
+          ) : null}
         </div>
       </Container>
     </section>

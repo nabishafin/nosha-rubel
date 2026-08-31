@@ -39,6 +39,13 @@ export const LANGUAGE_LIST: LanguageInfo[] = LANGUAGE_CODES.map((c) => LANGUAGES
 
 export const DEFAULT_LANGUAGE: LanguageCode = "de";
 
+/** Locales whose shared interface and first-party dossier content are complete. */
+export const SEARCH_INDEX_LANGUAGES: readonly LanguageCode[] = ["de", "en"];
+
+export function isSearchIndexLanguage(value: LanguageCode): boolean {
+  return SEARCH_INDEX_LANGUAGES.includes(value);
+}
+
 export function isLanguageCode(value: unknown): value is LanguageCode {
   return typeof value === "string" && (LANGUAGE_CODES as readonly string[]).includes(value);
 }

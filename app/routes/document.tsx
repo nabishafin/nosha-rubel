@@ -29,7 +29,9 @@ export function meta({ loaderData }: Route.MetaArgs) {
       canonical,
       image: SOCIAL_PREVIEW_IMAGE,
       lang,
-      robots: lang === "en" ? undefined : "noindex, follow",
+      // The retained snapshots lack a verified capture date and licensing
+      // record, so their wrappers remain accessible without competing in search.
+      robots: "noindex, follow",
     }),
     { "script:ld+json": staticPageJsonLd({ origin, canonical, lang, title, description }) },
   ];
@@ -60,7 +62,7 @@ export default function DocumentPage({ loaderData }: Route.ComponentProps) {
             <div><dt className="text-xs font-bold uppercase text-gray-500">Document language</dt><dd className="mt-1 font-semibold text-gray-900">{document.language}</dd></div>
             <div><dt className="text-xs font-bold uppercase text-gray-500">Format</dt><dd className="mt-1 font-semibold text-gray-900">PDF snapshot</dd></div>
             <div><dt className="text-xs font-bold uppercase text-gray-500">Source</dt><dd className="mt-1 font-semibold text-gray-900">Wikipedia page print capture</dd></div>
-            <div><dt className="text-xs font-bold uppercase text-gray-500">Index policy</dt><dd className="mt-1 font-semibold text-gray-900">HTML record indexable; PDF binary noindex</dd></div>
+            <div><dt className="text-xs font-bold uppercase text-gray-500">Index policy</dt><dd className="mt-1 font-semibold text-gray-900">HTML record and PDF binary are noindex</dd></div>
             <div><dt className="text-xs font-bold uppercase text-gray-500">Capture date</dt><dd className="mt-1 font-semibold text-gray-900">Not recorded in repository</dd></div>
             <div><dt className="text-xs font-bold uppercase text-gray-500">Accessibility</dt><dd className="mt-1 font-semibold text-gray-900">Not verified as PDF/UA</dd></div>
           </dl>

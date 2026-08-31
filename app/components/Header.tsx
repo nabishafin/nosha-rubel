@@ -33,7 +33,14 @@ export function Header() {
             </span>
           </Link>
 
-          <LanguageSwitcher />
+          <div className="flex items-center gap-4">
+            {lang === "de" && (
+              <Link to={localePath("de", "noosha-aubel")} className="hidden text-sm font-bold text-gray-700 hover:text-blue-700 sm:inline-flex">
+                Biografie &amp; Themen
+              </Link>
+            )}
+            <LanguageSwitcher />
+          </div>
         </div>
       </Container>
       <div

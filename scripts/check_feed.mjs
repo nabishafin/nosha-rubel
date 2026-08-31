@@ -10,7 +10,7 @@ const port = await new Promise((resolve, reject) => {
     listener.close(() => resolve(address.port));
   });
 });
-const origin = "https://noosha-aubel.com";
+const origin = "https://nooshaaubel.com";
 const server = spawn(process.execPath, ["node_modules/@react-router/serve/bin.cjs", "build/server/index.js"], {
   env: { ...process.env, PORT: String(port), SITE_URL: origin, NODE_ENV: "production" },
   stdio: "ignore",

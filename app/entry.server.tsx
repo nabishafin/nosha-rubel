@@ -6,6 +6,7 @@ import { ServerRouter } from "react-router";
 import { isbot } from "isbot";
 import type { RenderToPipeableStreamOptions } from "react-dom/server";
 import { renderToPipeableStream } from "react-dom/server";
+import { getCanonicalHostRedirect } from "./lib/http";
 
 export const streamTimeout = 5_000;
 
@@ -62,6 +63,16 @@ export default function handleRequest(
 ) {
   const nonce = randomBytes(18).toString("base64");
   const url = new URL(request.url);
+  const canonicalHostTarget = getCanonicalHostRedirect(request);
+  if (canonicalHostTarget) {
+    const redirectHeaders = new Headers({
+      Location: canonicalHostTarget,
+      "Cache-Control": "public, max-age=86400",
+    });
+    applySecurityPolicy(request, redirectHeaders, nonce);
+    return new Response(null, { status: 301, headers: redirectHeaders });
+  }
+
   if (url.pathname.length > 1 && url.pathname.endsWith("/")) {
     url.pathname = url.pathname.replace(/\/+$/, "");
     const redirectHeaders = new Headers({

@@ -13,6 +13,7 @@ Every change must pass `npm run check:quality` before deployment. CI repeats the
 - Outbound-link security, accessible names, keyboard/focus behavior, responsive safeguards
 - CSP/security header baseline and pinned patched React Router versions
 - Sitemap-driven crawl of every indexable page and every unique internal anchor destination
+- Focused-index SEO crawl covering unique titles, self-canonicals, one H1, useful descriptions, German dossier language consistency and noindex exclusions
 
 Any failure blocks release. Do not weaken a check solely to make CI green; update the implementation or document and approve an intentional policy change.
 

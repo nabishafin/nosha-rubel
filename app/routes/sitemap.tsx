@@ -1,8 +1,7 @@
-import { LANGUAGE_LIST } from "~/lib/languages";
+import { LANGUAGE_LIST, isSearchIndexLanguage } from "~/lib/languages";
 import { getAllArticleRefs, type ArticleRef } from "~/lib/news";
 import { getOrigin } from "~/lib/http";
-import { STATIC_PAGES, staticPageLanguages } from "~/lib/static-pages";
-import { DOCUMENTS } from "~/components/DocumentArchive";
+import { hasLocalizedCoverageDossier } from "~/lib/coverage-dossiers";
 import type { Route } from "./+types/sitemap";
 
 interface UrlEntry {
@@ -19,7 +18,8 @@ function xmlEscape(value: string): string {
 export function loader({ request }: Route.LoaderArgs) {
   const origin = getOrigin(request);
   const urls: UrlEntry[] = [];
-  const refs = getAllArticleRefs();
+  const refs = getAllArticleRefs().filter(hasLocalizedCoverageDossier);
+  const indexLanguages = LANGUAGE_LIST.filter((language) => isSearchIndexLanguage(language.code));
   const latestByLanguage = new Map<string, string>();
   for (const ref of refs) {
     const current = latestByLanguage.get(ref.language);
@@ -30,36 +30,20 @@ export function loader({ request }: Route.LoaderArgs) {
 
   // Home page per language, cross-linked with hreflang alternates.
   const localizedAlternates = (path = "") => [
-    ...LANGUAGE_LIST.map((l) => ({ hreflang: l.hreflang, href: `${origin}/${l.code}${path}` })),
+    ...indexLanguages.map((l) => ({ hreflang: l.hreflang, href: `${origin}/${l.code}${path}` })),
     { hreflang: "x-default", href: `${origin}/de${path}` },
   ];
   const homeAlternates = localizedAlternates();
-  for (const l of LANGUAGE_LIST) {
+  for (const l of indexLanguages) {
     urls.push({
       loc: `${origin}/${l.code}`,
       lastmod: latestByLanguage.get(l.code),
       alternates: homeAlternates,
     });
-
-    // Static pages.
-    for (const page of STATIC_PAGES) {
-      const pageLanguages = staticPageLanguages(page);
-      if (!pageLanguages.includes(l.code)) continue;
-      urls.push({
-        loc: `${origin}/${l.code}/${page}`,
-        alternates: [
-          ...pageLanguages.map((code) => {
-            const language = LANGUAGE_LIST.find((item) => item.code === code)!;
-            return { hreflang: language.hreflang, href: `${origin}/${code}/${page}` };
-          }),
-          {
-            hreflang: "x-default",
-            href: `${origin}/${pageLanguages.includes("de") ? "de" : "en"}/${page}`,
-          },
-        ],
-      });
-    }
   }
+
+  // German entity hub: the primary answer page for biographical and office-related searches.
+  urls.push({ loc: `${origin}/de/noosha-aubel` });
 
   // Article pages, with hreflang alternates linking translated versions.
   const byGroup = new Map<string, ArticleRef[]>();
@@ -85,11 +69,6 @@ export function loader({ request }: Route.LoaderArgs) {
         ]
       : undefined;
     urls.push({ loc: `${origin}/${ref.language}/news/${ref.slug}`, lastmod: ref.publishedAt, alternates });
-  }
-
-  // English context pages are the canonical HTML records for the snapshot PDFs.
-  for (const document of DOCUMENTS) {
-    urls.push({ loc: `${origin}/en/documents/${document.id}` });
   }
 
   const body =

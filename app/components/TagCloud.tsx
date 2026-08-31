@@ -4,7 +4,7 @@ import { useI18n, localePath } from "~/lib/i18n-context";
 export function TagCloud({ tags }: { tags: string[] }) {
   const { lang } = useI18n();
   return (
-    <ul aria-label="Topics" className="flex flex-wrap gap-2.5">
+    <ul aria-label={lang === "de" ? "Themen" : "Topics"} className="flex flex-wrap gap-2.5">
       {tags.map((tag) => (
         <li key={tag}>
           <Link

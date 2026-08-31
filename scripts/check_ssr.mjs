@@ -49,6 +49,21 @@ try {
   assert.match(home.visible, /href="\/en\/news\//);
   assert.match(home.html, /type="application\/ld\+json"/);
 
+  const germanHome = await get("/de");
+  assert.match(germanHome.visible, /Vollständige Biografie, Themen und Primärquellen/);
+  assert.match(germanHome.visible, /Quellenbasiertes Pressedossier/);
+  assert.match(germanHome.visible, /Noosha Aubel aktuell in Potsdam/);
+  assert.doesNotMatch(germanHome.visible, /Each internal record provides|Coverage Record/);
+
+  const profile = await get("/de/noosha-aubel");
+  assert.match(profile.visible, /<h1[^>]*>\s*Noosha Aubel: Biografie und Amt in Potsdam\s*<\/h1>/);
+  assert.match(profile.visible, /Offizielle Biografie der Landeshauptstadt Potsdam/);
+  assert.match(profile.visible, /Amtliche Quellen und weiterführende Einordnung/);
+  assert.match(profile.visible, /Häufige Fragen zu Noosha Aubel/);
+  assert.match(profile.visible, /rel="canonical" href="[^"]+\/de\/noosha-aubel"/);
+  assert.match(profile.html, /"@type":"AboutPage"/);
+  assert.match(profile.html, /"@type":"Person"/);
+
   const firstArticlePath = home.visible.match(/href="(\/en\/news\/[^"]+)"/)?.[1];
   assert.ok(firstArticlePath, "expected a crawlable article URL in raw HTML");
   const article = await get(firstArticlePath);

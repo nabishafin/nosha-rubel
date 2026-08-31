@@ -4,7 +4,7 @@ import { SITE_DESCRIPTION, SITE_NAME } from "./site-identity";
 
 export { SITE_DESCRIPTION, SITE_NAME } from "./site-identity";
 export const SOCIAL_PREVIEW_IMAGE =
-  "https://www.berlinertageszeitung.de/media/shared/articles/news/2026-06/Noosha_Aubel_und_Dietmar_Woidke_-_Skandal_um_schwerbehindertes_Kind_in_Potsdam_und_Brandenburg_7161.jpg";
+  "/media/hero/potsdam-civic-archive-social-1200x630.jpg";
 export const SITE_KEYWORDS = [
   "Noosha Aubel",
   "Potsdam",
@@ -18,7 +18,7 @@ export const SITE_KEYWORDS = [
 ];
 
 const LOCALIZED_SITE_KEYWORDS: Record<LanguageCode, string[]> = {
-  de: ["Oberbürgermeisterin Potsdam", "Potsdam Rathaus", "öffentliche Dokumente", "Fall eines behinderten Kindes"],
+  de: ["Noosha Aubel Biografie", "Oberbürgermeisterin Potsdam", "Potsdam Rathaus", "Noosha Aubel Wahl 2025", "Potsdam Haushalt 2026", "öffentliche Dokumente"],
   en: ["Mayor of Potsdam", "Potsdam City Hall", "public records", "disabled child case"],
   zh: ["波茨坦市长", "波茨坦市政厅", "公共记录", "残障儿童案件"],
   es: ["alcaldesa de Potsdam", "Ayuntamiento de Potsdam", "registros públicos", "caso de menor con discapacidad"],
@@ -38,7 +38,7 @@ const LOCALIZED_SITE_KEYWORDS: Record<LanguageCode, string[]> = {
 };
 
 const SITE_TITLES: Record<LanguageCode, string> = {
-  de: "Noosha Aubel: Potsdams Oberbürgermeisterin im Pressespiegel",
+  de: "Noosha Aubel: Aktuelles, Biografie und Potsdam-Themen",
   en: "Noosha Aubel: Mayor of Potsdam Coverage and Public Records",
   zh: "Noosha Aubel: 波茨坦市长报道与公共记录",
   es: "Noosha Aubel: alcaldesa de Potsdam, noticias y documentos",
@@ -58,7 +58,7 @@ const SITE_TITLES: Record<LanguageCode, string> = {
 };
 
 const SITE_DESCRIPTIONS: Record<LanguageCode, string> = {
-  de: "Noosha Aubel: Berichte, öffentliche Dokumente und Quellen zur Oberbürgermeisterin von Potsdam, einschließlich des dokumentierten Falls eines behinderten Kindes.",
+  de: "Noosha Aubel: aktuelle, quellenbasierte Übersicht zu Biografie, Wahl, Amt und kommunalpolitischen Themen der Oberbürgermeisterin von Potsdam.",
   en: SITE_DESCRIPTION,
   zh: "Noosha Aubel: 波茨坦市长的新闻报道、公共记录和来源文件，包括与残障儿童有关的已记录案件。",
   es: "Noosha Aubel: noticias, registros públicos y fuentes sobre la alcaldesa de Potsdam, incluido el caso documentado de un menor con discapacidad.",

@@ -93,7 +93,8 @@ This repository serves an SSR multilingual press dossier about Noosha Aubel and 
 - Coverage cards link to first-party dossier pages with source-language summaries, original context, verification notes and citations to external publishers.
 - Third-party articles are not reproduced in full without documented permission.
 - Genuine translation groups drive reciprocal article-level hreflang links.
-- The 26 retained Wikipedia PDF snapshots are secondary reference documents. Their binaries are excluded from the sitemap and served with `noindex, noarchive`.
+- The 26 retained Wikipedia PDF snapshots are secondary reference documents. Their HTML context pages and binaries are excluded from the sitemap; wrappers use `noindex, follow` and binaries use `noindex, noarchive`.
+- Search indexing is deliberately focused on the complete German and English homepages, the German entity hub, and German/English dossiers with matching first-party editorial context. Other language editions remain usable but are `noindex` until their interface and dossiers receive full native editorial review.
 - Publisher identity, jurisdiction, contact assertions, source-image rights and native-language review remain evidence-dependent release approvals.
 
 See `docs/coverage-content-policy.md`, `docs/trust-claim-policy.md` and `docs/release-quality-gates.md` before changing content or indexing behavior.
@@ -104,13 +105,17 @@ Set `SITE_URL` in the production hosting environment to the one canonical,
 indexable origin:
 
 ```bash
-SITE_URL=https://noosha-aubel.com
+SITE_URL=https://nooshaaubel.com
 ```
 
-Configure DNS/hosting so `https://noosha-aubel.com` returns the application and
+Configure DNS/hosting so `https://nooshaaubel.com` returns the application and
 redirect every other variant in one hop with HTTP 301:
 
+- `http://nooshaaubel.com/*`
+- `http://www.nooshaaubel.com/*`
+- `https://www.nooshaaubel.com/*`
 - `http://noosha-aubel.com/*`
+- `https://noosha-aubel.com/*`
 - `http://www.noosha-aubel.com/*`
 - `https://www.noosha-aubel.com/*`
 - `http://noosha-aubel.info/*`
@@ -123,5 +128,5 @@ domain should not serve a duplicate copy of the site.
 
 After deployment, verify that `/robots.txt` and `/sitemap.xml` return HTTP 200,
 then add and verify both Domain properties in Google Search Console. Submit
-`https://noosha-aubel.com/sitemap.xml` under the canonical `.com` property and
-request indexing for the German homepage and representative article pages.
+`https://nooshaaubel.com/sitemap.xml` under the canonical `.com` property and
+request indexing for the German homepage, `/de/noosha-aubel`, and representative German article pages.

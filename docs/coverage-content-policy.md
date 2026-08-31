@@ -9,10 +9,10 @@ Every indexable coverage page must provide:
 - an original overview that explains the source's main argument without reproducing its full text;
 - key points, public-interest context and a verification-status note;
 - publication date, correction channel and related internal coverage;
-- language markup that identifies English fallback context on non-English editions.
+- first-party dossier context in the same language as the indexable article.
 
 Translated publications may share factual dossier context when they belong to one verified translation group. Repetition across languages or outlets is not independent corroboration and must not be described as such.
 
 Full third-party text may be hosted only when the rights owner has provided documentary permission covering reproduction, translation and online distribution. Otherwise the site publishes an original summary and keeps the source link.
 
-The 26 Wikipedia PDF snapshots remain available as secondary documentation. They are not primary editorial offerings, are omitted from the XML sitemap and are served with `X-Robots-Tag: noindex, noarchive`. No PDF file is removed by this policy.
+The 26 Wikipedia PDF snapshots remain available as secondary documentation. They are not primary editorial offerings. Their HTML wrappers and binary files are omitted from the XML sitemap; wrappers use `noindex, follow`, while binaries use `X-Robots-Tag: noindex, noarchive`. No PDF file is removed by this policy.

@@ -32,7 +32,13 @@ try {
 
   const root = await request("/", { headers: { "Accept-Language": "en" } });
   assert.equal(root.status, 302);
-  assert.equal(root.headers.get("location"), "/en");
+  assert.equal(root.headers.get("location"), "/de");
+
+  const duplicateHost = await request("/de/noosha-aubel?q=kept", {
+    headers: { "X-Forwarded-Host": "noosha-aubel.com", "X-Forwarded-Proto": "https" },
+  });
+  assert.equal(duplicateHost.status, 301);
+  assert.equal(duplicateHost.headers.get("location"), "https://nooshaaubel.com/de/noosha-aubel?q=kept");
 
   const slash = await request("/en/?q=kept");
   assert.equal(slash.status, 301);
@@ -44,6 +50,9 @@ try {
   assert.equal(home.status, 200);
   assert.match(home.headers.get("content-type") ?? "", /^text\/html; charset=utf-8/);
   assert.match(home.headers.get("cache-control") ?? "", /s-maxage=300/);
+
+  const profile = await request("/de/noosha-aubel");
+  assert.equal(profile.status, 200);
 
   const head = await request("/en", { method: "HEAD" });
   assert.equal(head.status, 200);

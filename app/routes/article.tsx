@@ -7,7 +7,7 @@ import { articleAlternates, buildMeta, coverageRecordJsonLd, withSiteName } from
 import { formatDate, readingTime } from "~/lib/format";
 import { localePath } from "~/lib/i18n-context";
 import { SITE_CONTACT_EMAIL } from "~/lib/site-identity";
-import { getCoverageDossier } from "~/lib/coverage-dossiers";
+import { getCoverageDossier, hasLocalizedCoverageDossier } from "~/lib/coverage-dossiers";
 
 import { Container } from "~/components/Container";
 import { ExternalLink } from "~/components/ExternalLink";
@@ -28,8 +28,9 @@ export function loader({ params, request }: Route.LoaderArgs) {
   const canonical = `${origin}${localePath(lang, `news/${article.slug}`)}`;
 
   // hreflang alternates: point each language at its own version of this story.
-  const translations = getTranslations(article);
+  const translations = getTranslations(article).filter(hasLocalizedCoverageDossier);
   const alternates = translations.length > 1 ? articleAlternates(origin, translations) : undefined;
+  const dossier = getCoverageDossier(article);
 
   return {
     lang,
@@ -38,13 +39,14 @@ export function loader({ params, request }: Route.LoaderArgs) {
     related: getRelated(article, 3),
     canonical,
     alternates,
-    dossier: getCoverageDossier(article),
+    dossier,
+    indexable: hasLocalizedCoverageDossier(article),
   };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
   if (!loaderData) return [];
-  const { article, canonical, lang, alternates, origin } = loaderData;
+  const { article, canonical, lang, alternates, origin, indexable } = loaderData;
   return [
     ...buildMeta({
       title: withSiteName(article.title),
@@ -54,6 +56,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
       lang,
       keywords: article.tags,
       alternates,
+      robots: indexable ? undefined : "noindex, follow",
     }),
     { "script:ld+json": coverageRecordJsonLd(article, canonical, origin) },
   ];
@@ -70,6 +73,27 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
     dossier.context,
     dossier.verificationNote,
   ]);
+  const dossierLabels = lang === "de"
+    ? {
+        notice: `Dies ist eine eigenständige Dossier-Zusammenfassung einer Veröffentlichung von ${article.sourceName}. Sie ergänzt Kontext und Prüfhinweise, ohne den Beitrag des Herausgebers zu reproduzieren. Für den Originalbeitrag bleibt der zitierte Herausgeber verantwortlich.`,
+        sourceSummary: "Zusammenfassung in der Originalsprache",
+        contextKicker: "Unabhängige redaktionelle Einordnung",
+        reports: "Was die zitierte Veröffentlichung berichtet",
+        keyPoints: "Kernaussagen des Berichtsdossiers",
+        context: "Kontext für Leserinnen und Leser",
+        verification: "Prüfstatus",
+        corrections: "Korrekturen oder Aktualisierungen zu Quellen können gemeldet werden an",
+      }
+    : {
+        notice: `This is an original dossier summary of a publication from ${article.sourceName}. It adds context and verification notes without reproducing the publisher's article. The original publisher remains responsible for the source report.`,
+        sourceSummary: "Source-language summary",
+        contextKicker: "Independent editorial context",
+        reports: "What the cited publication reports",
+        keyPoints: "Key points in the coverage record",
+        context: "Context for readers",
+        verification: "Verification status",
+        corrections: "Corrections or source updates can be reported to",
+      };
 
   return (
     <article lang={LANGUAGES[article.language].locale}>
@@ -115,12 +139,12 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
       {/* Body */}
       <Container className="mt-10">
         <div className="mx-auto max-w-3xl">
-          <div lang="en" className="mb-7 rounded-lg border border-blue-100 bg-blue-50 p-5 text-sm leading-relaxed text-blue-950">
-            This is an original dossier summary of a publication from {article.sourceName}. It adds context and verification notes without reproducing the publisher&apos;s article. The original publisher remains responsible for the source report.
+          <div lang={lang === "de" ? "de" : "en"} className="mb-7 rounded-lg border border-blue-100 bg-blue-50 p-5 text-sm leading-relaxed text-blue-950">
+            {dossierLabels.notice}
           </div>
           <section aria-labelledby="source-summary-heading">
-            <p id="source-summary-heading" lang="en" className="text-xs font-extrabold uppercase tracking-[0.18em] text-blue-700">
-              Source-language summary
+            <p id="source-summary-heading" lang={lang === "de" ? "de" : "en"} className="text-xs font-extrabold uppercase tracking-[0.18em] text-blue-700">
+              {dossierLabels.sourceSummary}
             </p>
             <div className="mt-3 space-y-5 text-lg leading-relaxed text-gray-800">
               {article.content.map((para, i) => (
@@ -135,10 +159,10 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
             className="mt-10 border-t border-gray-200 pt-9"
           >
             <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-red-700">
-              Independent editorial context · {dossier.language === "de" ? "Deutsch" : "English"}
+              {dossierLabels.contextKicker} · {dossier.language === "de" ? "Deutsch" : "English"}
             </p>
             <h2 id="dossier-overview-heading" className="mt-2 text-2xl font-extrabold tracking-tight text-gray-950">
-              What the cited publication reports
+              {dossierLabels.reports}
             </h2>
             <div className="mt-5 space-y-5 text-lg leading-relaxed text-gray-800">
               {dossier.overview.map((paragraph, index) => (
@@ -147,7 +171,7 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
             </div>
 
             <div className="mt-8 rounded-2xl border border-gray-200 bg-gray-50 p-6">
-              <h2 className="text-lg font-bold text-gray-950">Key points in the coverage record</h2>
+              <h2 className="text-lg font-bold text-gray-950">{dossierLabels.keyPoints}</h2>
               <ul className="mt-4 space-y-3 text-base leading-relaxed text-gray-700">
                 {dossier.keyPoints.map((point) => (
                   <li key={point} className="flex gap-3">
@@ -160,11 +184,11 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
 
             <div className="mt-8 grid gap-5 sm:grid-cols-2">
               <div className="rounded-xl border border-gray-200 bg-white p-5">
-                <h2 className="text-base font-bold text-gray-950">Context for readers</h2>
+                <h2 className="text-base font-bold text-gray-950">{dossierLabels.context}</h2>
                 <p className="mt-2 text-sm leading-relaxed text-gray-700">{dossier.context}</p>
               </div>
               <div className="rounded-xl border border-amber-200 bg-amber-50 p-5">
-                <h2 className="text-base font-bold text-amber-950">Verification status</h2>
+                <h2 className="text-base font-bold text-amber-950">{dossierLabels.verification}</h2>
                 <p className="mt-2 text-sm leading-relaxed text-amber-950">{dossier.verificationNote}</p>
               </div>
             </div>
@@ -184,8 +208,8 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
             </ExternalLink>
           </div>
 
-          <div lang="en" className="mt-5 rounded-lg border border-gray-200 bg-white p-5 text-sm leading-relaxed text-gray-600">
-            Corrections or source updates can be reported to{" "}
+          <div lang={lang === "de" ? "de" : "en"} className="mt-5 rounded-lg border border-gray-200 bg-white p-5 text-sm leading-relaxed text-gray-600">
+            {dossierLabels.corrections}{" "}
             <a href={`mailto:${SITE_CONTACT_EMAIL}`} className="font-semibold text-blue-600 hover:text-blue-800">
               {SITE_CONTACT_EMAIL}
             </a>.

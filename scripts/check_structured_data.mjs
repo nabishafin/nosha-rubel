@@ -65,9 +65,9 @@ try {
   assert.notEqual(new URL(webPage.citation).origin, new URL(webPage.url).origin);
   assert.ok(webPage.mainEntity.publisher.name);
 
-  const staticGraph = graph(jsonLd(await (await fetch(`${base}/en/about`)).text())[0]);
-  assert.ok(staticGraph.some((node) => node["@type"] === "WebPage"));
-  assert.ok(staticGraph.some((node) => node["@type"] === "BreadcrumbList"));
+  const staticPage = await (await fetch(`${base}/en/about`)).text();
+  assert.match(staticPage, /name="robots" content="noindex, follow"/);
+  assert.doesNotMatch(staticPage, /<script type="application\/ld\+json">/);
 
   console.log("Structured-data checks passed.");
 } finally {

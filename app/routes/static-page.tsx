@@ -2,10 +2,10 @@ import { isRouteErrorResponse, Link, useParams } from "react-router";
 import { isLanguageCode, DEFAULT_LANGUAGE } from "~/lib/languages";
 import { getTranslation, type Translation } from "~/lib/i18n";
 import { getOrigin } from "~/lib/http";
-import { buildMeta, localizedAlternates, SOCIAL_PREVIEW_IMAGE, staticPageJsonLd } from "~/lib/seo";
+import { buildMeta, SOCIAL_PREVIEW_IMAGE } from "~/lib/seo";
 import { localePath } from "~/lib/i18n-context";
 import { SITE_CONTACT_EMAIL, SITE_NAME } from "~/lib/site-identity";
-import { isStaticPage, staticPageLanguages, type StaticPage } from "~/lib/static-pages";
+import { isStaticPage, type StaticPage } from "~/lib/static-pages";
 import { Container } from "~/components/Container";
 import { EditorialStatementContent } from "~/components/EditorialStatementContent";
 import type { Route } from "./+types/static-page";
@@ -61,30 +61,18 @@ export function meta({ loaderData }: Route.MetaArgs) {
   const { lang, page, origin } = loaderData;
   const t = getTranslation(lang);
   const { title, paragraphs } = pageContent(page, t);
-  const translatedLanguages = staticPageLanguages(page);
-  const indexable = translatedLanguages.includes(lang);
+  // Legal/contact wrappers stay crawlable for users and trust review, but are
+  // not search landing pages while publisher identity remains unverified.
   const canonical = `${origin}${localePath(lang, page)}`;
-  const metadata = buildMeta({
+  return buildMeta({
     title: `${title} — ${SITE_NAME}`,
     description: paragraphs[0],
     canonical,
     image: SOCIAL_PREVIEW_IMAGE,
     lang,
-    robots: indexable ? undefined : "noindex, follow",
-    alternates: indexable ? localizedAlternates(origin, page, translatedLanguages) : undefined,
+    robots: "noindex, follow",
+    alternates: undefined,
   });
-  if (indexable) {
-    metadata.push({
-      "script:ld+json": staticPageJsonLd({
-        origin,
-        canonical,
-        lang,
-        title,
-        description: paragraphs[0],
-      }),
-    });
-  }
-  return metadata;
 }
 
 export default function StaticPageRoute({ loaderData }: Route.ComponentProps) {

@@ -28,11 +28,16 @@ try {
 
   for (const locale of ["en", "de", "ar"]) {
     const html = await (await fetch(`${base}/${locale}`)).text();
-    assert.match(html, /German-language video/);
     assert.match(html, /<div lang="de" class="flex flex-col justify-center/);
-    assert.match(html, /title="German-language video report about Potsdam-Griebnitzsee station"/);
     assert.match(html, /cc_lang_pref=de&amp;cc_load_policy=1/);
-    assert.match(html, /not a verified transcript/);
+    if (locale === "de") {
+      assert.match(html, /Deutschsprachiger Videobericht/);
+      assert.match(html, /kein geprüftes Transkript/);
+      assert.doesNotMatch(html, /German-language video|not a verified transcript/);
+    } else {
+      assert.match(html, /German-language video/);
+      assert.match(html, /not a verified transcript/);
+    }
     assert.doesNotMatch(html, /"@type":"VideoObject"/);
   }
 
