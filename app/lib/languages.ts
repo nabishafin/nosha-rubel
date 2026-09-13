@@ -33,6 +33,7 @@ export const LANGUAGES: Record<LanguageCode, LanguageInfo> = {
   el: { code: "el", nativeName: "Ελληνικά", englishName: "Greek", flag: "🇬🇷", locale: "el-GR", hreflang: "el", dir: "ltr" },
   ru: { code: "ru", nativeName: "Русский", englishName: "Russian", flag: "🇷🇺", locale: "ru-RU", hreflang: "ru", dir: "ltr" },
   uk: { code: "uk", nativeName: "Українська", englishName: "Ukrainian", flag: "🇺🇦", locale: "uk-UA", hreflang: "uk", dir: "ltr" },
+  tr: { code: "tr", nativeName: "Türkçe", englishName: "Turkish", flag: "🇹🇷", locale: "tr-TR", hreflang: "tr", dir: "ltr" },
 };
 
 export const LANGUAGE_LIST: LanguageInfo[] = LANGUAGE_CODES.map((c) => LANGUAGES[c]);

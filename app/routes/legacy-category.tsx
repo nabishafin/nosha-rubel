@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { Link } from "react-router";
 import { LEGACY_GONE_HEADERS, throwLegacyCategoryGone } from "~/lib/legacy-routes";
 import type { Route } from "./+types/legacy-category";
@@ -18,7 +19,7 @@ export function meta() {
 }
 
 export function ErrorBoundary(_: Route.ErrorBoundaryProps) {
-  return (
+  return <Translated>{(
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center px-4 text-center">
       <p className="text-sm font-bold uppercase tracking-wider text-gray-500">410 Gone</p>
       <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-gray-900">Category removed</h1>
@@ -27,7 +28,7 @@ export function ErrorBoundary(_: Route.ErrorBoundaryProps) {
         Go to homepage
       </Link>
     </main>
-  );
+  )}</Translated>;
 }
 
 export default function LegacyCategoryRoute() {

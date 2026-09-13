@@ -91,10 +91,11 @@ Built with ❤️ using React Router.
 This repository serves an SSR multilingual press dossier about Noosha Aubel and municipal affairs in Potsdam. It is not a general breaking-news template.
 
 - Coverage cards link to first-party dossier pages with source-language summaries, original context, verification notes and citations to external publishers.
+- The September 2026 addition includes 35 owner-authorized complete newspaper articles, locally hosted supplied illustrations, preserved bylines and full on-site reading. See `scripts/article-import-manifest.tsv` and `app/data/article-import-evidence.json` for the import inventory and text fingerprints.
 - Third-party articles are not reproduced in full without documented permission.
 - Genuine translation groups drive reciprocal article-level hreflang links.
 - The 26 retained Wikipedia PDF snapshots are secondary reference documents. Their HTML context pages and binaries are excluded from the sitemap; wrappers use `noindex, follow` and binaries use `noindex, noarchive`.
-- Search indexing is deliberately focused on the complete German and English homepages, the German entity hub, and German/English dossiers with matching first-party editorial context. Other language editions remain usable but are `noindex` until their interface and dossiers receive full native editorial review.
+- Search indexing includes the complete German and English homepages and biographies, German/English dossiers with matching editorial context, and complete native newspaper articles in all supplied languages. Incomplete archive/profile translations and the mismatched Russian/Ukrainian publisher edition remain `noindex`. Article hreflang follows the actual source script, including Traditional Chinese.
 - Publisher identity, jurisdiction, contact assertions, source-image rights and native-language review remain evidence-dependent release approvals.
 
 See `docs/coverage-content-policy.md`, `docs/trust-claim-policy.md` and `docs/release-quality-gates.md` before changing content or indexing behavior.
@@ -130,3 +131,5 @@ After deployment, verify that `/robots.txt` and `/sitemap.xml` return HTTP 200,
 then add and verify both Domain properties in Google Search Console. Submit
 `https://nooshaaubel.com/sitemap.xml` under the canonical `.com` property and
 request indexing for the German homepage, `/de/noosha-aubel`, and representative German article pages.
+
+The [September SEO audit](docs/seo-review-2026-09-14.md) records live deployment evidence, the 50-page indexing policy, keyword-to-page mapping, and VPS/PM2 deployment and Search Console instructions. Optional HTML ownership verification uses the `GOOGLE_SITE_VERIFICATION` environment variable; obtain the value from the actual Search Console property.

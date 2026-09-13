@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { useState } from "react";
 import { useI18n } from "~/lib/i18n-context";
 
@@ -6,7 +7,7 @@ export function Newsletter() {
   const { t } = useI18n();
   const [submitted, setSubmitted] = useState(false);
 
-  return (
+  return <Translated>{(
     <section className="overflow-hidden rounded-xl bg-gray-900 px-6 py-10 text-center sm:px-12 sm:py-12">
       <div className="mx-auto max-w-xl">
         <h2 className="text-2xl font-bold text-white sm:text-3xl">{t.newsletter.title}</h2>
@@ -42,5 +43,5 @@ export function Newsletter() {
         )}
       </div>
     </section>
-  );
+  )}</Translated>;
 }

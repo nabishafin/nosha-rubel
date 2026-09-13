@@ -1,3 +1,7 @@
+import { isLanguageCode, LANGUAGES, isSearchIndexLanguage, SEARCH_INDEX_LANGUAGES } from "~/lib/languages";
+import { getUiDictionary } from "~/lib/ui-translations.server";
+import { localizeText } from "~/lib/ui-text";
+import { Translated } from "~/components/Translated";
 import { Link } from "react-router";
 import { ArticleGrid } from "~/components/ArticleGrid";
 import { Container } from "~/components/Container";
@@ -5,7 +9,7 @@ import { ExternalLink } from "~/components/ExternalLink";
 import { getOrigin } from "~/lib/http";
 import { localePath } from "~/lib/i18n-context";
 import { getLatest } from "~/lib/news";
-import { buildMeta, SOCIAL_PREVIEW_IMAGE } from "~/lib/seo";
+import { buildMeta, localizedAlternates, SOCIAL_PREVIEW_IMAGE } from "~/lib/seo";
 import type { Route } from "./+types/person-profile";
 
 const OFFICIAL_PROFILE = "https://www.potsdam.de/de/oberbuergermeisterin-noosha-aubel";
@@ -21,29 +25,26 @@ const description =
   "Wer ist Noosha Aubel? Quellenbasierte Biografie mit Lebenslauf, Wahlergebnis, Amtszeit und Aufgaben der Oberbürgermeisterin von Potsdam.";
 
 export function loader({ params, request }: Route.LoaderArgs) {
-  if (params.lang !== "de") throw new Response("Not Found", { status: 404 });
+  if (!isLanguageCode(params.lang)) throw new Response("Not Found", { status: 404 });
   const origin = getOrigin(request);
-  const canonical = `${origin}/de/noosha-aubel`;
-  return { origin, canonical, articles: getLatest("de") };
+  const canonical = `${origin}/${params.lang}/noosha-aubel`;
+  const ui = getUiDictionary(params.lang);
+  return { origin, canonical, lang: params.lang, title: localizeText(ui, title), description: localizeText(ui, description), jobTitle: localizeText(ui, "Oberbürgermeisterin der Landeshauptstadt Potsdam"), breadcrumb: localizeText(ui, "Biografie und Themen"), keywords: ["Noosha Aubel Biografie", "Noosha Aubel Oberbürgermeisterin", "Oberbürgermeisterin Potsdam", "Noosha Aubel Wahl 2025", "Noosha Aubel Haushalt 2026"].map(key => localizeText(ui, key)), articles: getLatest(params.lang) };
 }
 
 export function meta({ loaderData }: Route.MetaArgs) {
   if (!loaderData) return [];
-  const { origin, canonical } = loaderData;
+  const { origin, canonical, lang, title, description } = loaderData;
   return [
     ...buildMeta({
       title,
       description,
       canonical,
       image: SOCIAL_PREVIEW_IMAGE,
-      lang: "de",
-      keywords: [
-        "Noosha Aubel Biografie",
-        "Noosha Aubel Oberbürgermeisterin",
-        "Oberbürgermeisterin Potsdam",
-        "Noosha Aubel Wahl 2025",
-        "Noosha Aubel Haushalt 2026",
-      ],
+      lang,
+      robots: isSearchIndexLanguage(lang) ? undefined : "noindex, follow",
+      alternates: isSearchIndexLanguage(lang) ? localizedAlternates(origin, "noosha-aubel", SEARCH_INDEX_LANGUAGES) : undefined,
+      keywords: loaderData.keywords,
     }),
     {
       "script:ld+json": {
@@ -55,8 +56,8 @@ export function meta({ loaderData }: Route.MetaArgs) {
             url: canonical,
             name: title,
             description,
-            inLanguage: "de-DE",
-            dateModified: "2026-08-31",
+            inLanguage: LANGUAGES[lang].locale,
+            dateModified: lang === "en" ? "2026-09-14" : "2026-08-31",
             isPartOf: { "@id": `${origin}/#website` },
             mainEntity: { "@id": `${canonical}#noosha-aubel` },
           },
@@ -65,7 +66,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
             "@id": `${canonical}#noosha-aubel`,
             name: "Noosha Aubel",
             birthDate: "1975-12-04",
-            jobTitle: "Oberbürgermeisterin der Landeshauptstadt Potsdam",
+            jobTitle: loaderData.jobTitle,
             affiliation: {
               "@type": "GovernmentOrganization",
               name: "Landeshauptstadt Potsdam",
@@ -83,12 +84,12 @@ export function meta({ loaderData }: Route.MetaArgs) {
                 "@type": "ListItem",
                 position: 1,
                 name: "Noosha Aubel Pressedossier",
-                item: `${origin}/de`,
+                item: `${origin}/${lang}`,
               },
               {
                 "@type": "ListItem",
                 position: 2,
-                name: "Biografie und Themen",
+                name: loaderData.breadcrumb,
                 item: canonical,
               },
             ],
@@ -104,11 +105,11 @@ export function headers() {
 }
 
 export default function PersonProfile({ loaderData }: Route.ComponentProps) {
-  return (
+  return <Translated>{(
     <>
       <Container className="py-12 sm:py-16">
         <nav aria-label="Brotkrümelnavigation" className="text-sm text-gray-500">
-          <Link to={localePath("de")} className="hover:text-blue-700">Startseite</Link>
+          <Link to={localePath(loaderData.lang)} className="hover:text-blue-700">Startseite</Link>
           <span aria-hidden="true"> / </span>
           <span>Noosha Aubel: Biografie und Themen</span>
         </nav>
@@ -254,5 +255,5 @@ export default function PersonProfile({ loaderData }: Route.ComponentProps) {
         </Container>
       </section>
     </>
-  );
+  )}</Translated>;
 }

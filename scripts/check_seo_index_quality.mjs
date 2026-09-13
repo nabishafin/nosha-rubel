@@ -17,7 +17,7 @@ const port = await new Promise((resolve, reject) => {
 });
 const base = `http://127.0.0.1:${port}`;
 const server = spawn(process.execPath, ["node_modules/@react-router/serve/bin.cjs", "build/server/index.js"], {
-  env: { ...process.env, PORT: String(port), SITE_URL: origin, NODE_ENV: "production" },
+  env: { ...process.env, PORT: String(port), SITE_URL: origin, NODE_ENV: "production", GOOGLE_SITE_VERIFICATION: "seo-test-public-token" },
   stdio: "ignore",
 });
 
@@ -62,7 +62,11 @@ try {
   const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => decode(match[1]));
   assert.ok(urls.length >= 10, "focused sitemap should contain the core entity and dossier pages");
   assert.equal(new Set(urls).size, urls.length, "sitemap URLs must be unique");
-  assert.doesNotMatch(sitemap, /\/(?:zh|es|fr|it|pt|hi|pl|cs|ko|sv|ar|ja|el|ru|uk)(?:<|\/)/);
+  for (const article of articles.filter(article => article.publicationMode === "full" && (!article.contentLocale || article.contentLocale.split("-")[0] === article.language))) {
+    assert.ok(urls.includes(`${origin}/${article.language}/news/${article.slug}`), `Complete native publication missing: ${article.id}`);
+  }
+  assert.ok(urls.includes(`${origin}/en/noosha-aubel`));
+  assert.match(sitemap, /hreflang="zh-Hant"/);
   assert.doesNotMatch(sitemap, /\/documents\/|\/about<|\/contact<|\/privacy<|\/terms<|\/editorial-statement</);
 
   const titles = new Set();
@@ -73,6 +77,7 @@ try {
     const response = await fetch(`${base}${expected.pathname}`, { redirect: "manual" });
     assert.equal(response.status, 200, `indexable URL must return 200: ${expected.pathname}`);
     const html = await response.text();
+    assert.match(html, /<meta name="google-site-verification" content="seo-test-public-token"/);
     const robots = metaContent(html, "robots");
     assert.match(robots, /^index, follow/, `sitemap URL must be indexable: ${expected.pathname}`);
     const canonical = linkHref(html, "canonical");
@@ -87,6 +92,12 @@ try {
     assert.ok(!titles.has(title.toLowerCase()), `duplicate title: ${title}`);
     titles.add(title.toLowerCase());
     assert.equal((html.match(/<h1\b/gi) ?? []).length, 1, `expected one H1: ${expected.pathname}`);
+    // XML and HTML must advertise the same reciprocal language cluster.
+    const entry = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].find(match => match[1].includes(`<loc>${absoluteUrl}</loc>`))?.[1] ?? "";
+    for (const alternate of entry.matchAll(/hreflang="([^"]+)" href="([^"]+)"/g)) {
+      const links = html.match(/<link\b[^>]*>/gi) ?? [];
+      assert.ok(links.some(link => new RegExp(`hreflang="${alternate[1]}"`, "i").test(link) && link.includes(`href="${alternate[2]}"`)), `HTML/sitemap alternate mismatch: ${expected.pathname} ${alternate[1]}`);
+    }
   }
 
   const germanArticles = articles.filter((article) => article.language === "de");
@@ -94,16 +105,23 @@ try {
     const path = `/de/news/${article.slug}`;
     assert.ok(urls.includes(`${origin}${path}`), `German dossier missing from sitemap: ${path}`);
     const html = await (await fetch(`${base}${path}`)).text();
+    if (article.publicationMode === "full") {
+      assert.match(html, /class="article-body"/);
+      assert.match(html, /"@type":"NewsArticle"/);
+      assert.doesNotMatch(html, /original dossier summary/i);
+      continue;
+    }
     assert.match(html, /Was die zitierte Veröffentlichung berichtet/);
     assert.match(html, /Kernaussagen des Berichtsdossiers/);
     assert.match(html, /Prüfstatus/);
     assert.doesNotMatch(html, /What the cited publication reports|Key points in the coverage record|Verification status/);
   }
 
-  const frenchArticle = articles.find((article) => article.language === "fr");
+  const frenchArticle = articles.find((article) => article.language === "fr" && article.publicationMode !== "full");
   assert.ok(frenchArticle, "French non-index fixture must exist");
   for (const path of [
     "/fr",
+    "/fr/noosha-aubel",
     `/fr/news/${frenchArticle.slug}`,
     "/en/documents/de",
     "/en/about",

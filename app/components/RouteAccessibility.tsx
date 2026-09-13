@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 
@@ -16,9 +17,9 @@ export function RouteAccessibility() {
     setAnnouncement(document.title);
   }, [location.key]);
 
-  return (
+  return <Translated>{(
     <div className="sr-only" aria-live="polite" aria-atomic="true">
       {announcement}
     </div>
-  );
+  )}</Translated>;
 }

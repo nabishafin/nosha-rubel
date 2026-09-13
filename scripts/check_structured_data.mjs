@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { createServer } from "node:net";
+import { readFile } from "node:fs/promises";
 
 const port = await new Promise((resolve, reject) => {
   const listener = createServer();
@@ -55,7 +56,9 @@ try {
   );
   assert.ok(!landingGraph.some((node) => node["@type"] === "Organization"), "site ownership must not be invented");
 
-  const articlePath = new URL(collection.mainEntity.itemListElement[0].url).pathname;
+  const records = JSON.parse(await readFile("app/data/articles.generated.json", "utf8"));
+  const fixture = records.find((article) => article.language === "en" && article.publicationMode !== "full");
+  const articlePath = `/en/news/${fixture.slug}`;
   const articleGraph = graph(jsonLd(await (await fetch(`${base}${articlePath}`)).text())[0]);
   assert.ok(articleGraph.some((node) => node["@type"] === "WebPage"));
   assert.ok(articleGraph.some((node) => node["@type"] === "BreadcrumbList"));

@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { Link } from "react-router";
 import { localePath, useI18n } from "~/lib/i18n-context";
 import { LANGUAGES } from "~/lib/languages";
@@ -16,8 +17,8 @@ interface ArticleCardProps {
 }
 
 export function ArticleCard({ article, variant = "vertical", rank, eager }: ArticleCardProps) {
-  const { t } = useI18n();
-  const contentLocale = LANGUAGES[article.language].locale;
+  const { t, lang } = useI18n();
+  const contentLocale = article.contentLocale ?? LANGUAGES[article.language].locale;
   const href = localePath(article.language, `news/${article.slug}`);
   const linkProps = { to: href };
   const cardTitle = article.title;
@@ -25,7 +26,7 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
 
   // Compact: text-first row for "Most Read" style lists.
   if (variant === "compact") {
-    return (
+    return <Translated>{(
       <Link
         lang={contentLocale}
         {...linkProps}
@@ -44,12 +45,12 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
           <ArticleMeta article={article} className="mt-1.5" />
         </div>
       </Link>
-    );
+    )}</Translated>;
   }
 
   // Horizontal: image beside text — good for sidebars / dense lists.
   if (variant === "horizontal") {
-    return (
+    return <Translated>{(
       <Link lang={contentLocale} {...linkProps} className="group flex gap-4">
         <SmartImage
           src={article.image}
@@ -65,12 +66,12 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
           <ArticleMeta article={article} className="mt-1.5" />
         </div>
       </Link>
-    );
+    )}</Translated>;
   }
 
   // Overlay: full-bleed image with text on top — used for feature tiles.
   if (variant === "overlay") {
-    return (
+    return <Translated>{(
       <Link lang={contentLocale} {...linkProps} className="group relative block overflow-hidden rounded-lg">
         <SmartImage
           src={article.image}
@@ -86,11 +87,11 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
           <ArticleMeta article={article} className="mt-2 text-gray-300" />
         </div>
       </Link>
-    );
+    )}</Translated>;
   }
 
   // Vertical (default): the primary news card.
-  return (
+  return <Translated>{(
     <article lang={contentLocale} className="group flex h-full flex-col overflow-hidden rounded-lg border border-gray-200 bg-white transition hover:border-gray-300 hover:shadow-sm">
       <Link {...linkProps} aria-hidden="true" tabIndex={-1} className="block overflow-hidden">
         <SmartImage
@@ -113,10 +114,10 @@ export function ArticleCard({ article, variant = "vertical", rank, eager }: Arti
             {...linkProps}
             className="text-sm font-semibold text-blue-600 hover:text-blue-800 group-hover:text-blue-800"
           >
-            {t.actions.readMore} →
+            {article.publicationMode === "full" ? (lang === "de" ? "Artikel lesen" : "Read article") : t.actions.readMore} →
           </Link>
         </div>
       </div>
     </article>
-  );
+  )}</Translated>;
 }

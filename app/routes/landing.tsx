@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { Link } from "react-router";
 import { isLanguageCode, DEFAULT_LANGUAGE, isSearchIndexLanguage, SEARCH_INDEX_LANGUAGES } from "~/lib/languages";
 import { getTranslation } from "~/lib/i18n";
@@ -76,7 +77,7 @@ export default function Landing({ loaderData }: Route.ComponentProps) {
   const { articles, sourceCount, selectedCoverage, tags } = loaderData;
   const t = getTranslation(loaderData.lang);
 
-  return (
+  return <Translated>{(
     <>
       <HomeBanner
         lang={loaderData.lang}
@@ -87,7 +88,7 @@ export default function Landing({ loaderData }: Route.ComponentProps) {
         readLabel={t.actions.readFull}
       />
 
-      {loaderData.lang === "de" && (
+      {(
         <Section className="border-b border-gray-200">
           <div className="rounded-2xl border border-blue-100 bg-blue-50 p-6 sm:p-8">
             <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-blue-700">Person, Amt und Quellen</p>
@@ -101,7 +102,7 @@ export default function Landing({ loaderData }: Route.ComponentProps) {
               <div className="rounded-xl border border-blue-100 bg-white p-4"><dt className="text-xs font-bold uppercase text-gray-500">Stichwahl 2025</dt><dd className="mt-1 font-bold text-gray-950">72,9 Prozent</dd></div>
             </dl>
             <div className="mt-6">
-              <Link to={localePath("de", "noosha-aubel")} className="inline-flex justify-center rounded-lg bg-blue-700 px-5 py-3 text-sm font-bold text-white hover:bg-blue-800">
+              <Link to={localePath(loaderData.lang, "noosha-aubel")} className="inline-flex justify-center rounded-lg bg-blue-700 px-5 py-3 text-sm font-bold text-white hover:bg-blue-800">
                 Vollständige Biografie, Themen und Primärquellen
               </Link>
             </div>
@@ -145,5 +146,5 @@ export default function Landing({ loaderData }: Route.ComponentProps) {
         <DocumentArchive />
       </Section>
     </>
-  );
+  )}</Translated>;
 }

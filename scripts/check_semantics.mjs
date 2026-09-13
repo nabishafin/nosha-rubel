@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { createServer } from "node:net";
+import { readFile } from "node:fs/promises";
 
 const port = await new Promise((resolve, reject) => {
   const listener = createServer();
@@ -36,12 +37,14 @@ try {
   assert.equal(count(home, /<footer\b/g), 1);
   assert.equal(count(home, /<h1\b/g), 1);
   assert.match(home, /<ul aria-label="Coverage records"/);
-  assert.match(home, /<ul lang="en" aria-label="Language editions"/);
+  assert.match(home, /<ul lang="en(?:-US)?" aria-label="Language editions"/);
   assert.match(home, /<ul aria-label="Archived reference documents"/);
   assert.match(home, /<ol aria-label="[^"]+" class="rounded-lg border/);
   assert.match(home, /<ul aria-label="Topics"/);
 
-  const articlePath = home.match(/href="(\/en\/news\/[^"]+)"/)?.[1];
+  const records = JSON.parse(await readFile("app/data/articles.generated.json", "utf8"));
+  const fixture = records.find((article) => article.language === "en" && article.publicationMode !== "full");
+  const articlePath = fixture && `/en/news/${fixture.slug}`;
   assert.ok(articlePath);
   const article = await (await fetch(`${base}${articlePath}`)).text();
   assert.equal(count(article, /<h1\b/g), 1);

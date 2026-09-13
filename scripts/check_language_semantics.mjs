@@ -38,7 +38,7 @@ try {
   const arabicArticle = articles.find((article) => article.language === "ar");
   assert.ok(arabicArticle, "Arabic coverage fixture must exist");
   const html = await (await fetch(`${base}/ar/news/${arabicArticle.slug}`)).text();
-  assert.match(html, /<article lang="ar-AE">/);
+  assert.match(html, /<article lang="ar-AE"[^>]*>/);
   assert.match(html, /<nav lang="en-US" aria-label="Breadcrumb"/);
 
   console.log("Language-semantics checks passed.");

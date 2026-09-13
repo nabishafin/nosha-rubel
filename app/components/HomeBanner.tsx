@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { Link } from "react-router";
 import { localePath } from "~/lib/i18n-context";
 import { LANGUAGES } from "~/lib/languages";
@@ -26,7 +27,7 @@ export function HomeBanner({ lang, tagline, article, articleCount, sourceCount, 
         records: "Öffentliche Dokumente",
         internal: "Internes Dossier",
         product: "Unabhängiges, mehrsprachiges Pressedossier",
-        description: `${tagline}. Jeder interne Eintrag enthält eine eigenständige Zusammenfassung, redaktionellen Kontext, Prüfhinweise und einen direkten Link zur zitierten Veröffentlichung.`,
+        description: `${tagline}. Lesen Sie vollständige Zeitungsartikel und quellenbezogene Berichtsdossiers direkt auf dieser Website. Herausgeber, Verfasser und Veröffentlichungsdatum sind bei jedem Beitrag angegeben.`,
         coverageRecord: "Berichtsdossier",
       }
     : {
@@ -38,10 +39,10 @@ export function HomeBanner({ lang, tagline, article, articleCount, sourceCount, 
         records: "Public Records",
         internal: "Internal Dossier",
         product: SITE_PRODUCT_LABEL,
-        description: `${tagline}. Each internal record provides an original summary, editorial context, verification notes and a direct citation to the external publication.`,
+        description: `${tagline}. Read complete newspaper articles and source-attributed coverage dossiers directly on this website, with publisher credits, bylines and publication dates.`,
         coverageRecord: "Coverage Record",
       };
-  return (
+  return <Translated>{(
     <section className="relative isolate overflow-hidden bg-gray-950">
       <picture aria-hidden="true">
         <source
@@ -115,10 +116,10 @@ export function HomeBanner({ lang, tagline, article, articleCount, sourceCount, 
           </div>
 
           {/* German search intent is served by the neutral entity profile first. */}
-          {lang === "de" ? (
+          {(
             <Link
-              lang="de"
-              to={localePath("de", "noosha-aubel")}
+              lang={lang === "en" ? "en-US" : "de"}
+              to={localePath(lang, "noosha-aubel")}
               className="group block rounded-2xl border border-white/20 bg-white/95 p-5 text-gray-950 shadow-2xl backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white"
             >
               <div className="flex items-center justify-end">
@@ -137,31 +138,9 @@ export function HomeBanner({ lang, tagline, article, articleCount, sourceCount, 
                 <span className="text-[11px] font-normal text-gray-600">Aktualisiert am 31.08.2026</span>
               </div>
             </Link>
-          ) : article ? (
-            <Link
-              lang={LANGUAGES[article.language].locale}
-              to={localePath(article.language, `news/${article.slug}`)}
-              className="group block rounded-2xl border border-white/20 bg-white/95 p-5 text-gray-950 shadow-2xl backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white"
-            >
-              <div className="flex items-center justify-end">
-                <span lang="en" className="rounded bg-red-100 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-red-700">
-                  {labels.coverageRecord}
-                </span>
-              </div>
-              <h2 className="mt-2.5 line-clamp-3 text-lg font-extrabold leading-snug text-gray-900 group-hover:text-blue-700">
-                {article.title}
-              </h2>
-              <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-gray-600">
-                {article.description}
-              </p>
-              <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-3 text-xs font-bold text-blue-600">
-                <span>{readLabel} →</span>
-                <span lang="en" className="text-[11px] font-normal text-gray-600">{labels.internal}</span>
-              </div>
-            </Link>
-          ) : null}
+          )}
         </div>
       </Container>
     </section>
-  );
+  )}</Translated>;
 }

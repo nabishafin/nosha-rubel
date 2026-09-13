@@ -4,7 +4,7 @@ import { createServer } from "node:net";
 
 const languages = [
   "de", "en", "zh", "es", "fr", "it", "pt", "hi", "pl",
-  "cs", "ko", "sv", "ar", "ja", "el", "ru", "uk",
+  "cs", "ko", "sv", "ar", "ja", "el", "ru", "uk", "tr",
 ];
 const requiredPrefix = "Noosha Aubel:";
 const genericGlobalKeywords = "Oberbürgermeisterin Potsdam, Potsdam Rathaus";

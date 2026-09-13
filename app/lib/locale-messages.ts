@@ -8,6 +8,7 @@ interface LocaleUnavailableMessage {
 }
 
 export const LOCALE_UNAVAILABLE_MESSAGES: Record<LanguageCode, LocaleUnavailableMessage> = {
+  tr: { title: "Çeviri mevcut değil", body: "Bu yayın henüz seçilen dilde mevcut değil.", back: "Orijinal yayına dön", browse: "Bu dil sürümünü aç" },
   de: { title: "Übersetzung nicht verfügbar", body: "Diese Veröffentlichung ist in der gewählten Sprache noch nicht verfügbar.", back: "Zur ursprünglichen Veröffentlichung", browse: "Diese Sprachausgabe öffnen" },
   en: { title: "Translation unavailable", body: "This publication is not yet available in the selected language.", back: "Return to the original publication", browse: "Browse this language edition" },
   zh: { title: "暂无翻译", body: "此出版内容尚未提供所选语言版本。", back: "返回原始出版内容", browse: "浏览此语言版本" },

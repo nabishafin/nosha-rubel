@@ -36,7 +36,8 @@ assert.deepEqual([...declaredFiles.keys()].sort(), actualFiles, "every first-par
 const externalRequired = ["owner", "creator", "creditLine", "license", "rightsStatus", "purpose", "altPolicy", "caption", "focalPoint", "language", "permittedTransformations", "deliveryPolicy"];
 for (const field of externalRequired) assert.ok(field in governance.externalCoveragePolicy, `external coverage policy missing ${field}`);
 for (const article of articles) {
-  const image = new URL(article.image);
+  const image = new URL(article.image, "https://nooshaaubel.com");
+  if (article.image.startsWith("/")) assert.ok(declaredFiles.has(article.image), `${article.id} local image must have a rights and checksum record`);
   assert.equal(image.protocol, "https:", `${article.id} external image must use HTTPS`);
   assert.ok(article.sourceName?.trim(), `${article.id} must identify the image source publication`);
   assert.ok(article.sourceUrl?.trim(), `${article.id} must retain the source record URL`);
@@ -45,4 +46,3 @@ for (const article of articles) {
 
 const unresolvedFirstParty = governance.firstPartyFamilies.filter((family) => family.rightsStatus !== "approved").length;
 console.log(`Media-governance checks passed (${actualFiles.length} first-party files, ${articles.length} external records; ${unresolvedFirstParty} first-party families still require owner evidence).`);
-

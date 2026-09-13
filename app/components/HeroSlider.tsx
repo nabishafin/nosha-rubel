@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useI18n, localePath } from "~/lib/i18n-context";
@@ -25,7 +26,7 @@ export function HeroSlider({ articles }: { articles: Article[] }) {
 
   const go = (i: number) => setIndex((i + count) % count);
 
-  return (
+  return <Translated>{(
     <section
       aria-roledescription="carousel"
       aria-label={t.sections.breaking}
@@ -123,5 +124,5 @@ export function HeroSlider({ articles }: { articles: Article[] }) {
         </>
       )}
     </section>
-  );
+  )}</Translated>;
 }

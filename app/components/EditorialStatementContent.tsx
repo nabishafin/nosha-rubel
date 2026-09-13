@@ -1,7 +1,8 @@
+import { Translated } from "~/components/Translated";
 import { SITE_CONTACT_EMAIL, SITE_NAME, SITE_PRODUCT_LABEL } from "~/lib/site-identity";
 
 export function EditorialStatementContent() {
-  return (
+  return <Translated>{(
     <article lang="en" className="space-y-7 text-sm leading-relaxed text-gray-700">
       <header className="rounded-2xl border border-blue-200 bg-blue-50 p-5 sm:p-6">
         <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-blue-700">Editorial policy</p>
@@ -70,9 +71,9 @@ export function EditorialStatementContent() {
       <section aria-labelledby="privacy-heading" className="space-y-3">
         <h3 id="privacy-heading" className="text-lg font-bold text-gray-950">6. Privacy and technical operation</h3>
         <p>
-          The current application does not implement analytics, advertising, user accounts, tracking pixels or a working newsletter submission service. It embeds one video through YouTube&apos;s privacy-enhanced domain and displays externally hosted publisher images; those third-party requests remain subject to privacy and rights review.
+          The current application does not implement analytics, advertising, user accounts, tracking pixels or a working newsletter submission service. It embeds three videos through YouTube&apos;s privacy-enhanced domain and displays externally hosted publisher images; those third-party requests remain subject to privacy and rights review.
         </p>
       </section>
     </article>
-  );
+  )}</Translated>;
 }

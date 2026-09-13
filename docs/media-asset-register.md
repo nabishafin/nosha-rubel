@@ -41,3 +41,10 @@ The machine-readable source of truth is `app/data/media-governance.json`; CI ver
 - Caption status: German captions are requested from the source player but have not been independently verified.
 - Transcript status: unavailable; the visible description is labeled as a contextual summary, not a transcript.
 - Structured-data status: intentionally omitted because upload date, duration, owned thumbnail and a stable first-party watch page are not available in the repository.
+
+## Additional owner-supplied YouTube Shorts
+
+- `DUZxtW_3LzQ`: English (`en`), supplied by the owner.
+- `sko9O0RIUsI`: German (`de`), supplied by the owner.
+- Both are embedded on localized homepages through `youtube-nocookie.com`, with lazy loading, accessible frame titles, language labels and secure links to the original Shorts. Share-tracking parameters are omitted.
+- Captions are requested in the supplied video language; captions and transcripts have not been independently verified. No upload date, duration or VideoObject schema is invented.

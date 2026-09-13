@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { Link } from "react-router";
 import { Container } from "~/components/Container";
 import { DOCUMENTS } from "~/components/DocumentArchive";
@@ -40,7 +41,7 @@ export function meta({ loaderData }: Route.MetaArgs) {
 export default function DocumentPage({ loaderData }: Route.ComponentProps) {
   const { lang, document } = loaderData;
   const t = getTranslation(lang);
-  return (
+  return <Translated>{(
     <Container className="py-14">
       <div className="mx-auto max-w-3xl">
         <nav aria-label="Breadcrumb" className="text-sm text-gray-500">
@@ -83,5 +84,5 @@ export default function DocumentPage({ loaderData }: Route.ComponentProps) {
         </div>
       </div>
     </Container>
-  );
+  )}</Translated>;
 }

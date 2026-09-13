@@ -214,8 +214,9 @@ function dossierKey(article: Pick<Article, "id" | "translationGroup">): string {
 }
 
 export function hasLocalizedCoverageDossier(
-  article: Pick<Article, "id" | "translationGroup" | "language">,
+  article: Pick<Article, "id" | "translationGroup" | "language" | "publicationMode">,
 ): boolean {
+  if (article.publicationMode === "full") return article.language === "de" || article.language === "en";
   const key = dossierKey(article);
   const dossier = DOSSIERS[`${key}:${article.language}`] ?? DOSSIERS[key];
   return dossier?.language === article.language;

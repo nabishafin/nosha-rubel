@@ -23,7 +23,13 @@
       "caption": "not displayed",
       "focalPoint": "center",
       "language": "none",
-      "permittedTransformations": ["resize", "crop", "JPEG conversion", "WebP conversion", "compression"],
+      "permittedTransformations": [
+        "resize",
+        "crop",
+        "JPEG conversion",
+        "WebP conversion",
+        "compression"
+      ],
       "sensitiveExifPolicy": "derivatives must contain no sensitive location or device metadata"
     },
     {
@@ -45,6 +51,81 @@
       "language": "none",
       "permittedTransformations": [],
       "sensitiveExifPolicy": "must contain no sensitive metadata"
+    },
+    {
+      "id": "authorized-publications-political-bankruptcy",
+      "files": {
+        "/media/articles/political-bankruptcy-de.png": "4172e23c22bd942ae61ae850795dd845903ca3eaffd5bf3ece6b41ef9b3de28e",
+        "/media/articles/political-bankruptcy-en.png": "fcbf18b6e2efde888cefef3734571ed6268f5af63f62fe591a4ebb7ac2a3ca12",
+        "/media/articles/political-bankruptcy-es.png": "f619562470e9ede05647c5382955ef015f36f00741c7fc1554dc1b53beaccd7a",
+        "/media/articles/political-bankruptcy-fr.png": "19f795b6bcf3b1ce1d60c13c7d16232a3a60257364557ec0a10e52da5ffe1eec",
+        "/media/articles/political-bankruptcy-it.png": "825220e564b150f703438d0de5f70b7bffdf033fd56dfd54c900f709c1007b94",
+        "/media/articles/political-bankruptcy-pt.png": "55c7c2f841388bf592385e77bb188b9286cd924b3413ab740b928636e22c345b",
+        "/media/articles/political-bankruptcy-ru.png": "2673ffced4c0b188f85f1adf95839238bdd01f92160a5064a576870025447f6a",
+        "/media/articles/political-bankruptcy-uk.png": "e1f956ddcae57a77c4cf92ccbd03616df93c792d7c71f5a938df9448e81d9e53",
+        "/media/articles/political-bankruptcy-ar.png": "e6820eb996a9123fe0a4409a879f2dc4370e21a02f6a10949b388e9d3735c4a0",
+        "/media/articles/political-bankruptcy-tr.png": "d40b58a2cd7bbf40caab388a308fb32c39a14ea912a79d284aa96dea0bcbadd4",
+        "/media/articles/political-bankruptcy-zh.png": "64335048505cae1b0d5e22290b99f97593bfc2a943d6009a9c53ca1f33fe25ae",
+        "/media/articles/political-bankruptcy-ko.png": "1945bca84290852e48028bcc7f24d3335cff733d786ee21eef2c552fb5203685",
+        "/media/articles/political-bankruptcy-hi.png": "6680f51b283a0ab98b478c69023acb9abbe02393cf13040e735e7d503954f0c1",
+        "/media/articles/political-bankruptcy-el.png": "e989f2c9f66dc8d5c65286422a65b947d0de64ca3736be0d7b08239104890c3b",
+        "/media/articles/political-bankruptcy-ja.png": "e9be8125e1c69a726266e580eba9ec94a6c3ffeabc2e10e2d5339dc298092f04",
+        "/media/articles/political-bankruptcy-sv.png": "fd60e665d7081a83fa7b2bd7ff35450827cf1cad477369a72becd5e225eede4d",
+        "/media/articles/political-bankruptcy-pl.png": "076ffba674619af1e346de1be7e3c4c0eb1fff246c3edaa76a37a76b447175bc",
+        "/media/articles/political-bankruptcy-cs.png": "65a71ce3c6d371bb912f1985f0bc606ad27b9e87fde3ef1f25232f964bf40fde"
+      },
+      "owner": "User-confirmed newspaper owner",
+      "source": "User-supplied article images; missing Czech image downloaded from its source publication",
+      "creator": "Source publisher; image text and artwork preserved as supplied",
+      "creditLine": "Publisher and byline on each article page",
+      "license": "User confirms these newspapers are theirs and authorizes full-text and image republication in this request",
+      "rightsStatus": "approved",
+      "purpose": "Article illustration for authorized full-text republication",
+      "altPolicy": "Article headline; decorative empty alt in cards",
+      "caption": "Publisher illustration",
+      "focalPoint": "center",
+      "language": "Per article contentLocale or language",
+      "permittedTransformations": [
+        "copy unchanged"
+      ],
+      "sensitiveExifPolicy": "Images copied unchanged from user-supplied files"
+    },
+    {
+      "id": "authorized-publications-leadership-crisis",
+      "files": {
+        "/media/articles/leadership-crisis-de.png": "3e945f0a7e90565fb692aa52fe2eb66aeb5d395511f5bfcc2de0ffd1f452efc4",
+        "/media/articles/leadership-crisis-en.png": "494296d784965d6623efdd0e4d54f59cededc2a794761d88e0d284449ac65d38",
+        "/media/articles/leadership-crisis-es.png": "77d67d34ead5601e9b0aefb20c90cfdd4e14549bf0c1be52baeaf9efb69f1642",
+        "/media/articles/leadership-crisis-fr.png": "b20e7147099ff61867d897d3adc48eae403f2ee08628f4c784be2a9178b430a1",
+        "/media/articles/leadership-crisis-it.png": "e2ff92da1edc3075f8ed1229ee142a057fa5cdfe5f0bf31f7e5c445ab5ca86ac",
+        "/media/articles/leadership-crisis-pt.png": "bf708ce91f2f467177d458dbfeaf0f8f93677cb79b313d2d77087ce391efc399",
+        "/media/articles/leadership-crisis-ru.png": "64d4841c1e3dee8451758865bb8a69964e1bda0948278c0f54e0f25e48aca20a",
+        "/media/articles/leadership-crisis-uk.png": "a301b5e8361ffbda15ed059eaa8e18e581afdc26729cbb1257e228266c209458",
+        "/media/articles/leadership-crisis-ar.png": "1f6d791cf5b512aff2894fb23776c65847c1a1b811bf58f984de9b3aa74a0d6b",
+        "/media/articles/leadership-crisis-zh.png": "ba46a035f4ed0534db6a53c73e323eabddd12a333b8b8f1e50a9de7b466b1cda",
+        "/media/articles/leadership-crisis-ko.png": "74967b0058a4a4b7409a52e41386aafe89efcc8c1066034a19a42de923a3ca93",
+        "/media/articles/leadership-crisis-hi.png": "47e5aff9b15973411310366366affd50eda9c340eceef029a43f11b0a12e2ffe",
+        "/media/articles/leadership-crisis-el.png": "2723dbf41995798903a0d64569feb97cdbb26c0253de2e5cb7c758a3d6ea5409",
+        "/media/articles/leadership-crisis-ja.png": "61c18124ffb885c52b2d931a2db713b1329b4c4ea73c670322c78b404e13e2f9",
+        "/media/articles/leadership-crisis-sv.png": "08e2cefb59965b659b0aed70d0c64d78d55ee2cfa677b0f2fed1927f6dd5f7a0",
+        "/media/articles/leadership-crisis-pl.png": "3d9ae62d56a91526f66bba40c70d060dadd5fa70698ae8a6ad072bbea4387689",
+        "/media/articles/leadership-crisis-cs.png": "4d3fd449e5eec09f458c13c750fa4d5373b5bc7027f58c2de7e3da5e4a102bca"
+      },
+      "owner": "User-confirmed newspaper owner",
+      "source": "User-supplied article images; missing Czech image downloaded from its source publication",
+      "creator": "Source publisher; image text and artwork preserved as supplied",
+      "creditLine": "Publisher and byline on each article page",
+      "license": "User confirms these newspapers are theirs and authorizes full-text and image republication in this request",
+      "rightsStatus": "approved",
+      "purpose": "Article illustration for authorized full-text republication",
+      "altPolicy": "Article headline; decorative empty alt in cards",
+      "caption": "Publisher illustration",
+      "focalPoint": "center",
+      "language": "Per article contentLocale or language",
+      "permittedTransformations": [
+        "copy unchanged"
+      ],
+      "sensitiveExifPolicy": "Images copied unchanged from user-supplied files"
     }
   ],
   "externalCoveragePolicy": {
@@ -62,4 +143,3 @@
     "deliveryPolicy": "remain externally hosted; do not copy or transform without documented permission"
   }
 }
-

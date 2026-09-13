@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 import { LANGUAGES, LANGUAGE_LIST } from "~/lib/languages";
@@ -38,7 +39,7 @@ export function LanguageSwitcher() {
     };
   }, [open]);
 
-  return (
+  return <Translated>{(
     <div
       className="relative"
       ref={ref}
@@ -101,5 +102,5 @@ export function LanguageSwitcher() {
         </ul>
       )}
     </div>
-  );
+  )}</Translated>;
 }

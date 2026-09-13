@@ -19,7 +19,7 @@ The CSP permits the current application dependencies:
 
 | Service/category | Trigger | Purpose | Current privacy control | Remaining owner action |
 | --- | --- | --- | --- | --- |
-| YouTube privacy-enhanced embed | Homepage, lazy-loaded near viewport | German source video | `youtube-nocookie.com`, lazy loading, strict-origin referrer policy, constrained iframe permissions | Confirm consent requirements and retention with privacy counsel |
+| YouTube privacy-enhanced embeds | Homepage, lazy-loaded near viewport | Three source videos: one English and two German | `youtube-nocookie.com`, lazy loading, strict-origin referrer policy, constrained iframe permissions | Confirm consent requirements and retention with privacy counsel |
 | External publisher image hosts | Coverage cards/pages | Source-publication imagery | HTTPS only; CSP image-only access | Complete rights/provenance review and migrate authorized strategic assets |
 | External source links | User activation only | Citation to original publication | `noreferrer noopener`; no preconnect | Monitor link health and apply the editorial archive policy |
 

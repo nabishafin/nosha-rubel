@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { isLanguageCode, DEFAULT_LANGUAGE } from "~/lib/languages";
 import { getTranslation } from "~/lib/i18n";
 import { searchArticles } from "~/lib/news";
@@ -54,9 +55,9 @@ export default function SearchPage({ loaderData }: Route.ComponentProps) {
   const t = getTranslation(lang);
 
   function renderResults() {
-    if (!query) return <p className="py-10 text-center text-gray-500">{t.search.typePrompt}</p>;
-    if (results.length === 0) return <p className="py-10 text-center text-gray-500">{t.search.noResults}</p>;
-    return (
+    if (!query) return <Translated>{<p className="py-10 text-center text-gray-500">{t.search.typePrompt}</p>}</Translated>;
+    if (results.length === 0) return <Translated>{<p className="py-10 text-center text-gray-500">{t.search.noResults}</p>}</Translated>;
+    return <Translated>{(
       <>
         <p className="mb-6 text-sm text-gray-600">
           {results.length} · {t.search.resultsFor}{" "}
@@ -64,10 +65,10 @@ export default function SearchPage({ loaderData }: Route.ComponentProps) {
         </p>
         <ArticleGrid articles={results} columns={3} />
       </>
-    );
+    )}</Translated>;
   }
 
-  return (
+  return <Translated>{(
     <Section>
       <div className="mx-auto max-w-2xl">
         <h1 className="text-center text-3xl font-extrabold tracking-tight text-gray-900">{t.search.title}</h1>
@@ -78,5 +79,5 @@ export default function SearchPage({ loaderData }: Route.ComponentProps) {
 
       <div className="mt-10">{renderResults()}</div>
     </Section>
-  );
+  )}</Translated>;
 }

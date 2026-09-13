@@ -1,3 +1,5 @@
+import { Translated } from "~/components/Translated";
+import { getUiDictionary } from "~/lib/ui-translations.server";
 import { Outlet, redirect } from "react-router";
 import { isLanguageCode } from "~/lib/languages";
 import { getInterfaceLocale } from "~/lib/i18n";
@@ -40,14 +42,15 @@ export function loader({ params }: Route.LoaderArgs) {
   if (!isLanguageCode(params.lang)) {
     throw new Response("Not Found", { status: 404 });
   }
-  return { lang: params.lang };
+  return { lang: params.lang, ui: getUiDictionary(params.lang) };
 }
 
 export default function LocaleLayout({ loaderData }: Route.ComponentProps) {
   const { lang } = loaderData;
   const interfaceLocale = getInterfaceLocale(lang);
   return (
-    <I18nProvider lang={lang}>
+    <I18nProvider lang={lang} ui={loaderData.ui}>
+      <Translated>
       <div className="flex min-h-screen flex-col bg-white">
         <a
           href="#main-content"
@@ -62,6 +65,7 @@ export default function LocaleLayout({ loaderData }: Route.ComponentProps) {
         </main>
         <div lang={interfaceLocale}><Footer /></div>
       </div>
+    </Translated>
     </I18nProvider>
   );
 }

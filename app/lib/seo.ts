@@ -1,3 +1,4 @@
+import { articleHreflang } from "./search-index";
 import { DEFAULT_LANGUAGE, LANGUAGES, LANGUAGE_LIST } from "./languages";
 import type { Article, LanguageCode } from "./types";
 import { SITE_DESCRIPTION, SITE_NAME } from "./site-identity";
@@ -18,6 +19,7 @@ export const SITE_KEYWORDS = [
 ];
 
 const LOCALIZED_SITE_KEYWORDS: Record<LanguageCode, string[]> = {
+  tr: ["Potsdam belediye başkanı", "Potsdam belediyesi", "kamu kayıtları", "engelli çocuk vakası"],
   de: ["Noosha Aubel Biografie", "Oberbürgermeisterin Potsdam", "Potsdam Rathaus", "Noosha Aubel Wahl 2025", "Potsdam Haushalt 2026", "öffentliche Dokumente"],
   en: ["Mayor of Potsdam", "Potsdam City Hall", "public records", "disabled child case"],
   zh: ["波茨坦市长", "波茨坦市政厅", "公共记录", "残障儿童案件"],
@@ -38,6 +40,7 @@ const LOCALIZED_SITE_KEYWORDS: Record<LanguageCode, string[]> = {
 };
 
 const SITE_TITLES: Record<LanguageCode, string> = {
+  tr: "Noosha Aubel: Potsdam belediye başkanı, haberler ve belgeler",
   de: "Noosha Aubel: Aktuelles, Biografie und Potsdam-Themen",
   en: "Noosha Aubel: Mayor of Potsdam Coverage and Public Records",
   zh: "Noosha Aubel: 波茨坦市长报道与公共记录",
@@ -58,6 +61,7 @@ const SITE_TITLES: Record<LanguageCode, string> = {
 };
 
 const SITE_DESCRIPTIONS: Record<LanguageCode, string> = {
+  tr: "Noosha Aubel: Potsdam belediye başkanı hakkında haberler, kamu kayıtları ve engelli bir çocukla ilgili belgelenmiş vaka dahil kaynaklar.",
   de: "Noosha Aubel: aktuelle, quellenbasierte Übersicht zu Biografie, Wahl, Amt und kommunalpolitischen Themen der Oberbürgermeisterin von Potsdam.",
   en: SITE_DESCRIPTION,
   zh: "Noosha Aubel: 波茨坦市长的新闻报道、公共记录和来源文件，包括与残障儿童有关的已记录案件。",
@@ -99,6 +103,7 @@ export function withSiteName(title: string): string {
 export type Meta = Record<string, unknown>;
 
 interface BuildMetaArgs {
+  contentLocale?: string;
   title: string;
   description: string;
   /** Absolute canonical URL. */
@@ -122,6 +127,7 @@ interface BuildMetaArgs {
  * `meta` export, so everything is server-rendered (no client-only Helmet).
  */
 export function buildMeta({
+  contentLocale,
   title,
   description,
   canonical,
@@ -150,7 +156,7 @@ export function buildMeta({
     { property: "og:image", content: absoluteImage },
     { property: "og:image:secure_url", content: absoluteImage },
     { property: "og:image:alt", content: title },
-    { property: "og:locale", content: LANGUAGES[lang].locale.replace("-", "_") },
+    { property: "og:locale", content: (contentLocale ?? LANGUAGES[lang].locale).replaceAll("-", "_") },
 
     // Twitter
     { name: "twitter:card", content: "summary_large_image" },
@@ -221,8 +227,7 @@ export function localizedAlternates(
 export function articleAlternates(origin: string, translations: Article[]): Record<string, string> {
   const map: Record<string, string> = {};
   for (const article of translations) {
-    const language = LANGUAGES[article.language];
-    map[language.hreflang] = `${origin}/${article.language}/news/${article.slug}`;
+    map[articleHreflang(article)] = `${origin}/${article.language}/news/${article.slug}`;
   }
 
   const defaultArticle =
@@ -251,7 +256,7 @@ export function websiteCollectionJsonLd(origin: string, lang: LanguageCode, arti
         "@type": "CollectionPage",
         "@id": `${canonical}#collection`,
         url: canonical,
-        name: `${SITE_NAME} press archive`,
+        name: getSiteTitle(lang),
         description: getSiteDescription(lang),
         inLanguage: LANGUAGES[lang].locale,
         isPartOf: { "@id": `${origin}/#website` },
@@ -277,6 +282,29 @@ function breadcrumbItems(items: Array<{ name: string; url: string }>) {
     name: item.name,
     item: item.url,
   }));
+}
+
+/** Complete authorized republication retains its original publisher and author. */
+export function fullArticleJsonLd(article: Article, canonical: string, origin: string) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "NewsArticle", "@id": `${canonical}#article`, url: canonical,
+        mainEntityOfPage: canonical, headline: article.title, description: article.description,
+        datePublished: article.publishedAt,
+        inLanguage: article.contentLocale ?? LANGUAGES[article.language].locale,
+        image: { "@type": "ImageObject", url: `${origin}${article.image}`, width: article.imageWidth, height: article.imageHeight },
+        author: { "@type": "Person", name: article.author },
+        publisher: { "@type": "Organization", name: article.sourceName, url: new URL(article.sourceUrl).origin },
+        isBasedOn: article.sourceUrl, articleSection: "Politics",
+      },
+      { "@type": "BreadcrumbList", itemListElement: breadcrumbItems([
+        { name: SITE_NAME, url: `${origin}/${article.language}` },
+        { name: article.title, url: canonical },
+      ]) },
+    ],
+  };
 }
 
 /** An internal archive record about a publication hosted by another publisher. */
