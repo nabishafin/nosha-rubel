@@ -1,3 +1,4 @@
+import type { UiDictionary } from "./ui-text";
 import { createContext, useContext } from "react";
 import { getInterfaceLocale, getTranslation, type Translation } from "./i18n";
 import { DEFAULT_LANGUAGE } from "./languages";
@@ -7,16 +8,18 @@ interface I18nValue {
   lang: LanguageCode;
   t: Translation;
   interfaceLocale: string;
+  ui: UiDictionary;
 }
 
 const I18nContext = createContext<I18nValue>({
+  ui: {},
   lang: DEFAULT_LANGUAGE,
   t: getTranslation(DEFAULT_LANGUAGE),
   interfaceLocale: getInterfaceLocale(DEFAULT_LANGUAGE),
 });
 
-export function I18nProvider({ lang, children }: { lang: LanguageCode; children: React.ReactNode }) {
-  return <I18nContext.Provider value={{ lang, t: getTranslation(lang), interfaceLocale: getInterfaceLocale(lang) }}>{children}</I18nContext.Provider>;
+export function I18nProvider({ lang, ui, children }: { lang: LanguageCode; ui: UiDictionary; children: React.ReactNode }) {
+  return <I18nContext.Provider value={{ lang, ui, t: getTranslation(lang), interfaceLocale: getInterfaceLocale(lang) }}>{children}</I18nContext.Provider>;
 }
 
 /** Access the active language code and its translation dictionary. */

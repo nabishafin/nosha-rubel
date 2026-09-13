@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { Link } from "react-router";
 
 interface SectionHeadingProps {
@@ -9,7 +10,7 @@ interface SectionHeadingProps {
 }
 
 export function SectionHeading({ title, eyebrow, viewAllTo, viewAllLabel }: SectionHeadingProps) {
-  return (
+  return <Translated>{(
     <div className="mb-4 flex items-end justify-between gap-4 border-b border-gray-200 pb-2.5">
       <div className="flex items-center gap-2.5">
         <span className="h-5 w-1 rounded-sm bg-blue-600" aria-hidden="true" />
@@ -29,5 +30,5 @@ export function SectionHeading({ title, eyebrow, viewAllTo, viewAllLabel }: Sect
         </Link>
       )}
     </div>
-  );
+  )}</Translated>;
 }

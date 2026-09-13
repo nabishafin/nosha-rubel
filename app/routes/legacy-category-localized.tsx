@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { Link } from "react-router";
 import { LEGACY_GONE_HEADERS, throwLegacyCategoryGone } from "~/lib/legacy-routes";
 import { isLanguageCode, DEFAULT_LANGUAGE } from "~/lib/languages";
@@ -21,7 +22,7 @@ export function meta() {
 
 export function ErrorBoundary({ params }: Route.ErrorBoundaryProps) {
   const lang = isLanguageCode(params.lang) ? params.lang : DEFAULT_LANGUAGE;
-  return (
+  return <Translated>{(
     <div className="mx-auto max-w-2xl px-4 py-24 text-center">
       <p className="text-sm font-bold uppercase tracking-wider text-gray-500">410 Gone</p>
       <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-gray-900">Category removed</h1>
@@ -30,7 +31,7 @@ export function ErrorBoundary({ params }: Route.ErrorBoundaryProps) {
         Go to homepage
       </Link>
     </div>
-  );
+  )}</Translated>;
 }
 
 export default function LegacyCategoryLocalizedRoute() {

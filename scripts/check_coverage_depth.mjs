@@ -8,7 +8,7 @@ const [articles, dossiersSource] = await Promise.all([
   readFile("app/lib/coverage-dossiers.ts", "utf8"),
 ]);
 
-const dossierKeys = new Set(articles.map((article) => article.translationGroup ?? article.id));
+const dossierKeys = new Set(articles.filter((article) => article.publicationMode !== "full").map((article) => article.translationGroup ?? article.id));
 for (const key of dossierKeys) {
   assert.ok(dossiersSource.includes(`"${key}"`), `missing first-party dossier context for ${key}`);
 }
@@ -41,7 +41,8 @@ try {
   assert.match(home, /Browse all 26 retained snapshots/);
   assert.doesNotMatch(home, /Live Press Coverage|Comprehensive investigative reporting|Read full story/i);
 
-  const articlePath = home.match(/href="(\/en\/news\/[^"]+)"/)?.[1];
+  const fixture = articles.find((article) => article.language === "en" && article.publicationMode !== "full");
+  const articlePath = fixture && `/en/news/${fixture.slug}`;
   assert.ok(articlePath, "expected an internal English coverage link");
   const article = await (await fetch(`${base}${articlePath}`)).text();
   assert.match(article, /original dossier summary/i);

@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { Link } from "react-router";
 import { Container } from "~/components/Container";
 import { localePath } from "~/lib/i18n-context";
@@ -32,7 +33,7 @@ export default function TranslationUnavailable({ loaderData }: Route.ComponentPr
   const { lang, from } = loaderData;
   const message = LOCALE_UNAVAILABLE_MESSAGES[lang];
 
-  return (
+  return <Translated>{(
     <Container className="py-24 text-center">
       <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">{message.title}</h1>
       <p className="mx-auto mt-3 max-w-lg text-gray-600">{message.body}</p>
@@ -47,5 +48,5 @@ export default function TranslationUnavailable({ loaderData }: Route.ComponentPr
         </Link>
       </div>
     </Container>
-  );
+  )}</Translated>;
 }

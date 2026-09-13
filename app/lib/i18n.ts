@@ -560,6 +560,7 @@ export const TRANSLATIONS: Record<LanguageCode, Translation> = {
   el: en,
   ru: en,
   uk: en,
+  tr: en,
 };
 
 export function getTranslation(lang: LanguageCode): Translation {
@@ -568,7 +569,7 @@ export function getTranslation(lang: LanguageCode): Translation {
 
 const NATIVE_INTERFACE_LANGUAGES = new Set<LanguageCode>(["de", "en", "zh", "es", "fr", "it", "pt"]);
 
-/** BCP-47 language actually used by shared controls, including English fallbacks. */
+/** Identify the actual shared interface language while other dictionaries are incomplete. */
 export function getInterfaceLocale(lang: LanguageCode): string {
   return NATIVE_INTERFACE_LANGUAGES.has(lang) ? LANGUAGES[lang].locale : LANGUAGES.en.locale;
 }

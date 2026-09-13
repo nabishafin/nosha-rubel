@@ -28,8 +28,17 @@ try {
 
   for (const locale of ["en", "de", "ar"]) {
     const html = await (await fetch(`${base}/${locale}`)).text();
-    assert.match(html, /<div lang="de" class="flex flex-col justify-center/);
+    assert.match(html, new RegExp(`<div lang="${locale === "en" ? "en-US" : "de"}" class="flex flex-col justify-center`));
     assert.match(html, /cc_lang_pref=de&amp;cc_load_policy=1/);
+    for (const [id, language] of [["DUZxtW_3LzQ", "en"], ["sko9O0RIUsI", "de"]]) {
+      assert.ok(html.includes(`https://www.youtube-nocookie.com/embed/${id}?cc_lang_pref=${language}&amp;cc_load_policy=1`), `${locale}: missing ${language} embed`);
+      assert.ok(html.includes(`https://www.youtube.com/shorts/${id}`), `${locale}: missing original video link`);
+    }
+    assert.equal((html.match(/<iframe\b/g) ?? []).length, 3, `${locale}: all three videos must be present`);
+    for (const iframe of html.match(/<iframe\b[^>]*>/g) ?? []) {
+      assert.match(iframe, /loading="lazy"/);
+      assert.match(iframe, /title="[^"]+"/);
+    }
     if (locale === "de") {
       assert.match(html, /Deutschsprachiger Videobericht/);
       assert.match(html, /kein geprüftes Transkript/);

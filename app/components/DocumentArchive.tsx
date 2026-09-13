@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { useState } from "react";
 import { Link } from "react-router";
 import { localePath, useI18n } from "~/lib/i18n-context";
@@ -403,7 +404,7 @@ export function DocumentArchive() {
         reset: "Reset Filters",
       };
 
-  return (
+  return <Translated>{(
     <section className="rounded-3xl border border-gray-200 bg-gradient-to-b from-gray-50/70 via-white to-white p-6 shadow-sm sm:p-10 lg:p-12">
       {/* Top Banner Stats Badge */}
       <div className="flex flex-col gap-6 border-b border-gray-200/80 pb-8 lg:flex-row lg:items-end lg:justify-between">
@@ -501,10 +502,10 @@ export function DocumentArchive() {
       {/* Document Cards Grid */}
       <ul aria-label={labels.listAria} className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {visibleDocuments.map((doc) => {
-          return (
+          return <Translated>{(
             <li key={doc.id}>
               <Link
-                to={localePath("en", `documents/${doc.id}`)}
+                to={localePath(lang, `documents/${doc.id}`)}
                 className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-gray-200 bg-white p-5 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:bg-blue-50/20 hover:shadow-md"
               >
               {/* Subtle top indicator on hover */}
@@ -533,7 +534,7 @@ export function DocumentArchive() {
                   <h3 className="text-lg font-bold text-gray-900 transition-colors duration-200 group-hover:text-blue-700">
                     {doc.language}
                   </h3>
-                  <p className="text-xs font-semibold text-gray-500">{lang === "de" ? labels.reference : doc.englishName}</p>
+                  <p className="text-xs font-semibold text-gray-500">{labels.reference}</p>
                   <p className="mt-2.5 line-clamp-2 text-xs leading-relaxed text-gray-600">
                     {doc.summary}
                   </p>
@@ -551,7 +552,7 @@ export function DocumentArchive() {
               </div>
               </Link>
             </li>
-          );
+          )}</Translated>;
         })}
       </ul>
 
@@ -587,5 +588,5 @@ export function DocumentArchive() {
         </div>
       )}
     </section>
-  );
+  )}</Translated>;
 }

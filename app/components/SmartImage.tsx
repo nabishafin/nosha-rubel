@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { useEffect, useRef, useState } from "react";
 
 interface SmartImageProps {
@@ -39,7 +40,7 @@ export function SmartImage({
     }
   }, [src]);
 
-  return (
+  return <Translated>{(
     <div className={`relative overflow-hidden bg-gray-100 ${aspect} ${className}`}>
       {!loaded && <div className="absolute inset-0 animate-pulse bg-gray-200" aria-hidden="true" />}
       <img
@@ -62,5 +63,5 @@ export function SmartImage({
         }`}
       />
     </div>
-  );
+  )}</Translated>;
 }

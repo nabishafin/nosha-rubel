@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useI18n, localePath } from "~/lib/i18n-context";
@@ -16,7 +17,7 @@ export function Header() {
     return () => window.removeEventListener("scroll", update);
   }, []);
 
-  return (
+  return <Translated>{(
     <header
       className={`sticky top-0 z-40 border-b transition-all duration-300 ${
         scrolled
@@ -34,8 +35,8 @@ export function Header() {
           </Link>
 
           <div className="flex items-center gap-4">
-            {lang === "de" && (
-              <Link to={localePath("de", "noosha-aubel")} className="hidden text-sm font-bold text-gray-700 hover:text-blue-700 sm:inline-flex">
+            {(
+              <Link to={localePath(lang, "noosha-aubel")} className="hidden text-sm font-bold text-gray-700 hover:text-blue-700 sm:inline-flex">
                 Biografie &amp; Themen
               </Link>
             )}
@@ -49,5 +50,5 @@ export function Header() {
         }`}
       />
     </header>
-  );
+  )}</Translated>;
 }

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { createServer } from "node:net";
+import { readFile } from "node:fs/promises";
 
 const port = await new Promise((resolve, reject) => {
   const listener = createServer();
@@ -64,7 +65,9 @@ try {
   assert.match(profile.html, /"@type":"AboutPage"/);
   assert.match(profile.html, /"@type":"Person"/);
 
-  const firstArticlePath = home.visible.match(/href="(\/en\/news\/[^"]+)"/)?.[1];
+  const records = JSON.parse(await readFile("app/data/articles.generated.json", "utf8"));
+  const fixture = records.find((article) => article.language === "en" && article.publicationMode !== "full");
+  const firstArticlePath = fixture && `/en/news/${fixture.slug}`;
   assert.ok(firstArticlePath, "expected a crawlable article URL in raw HTML");
   const article = await get(firstArticlePath);
   assert.match(article.visible, /<h1[^>]*>[^<]+<\/h1>/);

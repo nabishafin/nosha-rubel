@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { Link } from "react-router";
 import { LANGUAGE_LIST } from "~/lib/languages";
 import { useI18n, localePath } from "~/lib/i18n-context";
@@ -6,11 +7,11 @@ import { useI18n, localePath } from "~/lib/i18n-context";
 export function LanguageGrid() {
   const { lang } = useI18n();
 
-  return (
+  return <Translated>{(
     <ul lang={lang === "de" ? "de" : "en"} aria-label={lang === "de" ? "Sprachausgaben" : "Language editions"} className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-7">
       {LANGUAGE_LIST.map((info) => {
         const active = info.code === lang;
-        return (
+        return <Translated>{(
           <li key={info.code}>
             <Link
               to={localePath(info.code)}
@@ -24,8 +25,8 @@ export function LanguageGrid() {
               <span className="text-xs uppercase tracking-wide text-gray-500">{info.code}</span>
             </Link>
           </li>
-        );
+        )}</Translated>;
       })}
     </ul>
-  );
+  )}</Translated>;
 }

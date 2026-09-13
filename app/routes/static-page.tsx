@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { isRouteErrorResponse, Link, useParams } from "react-router";
 import { isLanguageCode, DEFAULT_LANGUAGE } from "~/lib/languages";
 import { getTranslation, type Translation } from "~/lib/i18n";
@@ -81,7 +82,7 @@ export default function StaticPageRoute({ loaderData }: Route.ComponentProps) {
   const { title, paragraphs } = pageContent(page, t);
 
   if (page === "editorial-statement") {
-    return (
+    return <Translated>{(
       <Container className="py-14">
         <div className="mx-auto max-w-4xl">
           <nav aria-label="Breadcrumb" className="mb-6 text-sm text-gray-500">
@@ -93,10 +94,10 @@ export default function StaticPageRoute({ loaderData }: Route.ComponentProps) {
           <EditorialStatementContent />
         </div>
       </Container>
-    );
+    )}</Translated>;
   }
 
-  return (
+  return <Translated>{(
     <Container className="py-14">
       <div className="mx-auto max-w-3xl">
         <nav aria-label="Breadcrumb" className="text-sm text-gray-500">
@@ -113,7 +114,7 @@ export default function StaticPageRoute({ loaderData }: Route.ComponentProps) {
         </div>
       </div>
     </Container>
-  );
+  )}</Translated>;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
@@ -121,7 +122,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const lang = isLanguageCode(params.lang) ? params.lang : DEFAULT_LANGUAGE;
   const t = getTranslation(lang);
   const is404 = isRouteErrorResponse(error) && error.status === 404;
-  return (
+  return <Translated>{(
     <Container className="py-24 text-center">
       <p className="text-6xl">{is404 ? "🔍" : "⚠️"}</p>
       <h1 className="mt-4 text-2xl font-bold text-gray-900">{is404 ? t.article.notFound : "Error"}</h1>
@@ -132,5 +133,5 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
         {t.actions.backHome}
       </Link>
     </Container>
-  );
+  )}</Translated>;
 }

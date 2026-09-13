@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/de",
+    "status": 200,
+    "finalUrl": "https://nooshaaubel.com/de",
+    "title": "Noosha Aubel: Aktuelles, Biografie und Potsdam-Themen",
+    "robots": [
+      "index, follow, max-image-preview:large"
+    ],
+    "canonical": [
+      "https://nooshaaubel.com/de"
+    ],
+    "sitemapUrlCount": null
+  },
+  {
+    "path": "/en/noosha-aubel",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "path": "/de/news/729522-noosha-aubel-cdu-und-spd-der-fall-eines-schwerbehinderten-kindes-in-potsdam-ist-eine-politische-bankrotterklarung",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "path": "/sitemap.xml",
+    "status": 200,
+    "finalUrl": "https://nooshaaubel.com/sitemap.xml",
+    "title": null,
+    "robots": [],
+    "canonical": [],
+    "sitemapUrlCount": 15
+  }
+]

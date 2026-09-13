@@ -1,7 +1,7 @@
 import { LANGUAGE_LIST, isSearchIndexLanguage } from "~/lib/languages";
 import { getAllArticleRefs, type ArticleRef } from "~/lib/news";
 import { getOrigin } from "~/lib/http";
-import { hasLocalizedCoverageDossier } from "~/lib/coverage-dossiers";
+import { isIndexableArticle, articleHreflang } from "~/lib/search-index";
 import type { Route } from "./+types/sitemap";
 
 interface UrlEntry {
@@ -18,7 +18,7 @@ function xmlEscape(value: string): string {
 export function loader({ request }: Route.LoaderArgs) {
   const origin = getOrigin(request);
   const urls: UrlEntry[] = [];
-  const refs = getAllArticleRefs().filter(hasLocalizedCoverageDossier);
+  const refs = getAllArticleRefs().filter(isIndexableArticle);
   const indexLanguages = LANGUAGE_LIST.filter((language) => isSearchIndexLanguage(language.code));
   const latestByLanguage = new Map<string, string>();
   for (const ref of refs) {
@@ -42,8 +42,10 @@ export function loader({ request }: Route.LoaderArgs) {
     });
   }
 
-  // German entity hub: the primary answer page for biographical and office-related searches.
-  urls.push({ loc: `${origin}/de/noosha-aubel` });
+  // The complete German and English biographies have reciprocal language targets.
+  for (const language of indexLanguages) {
+    urls.push({ loc: `${origin}/${language.code}/noosha-aubel`, lastmod: language.code === "en" ? "2026-09-14" : "2026-08-31", alternates: localizedAlternates("/noosha-aubel") });
+  }
 
   // Article pages, with hreflang alternates linking translated versions.
   const byGroup = new Map<string, ArticleRef[]>();
@@ -60,7 +62,7 @@ export function loader({ request }: Route.LoaderArgs) {
     const alternates = hasUniqueLanguages
       ? [
           ...group.map((g) => ({
-            hreflang: LANGUAGE_LIST.find((language) => language.code === g.language)!.hreflang,
+            hreflang: articleHreflang(g),
             href: `${origin}/${g.language}/news/${g.slug}`,
           })),
           ...(defaultRef

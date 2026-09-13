@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { useI18n } from "~/lib/i18n-context";
 import { formatDate } from "~/lib/format";
 import type { Article } from "~/lib/types";
@@ -10,8 +11,9 @@ interface ArticleMetaProps {
 
 export function ArticleMeta({ article, showAuthor = false, className = "" }: ArticleMetaProps) {
   const { lang, t } = useI18n();
-  return (
+  return <Translated>{(
     <div className={`flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-gray-500 ${className}`}>
+      {article.publicationMode === "full" && <span className="font-semibold">{article.sourceName}</span>}
       {showAuthor && (
         <>
           <span className="font-medium text-gray-700">
@@ -22,5 +24,5 @@ export function ArticleMeta({ article, showAuthor = false, className = "" }: Art
       )}
       <time dateTime={article.publishedAt}>{formatDate(article.publishedAt, lang)}</time>
     </div>
-  );
+  )}</Translated>;
 }

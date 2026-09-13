@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { useState } from "react";
 import { Link } from "react-router";
 import { LANGUAGE_LIST } from "~/lib/languages";
@@ -46,7 +47,7 @@ export function Footer() {
         statementLink: "Editorial Statement",
       };
 
-  return (
+  return <Translated>{(
     <footer className="mt-12 border-t border-gray-200 bg-gray-50">
       <Container className="py-10">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
@@ -88,7 +89,7 @@ export function Footer() {
             <h3 className="text-sm font-semibold text-gray-900">{t.footer.quickLinks}</h3>
             <ul className="mt-4 space-y-2.5">
               {[
-                ...(lang === "de" ? [{ slug: "noosha-aubel", label: "Biografie & Themen" }] : []),
+                { slug: "noosha-aubel", label: "Biografie & Themen" },
                 { slug: "editorial-statement", label: labels.statementLink },
                 { slug: "about", label: t.footer.about },
                 { slug: "contact", label: t.footer.contact },
@@ -182,5 +183,5 @@ export function Footer() {
         </div>
       </Container>
     </footer>
-  );
+  )}</Translated>;
 }

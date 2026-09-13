@@ -1,9 +1,10 @@
+import { Translated } from "~/components/Translated";
 import { Link } from "react-router";
 import { useI18n, localePath } from "~/lib/i18n-context";
 
 export function TagCloud({ tags }: { tags: string[] }) {
   const { lang } = useI18n();
-  return (
+  return <Translated>{(
     <ul aria-label={lang === "de" ? "Themen" : "Topics"} className="flex flex-wrap gap-2.5">
       {tags.map((tag) => (
         <li key={tag}>
@@ -16,5 +17,5 @@ export function TagCloud({ tags }: { tags: string[] }) {
         </li>
       ))}
     </ul>
-  );
+  )}</Translated>;
 }

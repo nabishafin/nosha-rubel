@@ -1,3 +1,4 @@
+import { Translated } from "~/components/Translated";
 import { Link, isRouteErrorResponse, useParams } from "react-router";
 import { isLanguageCode, DEFAULT_LANGUAGE, LANGUAGES } from "~/lib/languages";
 import { getInterfaceLocale, getTranslation } from "~/lib/i18n";
@@ -7,7 +8,8 @@ import { articleAlternates, buildMeta, coverageRecordJsonLd, withSiteName } from
 import { formatDate, readingTime } from "~/lib/format";
 import { localePath } from "~/lib/i18n-context";
 import { SITE_CONTACT_EMAIL } from "~/lib/site-identity";
-import { getCoverageDossier, hasLocalizedCoverageDossier } from "~/lib/coverage-dossiers";
+import { isIndexableArticle } from "~/lib/search-index";
+import { getCoverageDossier } from "~/lib/coverage-dossiers";
 
 import { Container } from "~/components/Container";
 import { ExternalLink } from "~/components/ExternalLink";
@@ -17,6 +19,9 @@ import { SmartImage } from "~/components/SmartImage";
 import { ArticleCard } from "~/components/ArticleCard";
 import { TagCloud } from "~/components/TagCloud";
 import type { Route } from "./+types/article";
+import { getFullPublication } from "~/lib/full-publications.server";
+import { FullArticle } from "~/components/FullArticle";
+import { fullArticleJsonLd } from "~/lib/seo";
 
 export function loader({ params, request }: Route.LoaderArgs) {
   if (!isLanguageCode(params.lang)) throw new Response("Not Found", { status: 404 });
@@ -28,9 +33,11 @@ export function loader({ params, request }: Route.LoaderArgs) {
   const canonical = `${origin}${localePath(lang, `news/${article.slug}`)}`;
 
   // hreflang alternates: point each language at its own version of this story.
-  const translations = getTranslations(article).filter(hasLocalizedCoverageDossier);
+  const translations = getTranslations(article).filter(isIndexableArticle);
   const alternates = translations.length > 1 ? articleAlternates(origin, translations) : undefined;
   const dossier = getCoverageDossier(article);
+  const publication = article.publicationMode === "full" ? getFullPublication(article.id) : undefined;
+  if (article.publicationMode === "full" && !publication) throw new Response("Article text unavailable", { status: 500 });
 
   return {
     lang,
@@ -40,7 +47,9 @@ export function loader({ params, request }: Route.LoaderArgs) {
     canonical,
     alternates,
     dossier,
-    indexable: hasLocalizedCoverageDossier(article),
+    publication,
+    translations: getTranslations(article),
+    indexable: isIndexableArticle(article),
   };
 }
 
@@ -54,15 +63,20 @@ export function meta({ loaderData }: Route.MetaArgs) {
       canonical,
       image: article.image,
       lang,
+      type: article.publicationMode === "full" ? "article" : "website",
+      publishedAt: article.publicationMode === "full" ? article.publishedAt : undefined,
+      tags: article.tags,
+      contentLocale: article.contentLocale,
       keywords: article.tags,
       alternates,
       robots: indexable ? undefined : "noindex, follow",
     }),
-    { "script:ld+json": coverageRecordJsonLd(article, canonical, origin) },
+    { "script:ld+json": article.publicationMode === "full" ? fullArticleJsonLd(article, canonical, origin) : coverageRecordJsonLd(article, canonical, origin) },
   ];
 }
 
 export default function ArticlePage({ loaderData }: Route.ComponentProps) {
+  if (loaderData.publication) return <Translated>{<FullArticle article={loaderData.article} publication={loaderData.publication} related={loaderData.related} translations={loaderData.translations} />}</Translated>;
   const { lang, article, related, dossier } = loaderData;
   const t = getTranslation(lang);
   const interfaceLocale = getInterfaceLocale(lang);
@@ -95,7 +109,7 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
         corrections: "Corrections or source updates can be reported to",
       };
 
-  return (
+  return <Translated>{(
     <article lang={LANGUAGES[article.language].locale}>
       {/* Article header */}
       <Container className="pt-8">
@@ -237,7 +251,7 @@ export default function ArticlePage({ loaderData }: Route.ComponentProps) {
         </Section>
       )}
     </article>
-  );
+  )}</Translated>;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
@@ -246,7 +260,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const t = getTranslation(lang);
   const is404 = isRouteErrorResponse(error) && error.status === 404;
 
-  return (
+  return <Translated>{(
     <Container className="py-24 text-center">
       <p className="text-6xl">{is404 ? "🔍" : "⚠️"}</p>
       <h1 className="mt-4 text-2xl font-bold text-gray-900">
@@ -262,5 +276,5 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
         {t.actions.backHome}
       </Link>
     </Container>
-  );
+  )}</Translated>;
 }

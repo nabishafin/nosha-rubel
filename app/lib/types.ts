@@ -18,6 +18,7 @@ export const LANGUAGE_CODES = [
   "el",
   "ru",
   "uk",
+  "tr",
 ] as const;
 
 export type LanguageCode = (typeof LANGUAGE_CODES)[number];
@@ -40,6 +41,11 @@ export type CategorySlug = (typeof CATEGORY_SLUGS)[number];
  * touching the UI layer.
  */
 export interface Article {
+  /** Owner-authorized complete publication, or a legacy coverage dossier. */
+  publicationMode?: "full";
+  contentLocale?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   id: string;
   title: string;
   slug: string;

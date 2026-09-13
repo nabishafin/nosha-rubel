@@ -6,6 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
   useLocation,
+  useRouteLoaderData,
 } from "react-router";
 
 import type { Route } from "./+types/root";
@@ -26,6 +27,11 @@ export const links: Route.LinksFunction = () => [
   { rel: "manifest", href: "/site.webmanifest" },
   { rel: "alternate", href: "/feed.xml", type: "application/atom+xml", title: `${SITE_NAME} feed` },
 ];
+
+/** Optional public ownership token supplied by Google Search Console. */
+export function loader() {
+  return { googleSiteVerification: process.env.GOOGLE_SITE_VERIFICATION?.trim() || null };
+}
 
 // Site-wide defaults; route-level `meta` exports override title/description.
 export const meta: Route.MetaFunction = () => [
@@ -51,6 +57,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   // Derive <html lang/dir> from the URL's language segment so the document is
   // server-rendered with the correct language for SEO and accessibility.
   const { pathname } = useLocation();
+  const rootData = useRouteLoaderData<typeof loader>("root");
   const seg = pathname.split("/")[1];
   const code = isLanguageCode(seg) ? seg : DEFAULT_LANGUAGE;
   const info = LANGUAGES[code];
@@ -60,6 +67,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {rootData?.googleSiteVerification && <meta name="google-site-verification" content={rootData.googleSiteVerification} />}
         <Meta />
         <Links />
       </head>
