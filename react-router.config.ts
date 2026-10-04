@@ -15,7 +15,6 @@ import 'dotenv/config';
       console.error('Auth Error!', err);
     }
 })();
-
 export default {
   ssr: true,
 } satisfies Config;
